@@ -1,0 +1,80 @@
+Example Request
+{
+   "airlineID": "QG",
+   "origin": "SUB",
+   "destination": "CGK",
+   "tripType": "OneWay",
+   "departDate": "2019-02-22",
+   "returnDate": null,
+   "paxAdult": 2,
+   "paxChild": 1,
+   "paxInfant": 1,
+   "airlineAccessCode":"",
+"journeyDepartReference":"0~P~~P~RGFR~~1~X|QG~ 800~ ~~SUB~00/22/2019 05:45~CGK~00/22/2019 07:15~",
+"journeyReturnReference":"",
+}
+
+Example Response
+{
+   "airlineAccessCode": "",
+   "journeyDepartReference": "0~P~~P~RGFR~~1~X|QG~ 800~ ~~SUB~00/22/2019 05:45~CGK~00/22/2019 07:15~",
+   "journeReturnReference": null,
+   "airlineID": "QG",
+   "origin": "SUB",
+   "destination": "CGK",
+   "tripType": "OneWay",
+   "departDate": "2019-02-22T00:00:00",
+   "returnDate": "0001-01-01T00:00:00",
+   "paxAdult": 2,
+   "paxChild": 1,
+   "paxInfant": 1,
+   "searchKey": null,
+   "promoCode": null,
+   "priceDepart": [
+      {
+         "flightNumber": " 800",
+         "classFare": "0~P~~P~RGFR~~1~X|QG~ 800~ ~~SUB~00/22/2019 05:45~CGK~00/22/2019 07:15~",
+         "psOrigin": "SUB",
+         "psDestination": "CGK",
+         "psDate": "2019-02-18T11:16:02.3402288+07:00",
+         "currency": "IDR",
+         "priceDetail": [
+            {
+               "paxType": "Adult",
+               "baseFare": 702000,
+               "tax": 210600,
+               "totalFare": 912600,
+               "bagInfo": null,
+               "priceInfo": null
+            },
+            {
+               "paxType": "Child",
+               "baseFare": 175500,
+               "tax": 52650,
+               "totalFare": 228150,
+               "bagInfo": null,
+               "priceInfo": null
+            },
+            {
+               "paxType": "Infant",
+               "baseFare": 17550,
+               "tax": 5265,
+               "totalFare": 22815,
+               "bagInfo": null,
+               "priceInfo": null
+            }
+         ],
+         "garudaNumber": null,
+         "garudaAvailability": null,
+         "airlineSegmentCode": null,
+         "classId": null
+      }
+   ],
+   "priceReturn": [],
+   "sumFare": 1163565,
+   "respTime": "2019-02-18T11:16:02.3532295+07:00",
+   "userID": "UserAPI",
+   "accessToken": "43d8a11b2e3a658a8e95e88f27d6d171",
+   "status": "SUCCESS",
+   "respMessage": "SUCCESS"
+}

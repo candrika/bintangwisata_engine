@@ -1,0 +1,216 @@
+Example Request
+{
+"userID" : "UserAPI",
+"accessToken":"064125474f1f4e9538440a5e31b952fd",
+"airlineID" : "QZ",
+"tripType" : "OneWay",
+"origin" : "SUB",
+"destination" : "CGK",
+"departDate" : "2015-11-21",
+"returnDate" : "",
+"paxAdult" : "1",
+"paxChild" : "0",
+"paxInfant" : "0",
+"schDepart" : " 0~O~~O02H00~AAB1~~45~X|QZ~7681~ ~~SUB~11/21/2015 05:30~CGK~11/21/2015 06:40~",
+"schReturn" : "",
+"contactTitle" : "MR",
+"contactFirstName" : "Garry",
+"contactLastName" : "Cokie",
+"contactCountryCodePhone" : "62",
+"contactAreaCodePhone" : "856",
+"contactRemainingPhoneNo" : "55308669",
+"insurance" : "", 
+"paxDetails" : 
+[
+      {
+          "IDNumber" : "1122334455",
+          "title" : "MR",
+          "firstName" : "Garry",
+          "lastName" : "Cokie",
+          "birthDate" : "1980-08-17",
+          "gender" : "Male",
+          "nationality" : "ID",
+          "birthCountry" : "ID",
+          "parent" : "",
+          "passportNumber" : "",
+          "passportIssuedCountry" : "",
+          "passportIssuedDate" : "",
+          "passportExpiredDate" : "",
+          "type":"Adult",
+     }
+] 
+
+}
+
+Example Response
+{
+"seatAddOns":
+[{
+	"origin":"SUB",
+	"destination":"CGK",
+	"departTime":"2015-11-21T05:30:00",
+	"arrivalTime":"2015-11-21T06:40:00",
+	"infos":
+	[
+		{
+		"compartment":"Y",
+		"assignable":false,
+		"isOpen":false,
+		"X":1,
+		"Y":-2,
+		"width":2,
+		"height":2,
+		"seatDesignator":"$1",
+		"seatType":"LR",
+		"seatPrice":0.0,
+		"seatText":"A",
+		"currency":"IDR"
+		},
+		{
+		"compartment":"Y",
+		"assignable":false,
+		"isOpen":false,
+		"X":11,
+		"Y":-2,
+		"width":2,
+		"height":2,
+		"seatDesignator":"$10",
+		"seatType":"LR",
+		"seatPrice":0.0,
+		"seatText":"E",
+		"currency":"IDR"
+		},
+		{
+		"compartment":"Y",
+		"assignable":false,
+		"isOpen":false,
+		"X":13,
+		"Y":-2,
+		"width":2,
+		"height":2,
+		"seatDesignator":"$11",
+		"seatType":"LR",
+		"seatPrice":0.0,
+		"seatText":"F",
+		"currency":"IDR"
+		},
+		{
+		"compartment":"Y",
+		"assignable":false,
+		"isOpen":false,
+		"X":-2,
+		"Y":10,
+		"width":2,
+		"height":2,
+		"seatDesignator":"$12",
+		"seatType":"LR",
+		"seatPrice":0.0,
+		"seatText":"2",
+		"currency":"IDR"
+		},
+		{
+		"compartment":"Y",
+		"assignable":false,
+		"isOpen":false,
+		"X":15,
+		"Y":26,
+		"width":1,
+		"height":16,
+		"seatDesignator":"$126",
+		"seatType":"WG",
+		"seatPrice":0.0,
+		"seatText":"",
+		"currency":"IDR"
+		},
+		{
+		"compartment":"Y",
+		"assignable":false,
+		"isOpen":false,
+		"X":0,
+		"Y":26,
+		"width":1,
+		"height":16,
+		"seatDesignator":"$127",
+		"seatType":"WG",
+		"seatPrice":0.0,
+		"seatText":"",
+		"currency":"IDR"
+		},
+		{
+		"compartment":"Y",
+		"assignable":false,
+		"isOpen":false,
+		"X":-2,
+		"Y":12,
+		"width":2,
+		"height":2,
+		"seatDesignator":"$13",
+		"seatType":"LR",
+		"seatPrice":0.0,
+		"seatText":"3",
+		"currency":"IDR"
+		},
+		{
+		"compartment":"Y",
+		"assignable":false,
+		"isOpen":false,
+		"X":-2,
+		"Y":14,
+		"width":2,
+		"height":2,
+		"seatDesignator":"$14",
+		"seatType":"LR",
+		"seatPrice":0.0,
+		"seatText":"4",
+		"currency":"IDR"
+		},
+		{
+		"compartment":"Y",
+		"assignable":true,
+		"isOpen":true,
+		"X":5,
+		"Y":28,
+		"width":2,
+		"height":2,
+		"seatDesignator":"11C",
+		"seatType":"NS",
+		"seatPrice":30000.0,
+		"seatText":"",
+		"currency":"IDR"
+		},
+		{
+		"compartment":"Y",
+		"assignable":true,
+		"isOpen":true,
+		"X":9,
+		"Y":28,
+		"width":2,
+		"height":2,
+		"seatDesignator":"11D",
+		"seatType":"NS",
+		"seatPrice":30000.0,
+		"seatText":"",
+		"currency":"IDR"
+		},
+		{
+		"compartment":"Y",
+		"assignable":true,
+		"isOpen":true,
+		"X":11,
+		"Y":28,
+		"width":2,
+		"height":2,
+		"seatDesignator":"11E",
+		"seatType":"NS",
+		"seatPrice":30000.0,
+		"seatText":"",
+		"currency":"IDR"
+		}
+	]
+}],
+"respTime":"2015-10-21T17:14:00",
+"userID":"COKIE",
+"accessToken":"064125474f1f4e9538440a5e31b952fd",
+"status":"SUCCESS",
+"respMessage":"SUCCESS"
+}

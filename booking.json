@@ -1,0 +1,115 @@
+{
+"userID" : "UserAPI",
+"accessToken":"7fab9b1cf1c9e670dbed69d4a65c2aaa",
+"airlineID" : "QZ",
+"origin" : "SUB",
+"destination":"CGK",
+"tripType" : "OneWay",
+"departDate" : "2015-11-21",
+"returnDate" : "" ,
+"contactTitle" : "MR",
+"contactFirstName" : "Garry",
+"contactLastName" : "Cokie",
+"contactCountryCodePhone" : "62",
+"contactAreaCodePhone" : "856",
+"contactRemainingPhoneNo" : "55308669",
+"paxAdult" : "1",
+"paxChild" : "0",
+"paxInfant" : "0",
+"searchKey" : "",
+"insurance" : "", 
+"schDeparts" : 
+[
+   {
+       "airlineCode":"QZ",
+       "flightNumber":"7693",
+        "schOrigin" : "SUB",
+        "schDestination" : "CGK",
+        "detailSchedule":"0~O~~O02H00~AAB1~~45~X|QZ~7693~ ~~SUB~11/21/2015 09:25~CGK~11/21/2015 10:45~",
+        "schDepartTime":"2015-11-21 09:25",
+        "schArrivalTime":"2015-11-21 10:45",
+        "flightClass":"O",
+        "garudaNumber":"",
+        "garudaAvailability":""
+    }
+],
+"schReturns" :"",
+"paxDetails" : 
+[
+      {
+          "IDNumber" : "1122334455",
+          "title" : "MR",
+          "firstName" : "Garry",
+          "lastName" : "Cokie",
+          "birthDate" : "1980-08-17",
+          "gender" : "Male",
+          "nationality" : "ID",
+          "birthCountry" : "ID",
+          "parent" : "",
+          "passportNumber" : "",
+          "passportIssuedCountry" : "",
+          "passportIssuedDate" : "",
+          "passportExpiredDate" : "",
+          "type":"Adult",
+          "addOns" : 
+         [
+             {
+             "aoOrigin":"SUB",
+             "aoDestination":"CGK",
+             "baggageString":"PBAA",
+             "seat":"1F",
+             "compartment":"Y",
+             "meals":["VTCB","SCQZ"]
+             }			
+          ]
+     }
+] 
+}
+
+Example Response
+{
+"airlineID":"QZ",
+"origin":"SUB",
+"destination":"CGK",
+"tripType":"OneWay",
+"departDate":"2015-11-21T00:00:00",
+"returnDate":"",
+"paxAdult":1,
+"paxChild":1,
+"paxInfant":1,
+"bookingDate":"2015-10-20T00:00:00",
+"bookingCode":"BCL38Z",
+"timeLimit":"Ticketing time limit 21 Oct 2015  17:15",
+"airlineAdminFee":5000.00000,
+"memberAdminFee":0.0,
+"memberDiscount":0.0,
+"salesPrice":743337.00000,
+"ticketPrice":738337.00,
+"currency":"IDR",
+"detail":"<table style=\"width:100%;\"><tr><td class=\"auto-style2\" > Flight Details</td></tr>
+<tr><td><table style=\"width:100%;\"><tr><td class=\"auto-style1\">Flight</td><td class=\"auto-style1\">Departing</td>
+<td class=\"auto-style1\">Arriving</td><td class=\"auto-style1\">Special Request</td></tr>
+<tr style=\"background-color: #CCCCCC\"><td><strong >QZ7693</strong><br />REGULAR</td>
+<td><strong>Surabaya(SUB)</strong><br /><br />Sat 21 Nov 15, 0925 hrs ( 09:25 AM )</td>
+<td><strong>Jakarta,Soekarno Hatta(CGK)</strong><br /><br />Sat 21 Nov 15, 1045 hrs ( 10:45 AM )</td>
+<td>Add On PBAA<br>Add On SCQZ<br>Add On VTCB<br>Seat 1F<br></td></tr></table></td></tr></table>
+1. Garry Cokie(17 August 1980)Special Request : Baggage 15kg (PBAA), Vegetarian(VTCB), Kid’s Meal(SCQZ), SEAT<br>",
+"segment":1,
+"flightDeparts":
+[
+	{
+	"flightNumber":"QZ7693",
+	"fdDepartTime":"2015-11-21T09:25",
+	"fdArrivalTime":"2015-11-21T10:45",
+	"fdOrigin":"SUB",
+	"fdDestination":"CGK",
+	"fdFlightClass":"O"
+	}
+],
+"flightReturns":"",
+"respTime":"2015-10-21T15:16",
+"userID":"UserAPI",
+"accessToken":"7fab9b1cf1c9e670dbed69d4a65c2aaa",
+"status":"SUCCESS",
+"respMessage":"SUCCESS"
+}

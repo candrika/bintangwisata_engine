@@ -1,0 +1,123 @@
+Example Request
+{
+"userID" : "UserAPI",
+"accessToken":"064125474f1f4e9538440a5e31b952fd",
+"airlineID" : "QZ",
+"tripType" : "OneWay",
+"origin" : "SUB",
+"destination" : "CGK",
+"departDate" : "2015-11-21",
+"returnDate" : "",
+"paxAdult" : "1",
+"paxChild" : "0",
+"paxInfant" : "0",
+"schDepart" : " 0~O~~O02H00~AAB1~~45~X|QZ~7681~ ~~SUB~11/21/2015 05:30~CGK~11/21/2015 06:40~",
+"schReturn" : "",
+"contactTitle" : "MR",
+"contactFirstName" : "Garry",
+"contactLastName" : "Cokie",
+"contactCountryCodePhone" : "62",
+"contactAreaCodePhone" : "856",
+"contactRemainingPhoneNo" : "55308669",
+"insurance" : "", 
+"paxDetails" : 
+[
+      {
+          "IDNumber" : "1122334455",
+          "title" : "MR",
+          "firstName" : "Garry",
+          "lastName" : "Cokie",
+          "birthDate" : "1980-08-17",
+          "gender" : "Male",
+          "nationality" : "ID",
+          "birthCountry" : "ID",
+          "parent" : "",
+          "passportNumber" : "",
+          "passportIssuedCountry" : "",
+          "passportIssuedDate" : "",
+          "passportExpiredDate" : "",
+          "type":"Adult",
+     }
+] 
+}
+
+Example Response
+{
+"baggageAddOns":
+[
+	{
+	"origin":"SUB",
+	"destination":"CGK",
+	"baggageInfos":
+	[
+		{
+		"code":"PBAF",
+		"fare":350000.0,
+		"desc":"Check-In Baggage - 40kg",
+		"currency":"IDR"
+		},
+		{
+		"code":"PBAD",
+		"fare":200000.0,
+		"desc":"Check-In Baggage - 30kg",
+		"currency":"IDR"
+		},
+		{
+		"code":"PBAC",
+		"fare":120000.0,
+		"desc":"Check-In Baggage - 25kg",
+		"currency":"IDR"
+		},
+		{"code":"PBAB",
+		"fare":100000.0,
+		"desc":"Check-In Baggage - 20kg",
+		"currency":"IDR"},
+		{
+		"code":"PBAA",
+		"fare":0.0,
+		"desc":"Check-In Baggage - 15kg",
+		"currency":"IDR"
+		}
+	],
+"mealInfos":
+	[
+		{
+		"code":"WOWA",
+		"fare":0.0,
+		"desc":"WOWA",
+		"currency":"IDR"
+		},
+		{
+		"code":"WCHS",
+		"fare":0.0,
+		"desc":"Wheelchair",
+		"currency":"IDR"
+		},
+		{
+		"code":"WCHR",
+		"fare":0.0,
+		"desc":"Wheelchair",
+		"currency":"IDR"
+		},
+		{
+		"code":"WCHC",
+		"fare":0.0,
+		"desc":"Wheelchair",
+		"currency":"IDR"
+		},
+		{
+		"code":"WAK",
+		"fare":0.0,
+		"desc":"WAK",
+		"currency":"IDR"
+		}
+	],
+"isEnableNoBaggage":false
+	}
+],
+"respTime":"2015-11-07T15:15:20",
+"userID":"UserAPI",
+"accessToken":"064125474f1f4e9538440a5e31b952fd",
+"status":"SUCCESS",
+"respMessage":"SUCCESS"
+}

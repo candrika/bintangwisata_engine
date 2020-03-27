@@ -1,0 +1,106 @@
+{
+   "journeyDepart": [
+      {
+         "airlineID": "QG",
+         "jiDepartTime": "2019-02-22T05:45:00",
+         "jiArrivalTime": "2019-02-22T07:15:00",
+         "jiOrigin": "SUB",
+         "jiDestination": "CGK",
+         "category": "Departure",
+         "segment": [
+            {
+               "flightDetail": [
+                  {
+                     "airlineCode": "QG",
+                     "flightNumber": "800",
+                     "fdDepartTime": "2019-02-22T05:45:00",
+                     "fdArrivalTime": "2019-02-22T07:15:00",
+                     "fdOrigin": "SUB",
+                     "fdDestination": "CGK",
+                     "routeInfo": "SUB-CGK"
+                  }
+               ],
+               "availableDetail": [
+                  {
+                     "flightClass": "P",
+                     "price": 351000
+                  }
+               ]
+            }
+         ],
+         "sumPrice": 351000,
+         "journeyReference": "0~P~~P~RGFR~~1~X|QG~ 800~ ~~SUB~00/22/2019 05:45~CGK~00/22/2019 07:15~"
+      },
+      {
+         "airlineID": "QG",
+         "jiDepartTime": "2019-02-22T10:40:00",
+         "jiArrivalTime": "2019-02-22T12:00:00",
+         "jiOrigin": "SUB",
+         "jiDestination": "CGK",
+         "category": "Departure",
+         "segment": [
+            {
+               "flightDetail": [
+                  {
+                     "airlineCode": "QG",
+                     "flightNumber": "810",
+                     "fdDepartTime": "2019-02-22T10:40:00",
+                     "fdArrivalTime": "2019-02-22T12:00:00",
+                     "fdOrigin": "SUB",
+                     "fdDestination": "CGK",
+                     "routeInfo": "SUB-CGK"
+                  }
+               ],
+               "availableDetail": [
+                  {
+                     "flightClass": "P",
+                     "price": 351000
+                  }
+               ]
+            }
+         ],
+         "sumPrice": 351000,
+         "journeyReference": "0~P~~P~RGFR~~1~X|QG~ 810~ ~~SUB~00/22/2019 10:40~CGK~00/22/2019 12:00~"
+      },
+      {
+         "airlineID": "QG",
+         "jiDepartTime": "2019-02-22T09:45:00",
+         "jiArrivalTime": "2019-02-22T11:15:00",
+         "jiOrigin": "SUB",
+         "jiDestination": "CGK",
+         "category": "Departure",
+         "segment": [
+            {
+               "flightDetail": [
+                  {
+                     "airlineCode": "QG",
+                     "flightNumber": "802",
+                     "fdDepartTime": "2019-02-22T09:45:00",
+                     "fdArrivalTime": "2019-02-22T11:15:00",
+                     "fdOrigin": "SUB",
+                     "fdDestination": "CGK",
+                     "routeInfo": "SUB-CGK"
+                  }
+               ],
+               "availableDetail": [
+                  {
+                     "flightClass": "O",
+                     "price": 465000
+                  }
+               ]
+            }
+         ],
+         "sumPrice": 465000,
+         "journeyReference": "0~O~~O~RGFR~~1~X|QG~ 802~ ~~SUB~00/22/2019 09:45~CGK~00/22/2019 11:15~"
+      },
+   ],
+   "journeyReturn": null,
+   "airlineAccessCode": "461735",
+   "totalAirline": 3,
+   "airlineIndex": 0,
+   "respTime": "2019-02-18T10:07:31.9802832+07:00",
+   "userID": "UserAPI",
+   "accessToken": "4bec388bff2c3e95decb4ec2d49bb27b",
+   "status": "SUCCESS",
+   "respMessage": "SUCCESS"
+}

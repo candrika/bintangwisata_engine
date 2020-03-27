@@ -1,0 +1,28 @@
+{
+"userID" : "UserAPI",
+"accessToken":"7fab9b1cf1c9e670dbed69d4a65c2aaa",
+}
+
+Example Response
+{
+"routes":
+[
+	{
+	"origin":"UPG",
+	"destination":"CGK",
+	"originName":"Indonesia, Ujungpandang (UPG)",
+	"destinationName":"Indonesia, Jakarta,Soekarno Hatta (CGK)"
+	},
+	{
+	"origin":"WMX",
+	"destination":"DJJ",
+	"originName":"Indonesia, Wamena (WMX)",
+	"destinationName":"Indonesia, Jayapura, Papua (DJJ)"
+	}
+],
+"respTime":"2015-12-07T15:10:20",
+"userID":"UserAPI",
+"accessToken":"7fab9b1cf1c9e670dbed69d4a65c2aaa",
+"status":" SUCCESS ",
+"respMessage":"SUCCESS"
+}

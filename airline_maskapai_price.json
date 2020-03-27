@@ -1,0 +1,189 @@
+Example Request
+{
+"userID" : "UserAPI",
+"accessToken":"7fab9b1cf1c9e670dbed69d4a65c2aaa",
+"airlineID" : "TN",
+"tripType" : "RoundTrip",
+"origin" : "UPG",
+"destination" : "CGK",
+"departDate" : "2015-11-21",
+"returnDate" : "2015-11-22",
+"paxAdult" : "1",
+"paxChild" : "1",
+"paxInfant" : "1",
+"promoCode" : "",
+"schDeparts":
+   [
+       {
+       "airlineCode":"TN",
+       "flightNumber":"Q1-201",
+        "schOrigin" : "UPG",
+        "schDestination" : "SUB",
+        "detailSchedule":"D/D",
+        "schDepartTime":"2015-11-21 09:00",
+        "schArrivalTime":"2015-11-21 09:30",
+        "flightClass":"D",
+        "garudaNumber":"",
+        "garudaAvailability":""
+        },
+       {
+       "airlineCode":"TN",
+       "flightNumber":"Q1-101",
+        "schOrigin" : "SUB",
+        "schDestination" : "CGK",
+        "detailSchedule":"D/D",
+        "schDepartTime":"2015-11-21 13:00",
+        "schArrivalTime":"2015-11-21 13:30",
+        "flightClass":"D",
+        "garudaNumber":"",
+        "garudaAvailability":""
+        },
+   ],
+"schReturns":
+   [
+       {
+       "airlineCode":"TN",
+       "flightNumber":"Q1-515",
+        "schOrigin" : "CGK",
+        "schDestination" : "UPG",
+        "detailSchedule":"D/D",
+        "schDepartTime":"2015-11-22 10:00",
+        "schArrivalTime":"2015-11-22 16:30",
+        "flightClass":"D",
+        "garudaNumber":"",
+        "garudaAvailability":""
+        }
+   ],
+} 
+
+Example Response
+{
+"airlineID":"TN",
+"origin":"UPG",
+"destination":"CGK",
+"tripType":"RoundTrip",
+"departDate":"2015-11-21T00:00:00",
+"returnDate":"2015-11-22T00:00:00",
+"paxAdult":1,
+"paxChild":1,
+"paxInfant":1,
+"searchKey":null,
+"promoCode":"",
+"priceDepart":
+[
+	{
+	"flightNumber":"201",
+	"classFare":"D/D",
+	"psOrigin":"UPG",
+	"psDestination":"SUB",
+	"psDate":"2015-11-21T00:00:00",
+	"currency":"IDR",
+	"priceDetail":
+	[
+{
+"paxType":"Adult",
+	"baseFare":250000.0,
+	"tax":0.0,
+	"totalFare":250000.0,
+	"bagInfo":null,
+	"priceInfo":null, 
+},
+{
+	"paxType":"Child",
+	"baseFare":250000.0,
+	"tax":0.0,
+	"totalFare":250000.0,
+	"bagInfo":null,
+	"priceInfo":null,
+	},
+{
+"paxType":"Infant",
+	"baseFare":41000.0,
+	"tax":0.0,
+	"totalFare":41000.0,
+	"bagInfo":null,
+	"priceInfo":null,
+	}
+		]
+},
+		{
+	"flightNumber":"101",
+	"classFare":"D/D",
+	"psOrigin":"SUB",
+	"psDestination":"CGK",
+	"psDate":"2015-11-21T00:00:00",
+"currency":"IDR",
+"priceDetail":
+[
+{
+"paxType":"Adult",
+		"baseFare":260000.0,
+		"tax":0.0,
+		"totalFare":260000.0,
+		"bagInfo":null,
+		"priceInfo":null, 
+},
+{
+		"paxType":"Child",
+		"baseFare":260000.0,
+		"tax":0.0,
+		"totalFare":260000.0,
+		"bagInfo":null,
+		"priceInfo":null,
+		},
+		{
+		"paxType":"Infant",
+		"baseFare":51000.0,
+		"tax":0.0,
+		"totalFare":51000.0,
+		"bagInfo":null,
+		"priceInfo":null,
+		},
+]
+}
+]
+"priceReturn":
+[
+	{
+"flightNumber":"515",
+"classFare":"D/D",
+"pdOrigin":"CGK",
+"pdDestination":"UPG",
+"pdDate":"2015-11-22T00:00:00",
+"currency":"IDR",
+"priceDetail":
+[
+	{
+"paxType":"Adult",
+	"baseFare":360000.0,
+	"tax":0.0,
+	"totalFare":360000.0,
+	"bagInfo":null,
+	"priceInfo":null 
+	}
+{
+"paxType":"Child",
+	"baseFare":360000.0,
+	"tax":0.0,
+	"totalFare":360000.0,
+	"bagInfo":null,
+	"priceInfo":null
+	},
+	{
+"paxType":"Infant",
+	"baseFare":41000.0,
+	"tax":0.0,
+	"totalFare":41000.0,
+	"bagInfo":null,
+	"priceInfo":null,
+	}
+]
+}
+]	
+"sumFare":1873000.0,
+"respTime":"2015-10-21T16:52:00",
+"userID":"UserAPI",
+"accessToken":"7fab9b1cf1c9e670dbed69d4a65c2aaa",
+"status":"SUCCESS",
+"respMessage":"SUCCESS"
+}
