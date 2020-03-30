@@ -89,7 +89,7 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 define('SECRET_API_KEY','xnd_production_NI6FcLlw0LyvwpU7e+VPGzSXYtenp4R5k3Dh/Rlr+mfQ+LOkCwR1'); //live
 
 define('DB_NAME','bintang_travel');
-define('DIR_APP','bintangw');
+define('DIR_APP','bintangwisata_engine');
 define('DOCUMENTROOT',$_SERVER['DOCUMENT_ROOT'].'/'.DIR_APP);
 
 //norek withdraw

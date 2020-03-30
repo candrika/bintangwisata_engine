@@ -27,9 +27,9 @@ class Home extends MY_Controller {
 		$this->smarty->assign('slider_image_dir',ADMIN_URL);
 		
 		$ul = $this->db->get('airlines')->result();
-		$depart_ul = $this->db->query("SELECT * FROM airport")->result();
+		$depart_ul = $this->db->query("SELECT * FROM airports")->result();
 		
-		$arrival_ul = $this->db->query("SELECT * FROM airport")->result();
+		$arrival_ul = $this->db->query("SELECT * FROM airports")->result();
 		
 		// print_r($depart_ul);
 		$this->smarty->assign('airline_list', $ul);	

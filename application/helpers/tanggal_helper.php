@@ -35,12 +35,25 @@ function count_year($sd,$nd){
 	return $diff->y;
 }
 
+function getHumanDate($d){
+
+    $date  = strtotime($d);
+    
+    $HumanDate = date('l',$date).', '.date('j',$date)." ".date('F',$date)." ".date('Y',$date);
+    return $HumanDate;
+    //day, date month year
+}
+
 function getNoMonth($d)
 {
      $arrMonth = array('January' => '01', 'February' => '02', 'March' => '03', 'April' => '04', 'May' => '05', 'June' => '06', 'July' => '07', 'August' => '08', 'September' => '09', 'October' => '10', 'November' => '11', 'December' => '12');
     // // explode(delimiter, string)
     return $arrMonth[$d];
 }
+
+// function getDay($d){
+
+// }
 
 function getMonth($d)
 {

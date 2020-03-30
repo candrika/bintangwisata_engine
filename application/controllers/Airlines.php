@@ -61,26 +61,15 @@ class Airlines extends MY_Controller {
 		}
 	}
 
-	// public function schedule_list()
-	// {
-	// 	//$this->load->model(array('m_order','m_data'));
-		
-
-	// 	$data = $this->m_order->order_list($this->session->user_id);
-
-	// 	// $this->smarty->assign('data',$data);
-
-	// 	$this->smarty->assign('home_opt',null);
-	// 	$this->smarty->assign('content_tpl', 'user_panel.tpl');	
-	// 	$this->smarty->display('app_template.tpl');	
-	// }
 
 	public function page(){
 		
 		// $this->load->model('m_data');
 
-		$departure_id = str_replace('%20', '', $this->input->get('departure_id'));
+		$departure_id = str_replace('%20','', $this->input->get('departure_id'));
 		$destination_id = str_replace('%20', '', $this->input->get('destination_id'));
+		$departure_name  = str_replace('%20', '', $this->input->get('departure_name'));
+		$destination_name  = str_replace('%20', '', $this->input->get('destination_name'));
 		$category = $this->input->get('category');
 		$paxAdult = $this->input->get('paxAdult');
 		$paxChild = $this->input->get('paxChild');
@@ -91,7 +80,7 @@ class Airlines extends MY_Controller {
 		// echo $type;
 
 		if($type=="OneWay"){
-			$enddate = null;
+			$enddate = "";
 
 		}else if($type=='RoundTrip'){
 			$enddate = backdate2($this->input->get('enddate'));
@@ -113,7 +102,7 @@ class Airlines extends MY_Controller {
 			"isShowEachAirline" => false
 		));
 
-		$service_url = API_URL.'Airlines_dummy/Shcedule';
+		$service_url = API_INTERNAL.'Airlines_dummy/Shcedule';
 
 		$curl = curl_init();
 
@@ -139,7 +128,7 @@ class Airlines extends MY_Controller {
 		} else {
 			// echo $curl_response;
 		  	$arr = json_decode($curl_response);	
-		  	
+		  	// print_r($arr);
 		  	$data = [];
 		  	$i=0;
 		  	$flightDetail=[];
@@ -152,12 +141,9 @@ class Airlines extends MY_Controller {
 				$jiArrivalTime = explode('T',$value->{'jiArrivalTime'});
 				
 				$value->{'jiDepartTime'}  = $DepartDateTime[1];
-				$value->{'jiDepartDate'}  = $DepartDateTime[0];
-				
+				$value->{'jiDepartDate'}  = $DepartDateTime[0];	
 				$value->{'jiArrivalTime'} = $jiArrivalTime[1];
-				
-				$human_date = strtotime($jiArrivalTime[0]);
-				
+				$human_date = strtotime($jiArrivalTime[0]);				
 				$value->{'jiDepartDate'}  = date('d',$human_date);
 				$value->{'jiDepartMonth'} = date('F',$human_date);
 				$value->{'jiDepartDay'}  = date('D',$human_date);
@@ -177,23 +163,181 @@ class Airlines extends MY_Controller {
 				
 				$value->{'selisih'} = $jam.' jam '.floor( $menit / 60 ).'menit';
 
+				$price_req_data = array(
+				   "airlineID" => $value->{'airlineID'},
+				   "origin" => $value->{'jiOrigin'},
+				   "destination" => $value->{'jiDestination'},
+				   "tripType" => $type,
+				   "departDate" => $startdate,
+				   "returnDate" => $enddate,
+				   "paxAdult" => $paxAdult,
+				   "paxChild" => $paxChild,
+				   "paxInfant"=> $paxInfant,
+				   "airlineAccessCode" => "",
+				   "journeyDepartReference" => $value->{'journeyReference'},
+				   "journeyReturnReference" => "",
+				);
+
+				$req = $this->rest_client->post('Airlines_dummy/price_all',[
+					'form_params'=>$price_req_data
+				]);
+
+				$resp = json_decode($req->getBody());
+
+				$value->{'priceDepart'} = $resp->priceDepart;
+				$value->{'priceReturn'} = $resp->priceReturn;
 				
 				$data[$i] = $value;
 				$i++;
 
 			}
-						
-			// print_r($data);
-			// die;
+			
+			//set sort airlines
+			$airlineID = $this->db->get('airlines')->result();	
+			$z=0;
+			foreach ($airlineID as $key => $val_airlineID) {
+				# code...
+				// $options[$z] = $val_airlineID->
+			}		
+			
+			// assign to smarty;
+			// $this->smarty->assign('cb_participant',form_dropdown('num_participant', $options, $num_person, ' id="num_participant" '));
+			
 			$this->smarty->assign('data',$data);
-			// $this->smarty->assign('flightDetail',$flightDetail);
+			$this->smarty->assign('departure_name',$departure_name);
+			$this->smarty->assign('destination_name',$destination_name);
+			$this->smarty->assign('startdate',getHumanDate($startdate));
+			$this->smarty->assign('enddate',getHumanDate($enddate));
+			$this->smarty->assign('paxAdult',($paxAdult));
+			$this->smarty->assign('paxChild',($paxChild));
+			$this->smarty->assign('paxInfant',($paxInfant));
 			$this->smarty->assign('home_opt',null);
 			$this->smarty->assign('content_tpl', 'shcedule_list.tpl');	
-			$this->smarty->display('app_template.tpl');	
-			// $new_data =array('journeyDepart'=>) 
+			$this->smarty->display('app_template.tpl');	 
 		}
-		// die;
+	}
+
+	function page_pnr(){
+
+		$airlineID = $this->input->get('airlineID');
+		$type = $this->input->get('type');
 		
+		if($this->input->get('departure_id')!=null){
+			$departure_id     = str_replace('%20','', $this->input->get('departure_id'));
+
+		}else{
+			$departure_id     = null;
+
+		}
+		
+		if($this->input->get('destination_id')!=null){
+			$destination_id     = str_replace('%20', '', $this->input->get('destination_id'));
+
+		}else{
+			$destination_id   = null;
+			
+		}
+		
+		if($this->input->get('destination_name')!=''){
+		 	$destination_name =str_replace('%20', '', $this->input->get('departure_name'));
+
+		}else{
+			$destination_name = null;
+		}
+
+		if($this->input->get('departure_name')!=''){
+		 	$departure_name   = str_replace('%20', '', $this->input->get('destination_name'));
+
+		}else{
+			$departure_name   = null;
+		}
+
+		if($this->input->get('startdate')!=''){
+		 	$startdate   =$this->input->get('startdate');
+
+		}else{
+			$startdate   = backdate2(date('Y-m-d'));
+		}
+
+		if($this->input->get('enddate')!=''){
+		 	$enddate   =$this->input->get('enddate');
+
+		}else{
+			$enddate   = null;
+		}
+
+		$num_person = $this->input->get('num_person');
+		$paxAdult = $this->input->get('paxAdult');
+		$paxChild = $this->input->get('paxChild');
+		$paxInfant = $this->input->get('paxInfant');
+
+		for($i=1;$i<=5;$i++){
+			$options[$i] = $i;
+		}
+
+		$this->smarty->assign('cb_participant',form_dropdown('num_participant', $options, $num_person, ' id="num_participant" '));
+
+		//assign to smarty
+		$this->smarty->assign('paxAdult',$paxAdult);
+		$this->smarty->assign('paxChild',$paxChild);
+		$this->smarty->assign('paxInfant',$num_person);
+		$this->smarty->assign('num_person',$num_person);
+		$this->smarty->assign('departure_id',$departure_id);
+		$this->smarty->assign('destination_id',$destination_id);
+		$this->smarty->assign('destination_name',$destination_name);
+		$this->smarty->assign('departure_name',$departure_name);
+		$this->smarty->assign('birthdate',backdate2(date('Y-m-d')));
+		$this->smarty->assign('startdate',$startdate);
+		$this->smarty->assign('enddate',$enddate);
+		$this->smarty->assign('home_opt',null);
+		$this->smarty->assign('content_tpl', 'pnr_page.tpl');	
+		$this->smarty->display('app_template.tpl');	
+	}
+
+	function input_pnr(){
+
+		// {
+		// 	"userID" : "UserAPI",
+		// 	"accessToken":"064125474f1f4e9538440a5e31b952fd",
+		// 	"airlineID" : "QZ",
+		// 	"tripType" : "OneWay",
+		// 	"origin" : "SUB",
+		// 	"destination" : "CGK",
+		// 	"departDate" : "2015-11-21",
+		// 	"returnDate" : "",
+		// 	"paxAdult" : "1",
+		// 	"paxChild" : "0",
+		// 	"paxInfant" : "0",
+		// 	"schDepart" : " 0~O~~O02H00~AAB1~~45~X|QZ~7681~ ~~SUB~11/21/2015 05:30~CGK~11/21/2015 06:40~",
+		// 	"schReturn" : "",
+		// 	"contactTitle" : "MR",
+		// 	"contactFirstName" : "Garry",
+		// 	"contactLastName" : "Cokie",
+		// 	"contactCountryCodePhone" : "62",
+		// 	"contactAreaCodePhone" : "856",
+		// 	"contactRemainingPhoneNo" : "55308669",
+		// 	"insurance" : "", 
+		// 	"paxDetails" : 
+		// 	[
+		// 	      {
+		// 	          "IDNumber" : "1122334455",
+		// 	          "title" : "MR",
+		// 	          "firstName" : "Garry",
+		// 	          "lastName" : "Cokie",
+		// 	          "birthDate" : "1980-08-17",
+		// 	          "gender" : "Male",
+		// 	          "nationality" : "ID",
+		// 	          "birthCountry" : "ID",
+		// 	          "parent" : "",
+		// 	          "passportNumber" : "",
+		// 	          "passportIssuedCountry" : "",
+		// 	          "passportIssuedDate" : "",
+		// 	          "passportExpiredDate" : "",
+		// 	          "type":"Adult",
+		// 	     }
+		// 	] 
+		// }
+
 	}
 }
 ?>

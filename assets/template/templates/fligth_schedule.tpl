@@ -226,10 +226,10 @@ ul.collection{
                                                    <input type="text" class="input-text full-width departure_id" autocomplete="off" placeholder="Ketikkan kota keberangkatan" id="cb_depart" name="departure_id"  onkeyup="search_algorithm('cb_depart','depart-list')"/>
                                                    <ul style="display:none" class="collection" id="depart-list">
                                                           {foreach from=$depart_ul key=k item=depart}
-                                                          <li class="collection-item" onclick="change_depart('{$depart->country}','{$depart->name_airport}','{$depart->code_route}')" id="depart-list">
+                                                          <li class="collection-item" onclick="change_depart('{$depart->city}','{$depart->airport_name}','{$depart->airport_code}')" id="depart-list">
                                                           <p class="nama_bandara title6" style="text-align: left;"> 
                                                             
-                                                              <b>{$depart->country}</b> - <span style="color:#999">{$depart->name_airport}&nbsp;({$depart->code_route})<span>
+                                                              <b>{$depart->city}</b> - <span style="color:#999">{$depart->airport_name}&nbsp;({$depart->airport_code})<span>
                                                           </p>
                                                           </li>
                                                       {/foreach}
@@ -241,10 +241,10 @@ ul.collection{
                                                     <input type="text" class="input-text full-width destination_id" autocomplete="off"  onkeyup="search_algorithm('cb_dest','dest-list')" placeholder="Ketikkan kota tujuan" id="cb_dest" name="destination_id"/>
                                                     <ul style="display:none" class="collection" id="dest-list">
                                                           {foreach from=$arrival_ul key=k item=arrival}
-                                                          <li class="collection-item" onclick="change_arrival('{$arrival->country}','{$arrival->name_airport}','{$arrival->code_route}')" id="dest-list">
+                                                          <li class="collection-item" onclick="change_arrival('{$arrival->city}','{$arrival->airport_name}','{$arrival->airport_code}')" id="dest-list">
                                                           <p class="nama_bandara title6" style="text-align: left;"> 
                                                             
-                                                              <b>{$arrival->country}</b> - <span style="color:#999">{$arrival->name_airport}&nbsp;({$arrival->code_route})<span>
+                                                              <b>{$arrival->city}</b> - <span style="color:#999">{$arrival->airport_name}&nbsp;({$arrival->airport_code})<span>
                                                           </p>
                                                           </li>
                                                       {/foreach}
@@ -590,7 +590,7 @@ ul.collection{
 
               function redirect_order(id,user_type){
                 
-                window.location = '{$site_url}/airlines/page?startdate='+$('#startdate').val()+'&enddate='+$('#enddate').val()+'&departure_id='+$('.depart_id').val()+'&destination_id='+$('.dest_id').val()+'&type='+$('#route').val()+'&paxAdult='+$("#num_participant_adult").val()+
+                window.location = '{$site_url}/airlines/page?startdate='+$('#startdate').val()+'&enddate='+$('#enddate').val()+'&departure_id='+$('.depart_id').val()+'&destination_id='+$('.dest_id').val()+'&type='+$('#route').val()+'&paxAdult='+$("#num_participant_adult").val()+'&departure_name='+$('.departure_id').val()+'&destination_name='+$('.destination_id').val()
                   '&paxChild='+$("#num_participant_child").val()+'&paxInfant='+$("#num_participant_infant").val();  
                  
               }
@@ -628,7 +628,7 @@ ul.collection{
       console.log(city)
       console.log(airport)
       console.log(code)
-      document.getElementById("cb_depart").value  =city +'-'+airport + " ("+code+")";
+      document.getElementById("cb_depart").value  =city +" ("+code+")";
       document.getElementById("depart_code").value = code;
    } 
   
@@ -636,7 +636,7 @@ ul.collection{
       console.log(city)
       console.log(airport)
       console.log(code)
-      document.getElementById("cb_dest").value =city +'-'+airport + " ("+code+")";
+      document.getElementById("cb_dest").value =city +" ("+code+")";
       document.getElementById("dest_code").value = code;
    } 
 

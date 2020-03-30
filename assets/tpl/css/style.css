@@ -10647,8 +10647,10 @@ ul.search-tabs li.active a {
 /* 5.1.1. Sort by */
 
 .sort-by-section {
-    background: #fff;
+    /*background: #fbfbfb0d;*/
     padding: 0 20px;
+    /*filter: blur(5px);*/
+    /*z-index:1*/
 }
 
 .sort-by-section li {
@@ -14186,7 +14188,7 @@ button.ui-button::-moz-focus-inner {
 
 #content.image-bg1 {
     background: url("../images/slider3.jpg");
-    background-size:cover;
+    /*background-size:cover;*/
     /*background: url("images/travelslider.jpg");*/
     /*min-height: 809px;*/
 }

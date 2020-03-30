@@ -130,14 +130,14 @@ input.input-text-voucher {
 
                                   <nav style="margin-bottom: 40px;">
                                     <ol class="cd-multi-steps text-bottom count">
-                                      <li class="visited"><a href="#0">Pilih Destinasi</a></li>
+                                      <li class="visited"><a href="#0">Pilih Pesawat</a></li>
                                       <li class="current" ><a href="#0">Isi Form Pemesanan</a></li>
-                                      <li class="current" ><a href="#0">Isi Form Pemesanan</a></li>
+                                      <!-- <li class="current" ><a href="#0">Isi Form Pemesanan</a></li> -->
                                       <li><em>Pembayaran</em></li>
                                     </ol>
                                   </nav>
                                   
-                                <h1>Pemesanan Asuransi Perjalanan Jasindo Travel</h1>
+                                <h1>Data Pesanan</h1>
 
                                           {if $logged eq true}
                                              <div class="row" id="row_info_success_login">
@@ -193,26 +193,26 @@ input.input-text-voucher {
 
                                     {if $logged eq false}
                                     <div class="person-information" style="display:block;" id="form_pendaftaran">
-                                    <hr>
-                                    <h2><i class="soap-icon-doc-plus" style="color: #01b7f2;"></i> Pendaftaran</h2>
-                                    <div class="form-group">
+                                      <hr>
+                                      <h2><i class="soap-icon-doc-plus" style="color: #01b7f2;"></i> Pendaftaran</h2>
+                                      <div class="form-group">
                                        <label id="show_login_form">
                                           <div class="icon-box style1"><i class="soap-icon-notice"></i>Sudah memiliki akun?</div>
                                           <!-- <a id="show_login_form"><label class="btn-medium sky-blue1">Sudah memiliki akun?</label></a> -->
                                        <!-- <a id="show_login_form"><span class="skin-color btn-medium sky-blue1">Sudah memiliki akun?</span></a>. -->
                                        </label>
-                                    </div>
-                                    <div class="row">
-                                       <div class="form-group col-sm-6 col-md-5">
-                                          <label>Nama Depan</label>
-                                          <input type="text" class="input-text full-width" name="firstname" id="firstname">
-                                          <span id="firstname_ch">
-                                       </div>
-                                       <div class="form-group col-sm-6 col-md-5">
-                                          <label>Nama Belakang</label>
-                                          <input type="text" class="input-text full-width" id="lastname" name="lastname">
-                                          <span id="lastname_ch">
-                                       </div>
+                                      </div>
+                                      <div class="row">
+                                         <div class="form-group col-sm-6 col-md-5">
+                                            <label>Nama Depan</label>
+                                            <input type="text" class="input-text full-width" name="firstname" id="firstname">
+                                            <span id="firstname_ch">
+                                         </div>
+                                         <div class="form-group col-sm-6 col-md-5">
+                                            <label>Nama Belakang</label>
+                                            <input type="text" class="input-text full-width" id="lastname" name="lastname">
+                                            <span id="lastname_ch">
+                                         </div>
                                     </div>
                                     <div class="row">
                                        <div class="form-group col-sm-6 col-md-5">
@@ -324,14 +324,15 @@ input.input-text-voucher {
                                           </div>
                                        </div>
                                     </div>
-                                    <div class="form-group">
+                                  </div>
+                                    <!-- <div class="form-group">
                                        <div class="checkbox">
                                           <label>
                                           <input type="checkbox" name="cb_promo" value="1"> Saya ingin menerima promosi dari <span class="skin-color">Jasindo Travel</span> melalui email
                                           </label>
                                        </div>
                                     </div>
-                                 </div>
+                                 </div> -->
                                   {/if}
 
                                  <div class="card-information">
@@ -341,12 +342,14 @@ input.input-text-voucher {
                                     <div class="row">
                                        <div class="col-md-6">
                                           <label>Dari</label>
-                                           <input type="text" class="input-text full-width departure_id" placeholder="Ketikkan kota keberangkatan" id="cb_depart" name="departure_id" value="{$departure_id}"/>
+                                          <input type="text" class="input-text full-width departure_id" placeholder="Ketikkan kota keberangkatan" id="cb_depart" name="departure_id" value="{$departure_id}" display="none"/>
+                                           <input type="text" class="input-text full-width departure_id" placeholder="Ketikkan kota keberangkatan" id="cb_depart" name="departure_id" value="{$departure_name}"/>
                                           <!--- <input type="text" class="input-text full-width" placeholder="enter your location" />-->
                                        </div>
                                        <div class="col-md-6">
                                           <label>Tujuan</label>
-                                          <input type="text" class="input-text full-width destination_id" placeholder="Ketikkan kota tujuan" id="cb_dest" name="destination_id" value="{$destination_id}"/>
+                                          <input type="text" class="input-text full-width destination_id" placeholder="Ketikkan kota tujuan" id="cb_dest" name="destination_id" value="{$destination_id}" display="none"/>
+                                          <input type="text" class="input-text full-width destination_id" placeholder="Ketikkan kota tujuan" id="cb_dest" name="destination_id" value="{$destination_name}"/>
                                        </div>
                                     </div>
                                     <br>
@@ -354,17 +357,19 @@ input.input-text-voucher {
                                     <!-- <label>Mulai</label> -->
                                     <div class="row">
                                        <div class="col-md-6">
-                                          <label>Mulai</label>
+                                          <label>Tanggal Keberangkatan</label>
                                           <div class="datepicker-wrap-order">
                                              <input type="text" id="startdate" class="input-text full-width" placeholder="select date" name="startdate" value="{$startdate}"/>
                                              <span id="startdate_ch"/>
                                           </div>
                                        </div>
                                        <div class="col-md-6">
-                                          <label>Sampai</label>
+                                          {if !$enddate}
+                                          <label>Tanggal Kembali</label>
                                           <div class="datepicker-wrap-order">
                                              <input type="text" id="enddate" class="input-text full-width" placeholder="select date" name="enddate" value="{$enddate}" />
                                           </div>
+                                          {/if}
                                        </div>
                                     </div>
                                     <br>
@@ -377,280 +382,12 @@ input.input-text-voucher {
                                              {$cb_participant}
                                           </div>
                                        </div>
-                                       <div class="col-md-6">
-                                          <label>Keterangan</label>
-                                          <div class="selector" style="margin-top:12px;">
-                                             {if $num_person eq 2}
-                                                <h3>Paket Pasangan</h3>
-                                             {else if $num_person > 2}
-                                               <h3> Paket Family (Harus keluarga inti)</h3>
-                                             {/if}
-                                          </div>
-                                       </div>
                                     </div>
                                     <br>
-                                    <div class="row">
-                                       <div class="col-md-6">
-                                          <h5 class="title">Paket Yang Dipilih: <span id="name_region"></span></h5>
-                                       </div>
-                                    </div>
-
-                                    <div class="block" id="package_domestic" style="display:none;">
-                                       <div class="row image-box style3">
-                                          <div class="col-sm-6 col-md-4">
-                                             <article class="box">
-                                                <div class="details text-center">                
-                                                   <br>
-                                                   <label>Paket Domestik</label>
-                                                   <div class="radio" style="width:20px; margin:0 auto;">
-                                                      <input type="radio" name="pilih_paket" {$rb_domestic} value="4">                                                      
-                                                   </div>
-                                                    <h4 class="box-title" style="margin-top:5px;"><span id="price_domestic"></h4>
-                                                </div>
-                                             </article>
-                                          </div>
-                                       </div>
-                                    </div>
-
-                                    <div class="block" id="package_international" style="display:none;">
-                                       <div class="row image-box style3">
-                                          <div class="col-sm-4 col-md-4">
-                                             <article class="box">
-                                               <!--  <figure>
-                                                   <a class="hover-effect" href="#" title=""><img src="http://placehold.it/270x160" alt="" width="270" height="160" /></a>
-                                                </figure> -->
-                                                <div class="details text-center">
-                                                  
-                                                   <br>
-                                                   <!-- <p class="offers-content">Rp 120.000</p> -->
-                                                   <!--  <div class="five-stars-container" title="4 stars" data-toggle="tooltip" data-placement="bottom">
-                                                      <span class="five-stars" style="width: 80%;"></span>
-                                                      </div> -->
-                                                   <!-- <a href="pemesanan.html" title="" class="button btn-small sky-blue1" style="width:100%;">Pilih</a> -->
-                                                   <label>Paket GOLD</label>
-                                                   <div class="radio" style="width:20px; margin:0 auto;">
-                                                      <input type="radio" name="pilih_paket" {$rb_gold} value="1">                                                      
-                                                   </div>
-                                                    <h4 class="box-title" style="margin-top:5px;"><span id="price_gold"></h4>
-                                                </div>
-                                             </article>
-                                          </div>
-                                          <div class="col-sm-4 col-md-4">
-                                             <article class="box">
-                                              <!--   <figure>
-                                                   <a class="hover-effect" href="#" title=""><img src="http://placehold.it/270x160" alt="" width="270" height="160" /></a>
-                                                </figure> -->
-                                                <div class="details text-center">
-                                                   
-                                                   <br>
-                                                   <!-- <p class="offers-content">Rp 220.000</p> -->
-                                                   <!--   <div class="five-stars-container" title="4 stars" data-toggle="tooltip" data-placement="bottom">
-                                                      <span class="five-stars" style="width: 80%;"></span>
-                                                      </div> -->
-                                                       <label>Paket PLATINUM</label>
-                                                   <div class="radio" style="width:20px; margin:0 auto;">
-                                                      <input type="radio" name="pilih_paket" {$rb_platinum} value="2"> 
-                                                   </div>
-                                                   <h4 class="box-title" style="margin-top:5px;"><span id="price_platinum"></h4>
-                                                </div>
-                                             </article>
-                                          </div>
-                                          <div class="col-sm-4 col-md-4">
-                                             <article class="box">
-                                               <!--  <figure>
-                                                   <a class="hover-effect" href="#" title=""><img src="http://placehold.it/270x160" alt="" width="270" height="160" /></a>
-                                                </figure> -->
-                                                <div class="details text-center">
-                                                  
-                                                   <br>
-                                                   <!-- <p class="offers-content">Rp 320.000</p> -->
-                                                   <!--   <div class="five-stars-container" title="4 stars" data-toggle="tooltip" data-placement="bottom">
-                                                      <span class="five-stars" style="width: 80%;"></span>
-                                                      </div> -->
-                                                      <label>Paket DIAMOND</label>
-                                                   <div class="radio" style="width:20px; margin:0 auto;">
-                                                      <input type="radio" name="pilih_paket" {$rb_diamond} value="3"> 
-                                                   </div>
-                                                    <h4 class="box-title" style="margin-top:5px;"><span id="price_diamond"></h4>
-                                                </div>
-                                             </article>
-                                          </div>
-                                       </div>
-                                    </div>
-
                                      <hr>
-                                    <h2><i class="soap-icon-bag" style="color: #01b7f2;"></i> Pilih Perluasan</h2>
-
-                                    
-                                    <div class="row block">
-
-                                    <div class="row hotel-list image-box hotel listing-style1 add-clearfix">
-                                    <div class="col-md-4">
-                                        <article class="box has-discount">
-                                            <div class="details">
-                                                <span class="price"><small>Premi</small>Rp 95.000</span>
-                                                <h5 class="box-title"><i class="soap-icon-user circle green-color"></i>&nbsp;Kegiatan Ekstrim</h5>
-                                                {* <div class="feedback">
-                                                    <div data-placement="bottom" data-toggle="tooltip" class="five-stars-container" title="" data-original-title="4 stars"><span style="width: 80%;" class="five-stars"></span></div>
-                                                    <span class="review">75 reviews</span>
-                                                </div> *}
-                                                <p class="description" style="height:60px;border-top: 1px solid #f5f5f5;">Cacat Tetap atau Meninggal Dunia Akibat Kecelakaan. Kegiatan Menyelam, Kegiatan Arung Jeram, Kegiatan Paralayang.</p>
-                                                <div class="action">
-                                                    <center><label><input type="checkbox" id="extension1" name="extension[]" value="1"> PILIH PERLUASAN</label></center>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <article class="box has-discount">
-                                            <div class="details">
-                                                <span class="price">
-                                                    <small>Premi</small>
-                                                    Rp 100.000
-                                                </span>
-                                                <h5 class="box-title"><i class="soap-icon-friends circle yellow-color"></i>&nbsp;Kehilangan Barang Teknologi</h5>
-                                                {* <div class="feedback">
-                                                    <div data-placement="bottom" data-toggle="tooltip" class="five-stars-container" title="" data-original-title="4 stars"><span style="width: 80%;" class="five-stars"></span></div>
-                                                    <span class="review">423 reviews</span>
-                                                </div> *}
-                                                <p class="description" style="height:60px;border-top: 1px solid #f5f5f5;">Kamera (Tidak Termasuk Lensa) atau Telepon Selular.</p>
-                                                <div class="action">
-                                                    <center><label><input type="checkbox" id="extension2" name="extension[]" value="2"> PILIH PERLUASAN</label></center>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <article class="box has-discount">
-                                            <div class="details">
-                                                <span class="price"><small>Premi</small>Rp 7.500</span>
-                                                <h5 class="box-title"><i class="soap-icon-suitcase circle blue-color"></i>&nbsp;Perlindungan Rumah</h5>
-                                                {* <div class="feedback">
-                                                    <div data-placement="bottom" data-toggle="tooltip" class="five-stars-container" title="" data-original-title="4 stars"><span style="width: 80%;" class="five-stars"></span></div>
-                                                    <span class="review">199 reviews</span>
-                                                </div> *}
-                                                <p class="description" style="height:60px;border-top: 1px solid #f5f5f5;">Perlindungan Rumah Atas Risiko Kebakaran.</p>
-                                                <div class="action">
-                                                   <center><label><input type="checkbox" id="extension3" name="extension[]" value="3"> PILIH PERLUASAN</label></center>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                </div>
-
-
-             
-                                    
-                                    <!--   <div class="row">
-                                       <div class="form-group col-sm-6 col-md-5">
-                                           <label>Credit Card Type</label>
-                                           <div class="selector">
-                                               <select class="full-width">
-                                                       <option>select a card</option>
-                                                   </select><span class="custom-select full-width">select a card</span>
-                                           </div>
-                                       </div>
-                                       <div class="form-group col-sm-6 col-md-5">
-                                           <label>Card holder name</label>
-                                           <input type="text" class="input-text full-width" placeholder="">
-                                       </div>
-                                       </div>
-                                       <div class="row">
-                                       <div class="form-group col-sm-6 col-md-5">
-                                           <label>Card number</label>
-                                           <input type="text" class="input-text full-width" placeholder="">
-                                       </div>
-                                       <div class="form-group col-sm-6 col-md-5">
-                                           <label>Card identification number</label>
-                                           <input type="text" class="input-text full-width" placeholder="">
-                                       </div>
-                                       </div>
-                                       <div class="row">
-                                       <div class="form-group col-sm-6 col-md-5">
-                                           <label>Expiration Date</label>
-                                           <div class="constant-column-2">
-                                               <div class="selector">
-                                                   <select class="full-width">
-                                                           <option>month</option>
-                                                       </select><span class="custom-select full-width">month</span>
-                                               </div>
-                                               <div class="selector">
-                                                   <select class="full-width">
-                                                           <option>year</option>
-                                                       </select><span class="custom-select full-width">year</span>
-                                               </div>
-                                           </div>
-                                       </div>
-                                       <div class="form-group col-sm-3 col-md-2">
-                                           <label>billing zip code</label>
-                                           <input type="text" class="input-text full-width" placeholder="">
-                                       </div>
-                                       </div> -->
-                                 </div>
-                                 
                                  <div class="row">
                                     <hr>
                                     <!-- <a id="add_participant_form">Tambah</a> -->
-
-                               
-
-                                    <div class="col-xs-11" id="other_participant">
-                                       <h2><i class="soap-icon-myspace" style="color: #01b7f2;"></i> Peserta lain yang diasuransikan</h2>
-                                       
-                                       <div class="row" id="form_participant">
-                                          <div class="form-group col-sm-6 col-md-3">
-                                             <label>Nama Lengkap</label>
-                                             <input type="text" class="input-text full-width" name="fullname[]">
-                                          </div>
-                                          <div class="form-group col-sm-6 col-md-2">
-                                             <label>Hubungan</label>
-                                             <div class="selector">
-                                                <select name="relationship[]">
-                                                    {if $num_person eq 2}
-                                                      <option value="2">Suami/Istri</option>
-                                                      <option value="5">Pasangan</option>
-                                                   {else if $num_person > 2}
-                                                      <option value="2">Suami/Istri</option>
-                                                     <!-- <option value="1">Orang Tua</option> -->
-                                                      <!-- <option value="2">Suami/Istri</option> -->
-                                                      <option value="3">Anak</option>
-                                                      <!-- <option value="4">Saudara Kandung</option> -->
-                                                   {/if}
-                                                   
-                                                  
-                                                </select>
-                                             </div>
-                                          </div>
-                                          <div class="form-group col-sm-6 col-md-2">
-                                             <label>Gender</label>
-                                             <div class="selector">
-                                                <select name="gender[]">
-                                                   <option value="1">Laki-laki</option>
-                                                   <option value="2">Perempuan</option>
-                                                </select>
-                                             </div>
-                                          </div>
-                                          <div class="form-group col-sm-6 col-md-2">
-                                             <label>Tanggal lahir</label>
-                                             <div class="datepicker-wrap">
-                                                <input type="text" placeholder="dd-mm-yy" class="input-text full-width" name="datebirth_participant[]" placeholder="select date" />
-                                             </div>
-                                          </div>
-                                          <div class="form-group col-sm-6 col-md-3">
-                                             <label>NO KTP/KITAS/Passport</label>
-                                             <input type="text" class="input-text full-width" name="no_identity[]">
-                                          </div>
-
-                                          <hr>
-                                       </div>
-
-
-
-                                      
-                                         <div id="list_participant"></div>
-
-                                    </div>
-
                                     
                                  </div>
                                  <!-- <hr> -->
@@ -733,21 +470,7 @@ input.input-text-voucher {
                                              </article>
                                              <!-- <h4>Detil</h4> -->
                                              <dl class="other-details">
-                                                <dt class="feature">Premi Perluasan:</dt>
-                                                <dd class="value">Rp <span id="total_perluasan"></span></dd>
-                                                <dt class="feature">Premi:</dt>
-                                                <dd class="value">Rp <span id="total_premi"></span></dd>
-
-                                                  <dt class="feature" id="extra_premi_summary">Ekstra Premi: <br>
-                                                    <font style="font-size:9px; color:#c0c0c0;">Umur melebihi > {$settings.min_age_extra_premi} dikenakan premi tambahan sebesar {$settings.percent_extra_premi} %</font>
-                                                  </dt>
-                                                  <dd class="value" id="extra_premi_summary_value">Rp <span id="total_ex_premi"></span>
-                                                  </dd>
-
-                                                <div id="container_other_fee">
-                                                  <dt class="feature">Biaya Polis dan Materai:</dt>
-                                                  <dd class="value">Rp <span id="other_fee"></span></dd>
-                                              </div>
+                                                
 
                                                 {* <dt class="feature">Metode Pembayaran: </dt>
                                                    <dd class="value"> 
@@ -779,33 +502,7 @@ input.input-text-voucher {
                                           </div>
                                        </div>
                                        <div class="form-group col-sm-6 col-md-6" style="margin-top:10%;">
-                                          <!-- <label>Card holder name</label> -->
-                                          <!-- <div class="form-group col-sm-6 col-md-5"> -->
-                                             <!-- <h2>Ringkasan Pembayaran</h2> -->
-
-                                    <div class="form-group">
-                                       <div class="checkbox">
-                                          <label>
-                                          <input type="checkbox" name="cb_notif_family" value="1" checked> Saya ingin memberikan informasi penerbitan polis kepada data kontak keluarga yang bisa dihubungi melalui SMS
-                                          </label>
-                                       </div>
-                                    </div>
-                                             <div class="checkbox">
-                                                <label>
-                                                <input type="checkbox" name="accept_tnc"> By continuing, you agree to the <a href="{$site_url}/page/syarat_dan_ketentuan" target="_blank"><span class="skin-color">Terms and Conditions</span></a>.
-                                                </label>
-                                             </div>
-                                          <!-- </div> -->
-                                          <!-- <div class="form-group row"> -->
-                                             <div class="col-sm-6 col-md-7">
-                                                 <span id="loadingBtn" style="display:none;"><center><h1>Sedang Memproses...</h1></center></span>
-                                                 
-                                                 <span id="message_order_button" style="color:red;"></span>
-                                                 <span id="message_order" style="color:red; display:none;">Mohon periksa kembali data-data diatas untuk melanjutkan ke tahap berikutnya</span>
-                                                 <button id="btn_submit_order" class="button btn-large sky-blue1">LANJUT KE PEMBAYARAN</button> 
-                                               <!--  <button type="submit" class="full-width btn-large">&nbsp;Lanjut Ke Pembayaran&nbsp;</button> -->
-                                             </div>
-                                          <!-- </div> -->
+                                         
                                        </div>
                                     </div>
                                  </div>
@@ -813,15 +510,7 @@ input.input-text-voucher {
                            </div>
                         </div>
                         <div class="sidebar col-sm-4 col-md-3">
-                           <!--  <div class="travelo-box contact-box">
-                              <h4>Need Jasindo Travel Help?</h4>
-                              <p>We would be more than happy to help you. Our team advisor are 24/7 at your service to help you.</p>
-                              <address class="contact-details">
-                                      <span class="contact-phone"><i class="soap-icon-phone"></i> 1-800-123-HELLO</span>
-                                      <br>
-                                      <a class="contact-email" href="#">help@jasindotravel.com</a>
-                                  </address>
-                              </div> -->
+                          
                         </div>
                      </div>
                   </div>
@@ -830,7 +519,7 @@ input.input-text-voucher {
 
 <script type="text/javascript">
 
-var logged = '{$logged}';
+var logged = 0;
 
 function myFunction() {
     // Get the snackbar DIV
@@ -840,7 +529,7 @@ function myFunction() {
     x.className = "show";
 
     // After 3 seconds, remove the show class from DIV
-    // setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 }
 
 jQuery(document).ready(function($) {
@@ -859,8 +548,9 @@ jQuery(document).ready(function($) {
   }
   catch (e)
   { }
-
-  
+   var x = document.getElementById("snackbar");
+   x.className = "show";
+   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000); 
 
     $('form').submit(function(e) {
         e.preventDefault();
@@ -990,10 +680,6 @@ jQuery(document).ready(function($) {
                     $('#show_reg_form').hide();
                     $('#row_info_success_login').show();
                     $('#name_login').html(data.fullname);
-                    $('#insured_id').val(data.insured_id);
-                    $('#user_id').val(data.user_id);
-
-                    set_package();
                 } else {
                     $('#loadingLogin').html(data.message);
                     $('#btnSubmitLogin').show();
@@ -1295,15 +981,13 @@ $('input:checkbox').live('change', function(){
         $('#row_info_success_login').show();
         $('#show_reg_form').hide();
         $('#name_login').html('{$fullname}');
-        $('#insured_id').val('{$insured_id}');
-        $('#user_id').val('{$user_id}');
+        
 
     } else {
       // alert('s')
         $('#row_info_success_login').hide();
         $('#show_reg_form').show();
         $('#name_login').html(null);
-        $('#insured_id').val(null);
         $('#birthdate_logged').val(null);
     }
 

@@ -30,6 +30,9 @@
             <link rel="stylesheet" type="text/css" href="{$assets_url}components/revolution_slider/css/style.css" media="screen" />
             <link rel="stylesheet" type="text/css" href="{$assets_url}components/jquery.bxslider/jquery.bxslider.css" media="screen" />
             <link rel="stylesheet" type="text/css" href="{$assets_url}components/flexslider/flexslider.css" media="screen" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+            <!-- Reset Style -->
+            <link id="main-style" rel="stylesheet" href="{$assets_url}css/reset.css">
             <!-- Main Style -->
             <link id="main-style" rel="stylesheet" href="{$assets_url}css/style.css">
             <!-- Custom Styles -->
@@ -55,9 +58,11 @@
                   visibility: hidden; /* Hidden by default. Visible on click */
                   min-width: 250px; /* Set a default minimum width */
                   margin-left: -125px; /* Divide value of min-width by 2 */
-                  background-color: #fdb714; /* Black background color */
-                  color: #fff; /* White text color */
-                  text-align: center; /* Centered text */
+                  background:url("{$base_url}/assets/images/cropped-LOGO-BARU-BINTANG-WISATA-32x32.png")no-repeat 0 0;  
+                  background-position:center center;
+                  /*background-color:blue; */
+                  color: blue; /* White text color */
+                  text-align: left; /* Centered text */
                   border-radius: 2px; /* Rounded borders */
                   font-weight: 'bold';
                   padding: 16px; /* Padding */
@@ -65,11 +70,13 @@
                   z-index: 1; /* Add a z-index if needed */
                   left: 50%; /* Center the snackbar */
                   bottom: 100px; /* 30px from the bottom */
+
               }
 
               /* Show the snackbar when clicking on a button (class added with JavaScript) */
               #snackbar.show {
                   visibility: visible; /* Show the snackbar */
+                  opacity: 1.2;
 
               /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
               However, delay the fade out process for 2.5 seconds */
@@ -216,7 +223,7 @@
                     <div id="content_div"></div>
                     
                   </div>
-                  <div id="snackbar">Sedang memproses. Dimohon untuk menunggu...</div>
+                  <div id="snackbar"><br><br><br>Sedang memproses. Dimohon untuk menunggu...</div>
                </section>
 
                {include file="footer.tpl"}
@@ -248,6 +255,7 @@
             <script type="text/javascript" src="{$assets_url}js/theme-scripts.js"></script>
             <script type="text/javascript" src="{$assets_url}js/scripts.js"></script>
             <script type="text/javascript" src="{$base_url}assets/js/typeahead.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
             <script type="text/javascript">
 
 
@@ -286,9 +294,9 @@ var oldXHR = window.XMLHttpRequest;
                   return realXHR;
               }
 
-               function packageList() {
+               // function packageList() {
                
-               }
+               // }
                
                 tjq(document).ready(function() {
                    tjq('.revolution-slider').revolution({
