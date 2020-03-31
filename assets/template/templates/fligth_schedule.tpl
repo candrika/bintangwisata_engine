@@ -256,22 +256,17 @@ ul.collection{
                                                 <input type="text" class="input-text full-width route_id" 
                                                 placeholder="Ketikkan kota tujuan" id="route" name="route_id" 
                                                 /*style="display:none"*/ value=""/>
-                                                <div class="col-xs-6">
-                                                   <label><span style="color:#FFF;">-</span></label>
-                                                   <div class="checkbox">
-                                                      <label>
-                                                      <input type="checkbox" id="cb_one_way" value="">One Way
-                                                      </label>
-                                                   </div>
+                                                <div class="col-md-6">
+<!--                                                 <label>Jenis Perjalanan</label>
+ -->                                                <div>
+                                                   <label class="radio radio-inline radio-square checked">
+                                                   <input type="radio" name="route_type" checked="checked" value="1">Oneway
+                                                   </label>
+                                                   <label class="radio radio-inline radio-square">
+                                                   <input type="radio" name="route_type" value="2">Roundtrip
+                                                   </label>
                                                 </div>
-                                                <div class="col-xs-6">
-                                                   <label><span style="color:#FFF;">-</span></label>
-                                                   <div class="checkbox">
-                                                      <label>
-                                                      <input type="checkbox" id="cb_round_trip" value="">Round Trip
-                                                      </label>
-                                                   </div>
-                                                </div>
+                                             </div>
                                              </div>
                                              
                                              <!-- <h5 class="title">Periode</h5> -->

@@ -76,6 +76,45 @@
     position: relative;
     top: 12px;
 }
+.balloon{
+    background: whitesmoke;
+    overflow: hidden;
+    /* margin-top: 1px; */
+    position: relative;
+    top: 1px;
+}
+.balloon-container{
+    position: absolute;
+    margin-top: 24px;
+    width: 300px;
+    max-height: 391px;
+    background-color: #fafafa;
+    z-index: 10;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    line-height: 30px;
+}
+.box-balloon-inline{
+    padding: 16px;
+    max-height: 358px;
+    overflow-y: auto;
+}
+.inside-ballon-line{
+        border: 1px solid #e5e5e5;
+    padding: 8px;
+}
+.balloon-box-entitas{
+    box-sizing: inherit;
+}
+.by-name{
+    display: none;
+}
+.by-depart{
+    display: none;
+}
+.by-rating{
+display: none;
+}
 </style>
 <section id="content" class="gray-area" style="margin-top:1%;width: 0px;">
     <div class="container">
@@ -106,22 +145,217 @@
                             <div class="sort-by-section clearfix box" style="margin-left: 16px;margin-right: 14px;">
                                 <ul class="sort-bar clearfix block-sm">
                                     <li class="sort-by-name active"><a class="sort-by-container asc" id="maskapai" href="#"><span>Maskapai</span></a>
-                                        
+                                        <div class="by-name">
+                                            <div class="balloon-container">
+                                                <div class="box-balloon-inline">
+                                                    <div class="inside-ballon-line">
+                                                        <span calss="balloon-box-entitas">
+                                                            <span>p</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </li>
-                                    <li class="sort-by-price active "><a class="sort-by-container asc" id="keberangkatan" href="#"><span>Keberangkatan</span></a></li>
-                                    <li class="sort-by-rating active "><a class="sort-by-container asc" id="harga" href="#"><span>harga</span></a></li>
+                                    <li class="sort-by-price active "><a class="sort-by-container asc" id="keberangkatan" href="#"><span>Keberangkatan</span></a>
+                                        <div class="by-depart">
+                                            <div class="balloon-container">
+                                                <div class="box-balloon-inline">
+                                                    <div class="inside-ballon-line">
+                                                        <span calss="balloon-box-entitas">
+                                                            <span>p</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="sort-by-rating active "><a class="sort-by-container asc" id="harga" href="#"><span>harga</span></a>
+                                        <div class="by-rating">
+                                            <div class="balloon-container">
+                                                <div class="box-balloon-inline">
+                                                    <div class="inside-ballon-line">
+                                                        <span calss="balloon-box-entitas">
+                                                            <span>p</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
                                 </ul>
                                 <ul class="sort-bar clearfix block-sm pull-right">
                                     <li>
                                         <button class="btn-medium soap-icon-list uppercase" id="toggle-filter">Filter</button>
                                     </li>
                                     <li>
-                                        <button class="btn-medium soap-icon-search uppercase" id="search-again" rel="modal:open"> Ubah Pencarian</button>
+                                       <button class="btn-medium soap-icon-search uppercase" id="search-again" data-toggle="modal" data-target="#form-search-again"> Ubah Pencarian</button>
                                     </li>    
                                 </ul>
                             </div>
                         </div>
                     </div>
+                    <!-- Modal start here -->
+                    <div id="form-search-again" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- konten modal-->
+                            <div class="modal-content">
+                                <!-- heading modal -->
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Ubah Pencarian</h4>
+                                </div>
+                                <!-- body modal -->
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                   
+                                                   <label>Dari</label>
+                                                   <input type="hidden" class="input-text  full-width depart_id" id="depart_code" name="depart_code">
+                                                   <input type="text" class="input-text full-width departure_id" autocomplete="off" placeholder="Ketikkan kota keberangkatan" id="cb_depart" name="departure_id"  onkeyup="search_algorithm('cb_depart','depart-list')"/>
+                                                   <ul style="display:none" class="collection" id="depart-list">
+                                                          {foreach from=$depart_ul key=k item=depart}
+                                                          <li class="collection-item" onclick="change_depart('{$depart->city}','{$depart->airport_name}','{$depart->airport_code}')" id="depart-list">
+                                                          <p class="nama_bandara title6" style="text-align: left;"> 
+                                                            
+                                                              <b>{$depart->city}</b> - <span style="color:#999">{$depart->airport_name}&nbsp;({$depart->airport_code})<span>
+                                                          </p>
+                                                          </li>
+                                                      {/foreach}
+                                                  </ul>
+                                                </div>
+                                                <div class="col-md-6">
+                                                   <label>Tujuan</label>
+                                                   <input type="hidden" class="input-text  full-width dest_id" id="dest_code" name="dest_code">
+                                                    <input type="text" class="input-text full-width destination_id" autocomplete="off"  onkeyup="search_algorithm('cb_dest','dest-list')" placeholder="Ketikkan kota tujuan" id="cb_dest" name="destination_id"/>
+                                                    <ul style="display:none" class="collection" id="dest-list">
+                                                          {foreach from=$arrival_ul key=k item=arrival}
+                                                          <li class="collection-item" onclick="change_arrival('{$arrival->city}','{$arrival->airport_name}','{$arrival->airport_code}')" id="dest-list">
+                                                          <p class="nama_bandara title6" style="text-align: left;"> 
+                                                            
+                                                              <b>{$arrival->city}</b> - <span style="color:#999">{$arrival->airport_name}&nbsp;({$arrival->airport_code})<span>
+                                                          </p>
+                                                          </li>
+                                                      {/foreach}
+                                                  </ul>
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                                <input type="text" class="input-text full-width route_id" 
+                                                placeholder="Ketikkan kota tujuan" id="route" name="route_id" 
+                                                /*style="display:none"*/ value=""/>
+                                                <div class="col-xs-6">
+                                                   <label><span style="color:#FFF;">-</span></label>
+                                                   <!-- <div class="checkbox"> -->
+                                                      <label>
+                                                      <input type="checkbox" id="mcb_one_way" value="" class="radio-square">One Way
+                                                      </label>
+                                                   <!-- </div> -->
+                                                </div>
+                                                <div class="col-xs-6">
+                                                   <label><span style="color:#FFF;">-</span></label>
+                                                   <!-- <div class="checkbox"> -->
+                                                      <label>
+                                                      <input type="checkbox" id="mcb_round_trip" value="">Round Trip
+                                                      </label>
+                                                   <!-- </div> -->
+                                                </div>
+                                             </div>
+                                        <div class="row">
+                                                <div class="col-md-6">
+                                                   <label>Keberangkatan</label>
+                                                   <div class="datepicker-wrap-order">
+                                                      <input type="text" id="departdate" class="input-text full-width" placeholder="select date" autocomplete="off"/>
+                                                   </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                   <label>Kepulangan</label>
+                                                   <div class="datepicker-wrap-order">
+                                                      <input type="text" id="returndate" class="input-text full-width" placeholder="select date" autocomplete="off"/>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                        <div class="row">
+                                             <div class="col-md-6">
+                                                  <h5 class="title">Maskapai</h5>
+                                                   <!-- <label>Maskapai</label> -->
+                                                   <input type="hidden" class="input-text  full-width airlines_code" id="airlines_code" name="airlines_code">
+                                                   <input type="text" class="input-text full-width airlines_id" autocomplete="off" placeholder="Ketikkan kota maskapai" id="cb_airlines" name="airlines_id" onkeyup="search_algorithm('cb_airlines','maskapai-list')"/>
+                                                  <ul style="display:none" class="collection" id="maskapai-list">
+                                                          {foreach from=$airline_list key=k item=li}
+                                                          <li class="collection-item" onclick="change('{$li->name}','{$li->code_iata}')" id="maskapai-list">
+                                                          <p class="nama_bandara title6" style="text-align: left;"> 
+                                                            <!-- {$li->name} -->
+                                                              <b>{$li->name}</b> <span style="color:#999">({$li->code_iata})<span>
+                                                          </p>
+                                                          </li>
+                                                      {/foreach}
+                                                  </ul>
+                                                </div>
+                                                <div class="col-md-2">
+                                                   <label>Dewasa</label> 
+                                                   <div class="selector" style="text-align: left;">
+                                                      <select id="num_participant_adult" style="width: 170px">
+                                                         <option value="1">1</option>
+                                                         <option value="2">2</option>
+                                                         <option value="3">3</option>
+                                                         <option value="4">4</option>
+                                                         <option value="5">5</option>
+                                                       <!--   <option value="6">6</option>
+                                                         <option value="7">7</option>
+                                                         <option value="8">8</option>
+                                                         <option value="9">9</option>
+                                                         <option value="10">10</option> -->
+                                                      </select>
+                                                   </div>
+                                               </div>
+                                                <div class="col-md-2">
+                                                    <label>Dewasa</label> 
+                                                   <div class="selector" style="text-align: left;">
+                                                      <select id="num_participant_adult" style="width: 170px">
+                                                         <option value="1">1</option>
+                                                         <option value="2">2</option>
+                                                         <option value="3">3</option>
+                                                         <option value="4">4</option>
+                                                         <option value="5">5</option>
+                                                       <!--   <option value="6">6</option>
+                                                         <option value="7">7</option>
+                                                         <option value="8">8</option>
+                                                         <option value="9">9</option>
+                                                         <option value="10">10</option> -->
+                                                      </select>
+                                                   </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label>Dewasa</label> 
+                                                   <div class="selector" style="text-align: left;">
+                                                      <select id="num_participant_adult" style="width: 170px">
+                                                         <option value="1">1</option>
+                                                         <option value="2">2</option>
+                                                         <option value="3">3</option>
+                                                         <option value="4">4</option>
+                                                         <option value="5">5</option>
+                                                       <!--   <option value="6">6</option>
+                                                         <option value="7">7</option>
+                                                         <option value="8">8</option>
+                                                         <option value="9">9</option>
+                                                         <option value="10">10</option> -->
+                                                      </select>
+                                                   </div>
+                                                </div>
+                                        </div>     
+                                    </form>
+                                </div>
+                                <!-- footer modal -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" id="find-ticket">Cari Tiket</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Modal -->
                 <div class="tab-container full-width-style arrow-right dashboard">
                     
                     <div class="seperator"></div>
@@ -270,5 +504,41 @@ jQuery(document).ready(function($) {
    $("#sort-by-name active").click(function(){
 
    });
+
+   $("#maskapai").click(function(){
+        $(".by-name").toggle(200);
+        
+        if($(".by-name").show()){
+            $(".by-depart").hide(200)
+        }else if($(".by-name").show()){
+            $(".by-rating").toggle(200);
+        }
+   });
+
+   $("#keberangkatan").click(function(){
+        $(".by-depart").toggle(200);
+
+
+        if($(".by-depart").show()){
+            $(".by-name").hide(200)
+        }else if($(".by-depart").show()){
+            $(".by-rating").toggle(200);
+        }
+   });
+
+   $("#harga").click(function(){
+        $(".by-rating").toggle(200);
+
+        if($(".by-rating").show()){
+            $(".by-depart").hide(200)
+        }else if($(".by-rating").show()){
+            $(".by-name").toggle(200);
+        }
+   });
+
+   $("#find-ticket").click(function(){
+        window.location = '{$site_url}/airlines/page?';
+   });
+
 });
 </script>

@@ -111,23 +111,11 @@ input.input-text-voucher {
                            <div class="booking-section travelo-box">
                               <form id="order_form" class="cruise-booking-form" action="{$site_url}/order/proceed" method="POST" novalidate>
                                 <input type="hidden" name="form_valid" id="form_valid">
-                                <input type="hidden" name="insured_id" id="insured_id">
+                                <input type="hidden" name="booking_id" id="insured_id">
                                 <input type="hidden" name="birthdate_logged" id="birthdate_logged">
                                 <input type="hidden" name="user_id" id="user_id">
-                                <input type="hidden" name="price_gold_field" id="price_gold_field">
-                                <input type="hidden" name="price_platinum_field" id="price_platinum_field">
-                                <input type="hidden" name="price_diamond_field" id="price_diamond_field">
-                                <input type="hidden" name="price_gold_field" id="price_gold_field">
-                                <input type="hidden" name="premium_id" id="premium_id">
-                                <input type="hidden" name="total_perluasan" id="total_perluasan_field">
-                                <input type="hidden" name="total_ex_premi" id="total_ex_premi_field">
-                                <input type="hidden" name="total_premi" id="total_premi_field">
-                                <input type="hidden" name="other_fee" id="other_fee_field">
-                                <input type="hidden" name="payment_fee" id="payment_fee_field">
-                                <input type="hidden" name="discount_amount" id="discount_amount_field" value="">
-                                <input type="hidden" name="id_voucher_code" id="id_voucher_code_field" value="">
+                                <input type="hidden" name="type_id" id="type_id">
                                 <input type="hidden" name="total_amount" id="total_amount_field" value="">
-
                                   <nav style="margin-bottom: 40px;">
                                     <ol class="cd-multi-steps text-bottom count">
                                       <li class="visited"><a href="#0">Pilih Pesawat</a></li>

@@ -30,7 +30,7 @@
             <link rel="stylesheet" type="text/css" href="{$assets_url}components/revolution_slider/css/style.css" media="screen" />
             <link rel="stylesheet" type="text/css" href="{$assets_url}components/jquery.bxslider/jquery.bxslider.css" media="screen" />
             <link rel="stylesheet" type="text/css" href="{$assets_url}components/flexslider/flexslider.css" media="screen" />
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+            <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> -->
             <!-- Reset Style -->
             <link id="main-style" rel="stylesheet" href="{$assets_url}css/reset.css">
             <!-- Main Style -->
@@ -255,7 +255,6 @@
             <script type="text/javascript" src="{$assets_url}js/theme-scripts.js"></script>
             <script type="text/javascript" src="{$assets_url}js/scripts.js"></script>
             <script type="text/javascript" src="{$base_url}assets/js/typeahead.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
             <script type="text/javascript">
 
 
