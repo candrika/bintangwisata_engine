@@ -115,6 +115,52 @@
 .by-rating{
 display: none;
 }
+._checkbox, ._label {
+    display: inline-block;
+    -webkit-transition: opacity .3s ease,-webkit-transform .3s ease;
+    transition: opacity .3s ease,-webkit-transform .3s ease;
+    transition: opacity .3s ease,transform .3s ease;
+    transition: opacity .3s ease,transform .3s ease,-webkit-transform .3s ease;
+}
+._checkbox {
+    background: #fff;
+    border: 1px solid #b4b4b4;
+    -webkit-box-shadow: inset 0 2px 1px 0 rgba(27,27,27,.05);
+    box-shadow: inset 0 2px 1px 0 rgba(27,27,27,.05);
+    border-radius: 2px;
+    height: 16px;
+    margin-right: 8px;
+    position: relative;
+    width: 16px;
+}
+._checkbox, ._label {
+    vertical-align: middle;
+}
+.labeling {
+    cursor: pointer;
+    display: block;
+    position: relative;
+    white-space: nowrap;
+}
+#img_icon{
+   right: 0px;
+    position: absolute;
+    margin: -2px 0;
+    max-width: 31px;
+}
+.slider, .slider * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+.slider {
+    position: relative;
+    height: 14px;
+    /*padding: 5px 0;*/
+    width: 100%;
+    border-radius: 6px;
+    -ms-touch-action: none;
+    touch-action: none;
+}
 </style>
 <section id="content" class="gray-area" style="margin-top:1%;width: 0px;">
     <div class="container">
@@ -150,7 +196,27 @@ display: none;
                                                 <div class="box-balloon-inline">
                                                     <div class="inside-ballon-line">
                                                         <span calss="balloon-box-entitas">
-                                                            <span>p</span>
+                                                            <span>
+                                                              <label class="labeling"  data-disabled="false">
+                                                                <input  type="checkbox" class="_checkbox">
+                                                                <!-- <div> -->
+                                                                  <!-- <div class="_checkbox"></div> -->
+                                                                  <div class="_label">Pilih Semua</div>
+                                                                <!-- </div> -->
+                                                              </label>
+                                                          </span>
+                                                          <span>
+                                                              {foreach from=$airlines key=k item=plane}
+                                                              <label class="labeling"  data-disabled="false">
+                                                                <input  type="checkbox" class="_checkbox">
+                                                                <!-- <div> -->
+                                                                  <!-- <div class="_checkbox"></div> -->
+                                                                  <div class="_label">{$plane.name}
+                                                                    <img id="img_icon" src="http://localhost/bintangwisata_engine//assets/img/maskapai/{$plane.code}.png"></div>
+                                                                <!-- </div> -->
+                                                              </label>
+                                                              {/foreach}
+                                                          </span>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -163,7 +229,17 @@ display: none;
                                                 <div class="box-balloon-inline">
                                                     <div class="inside-ballon-line">
                                                         <span calss="balloon-box-entitas">
-                                                            <span>p</span>
+                                                            <span>
+                                                              {foreach from=$airlines key=k item=plane}
+                                                              <label class="labeling"  data-disabled="false">
+                                                                <input  type="checkbox" class="_checkbox">
+                                                                <!-- <div> -->
+                                                                  <!-- <div class="_checkbox"></div> -->
+                                                                  <div class="_label">{$plane.depart_time}</div>
+                                                                <!-- </div> -->
+                                                              </label>
+                                                              {/foreach}
+                                                          </span>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -176,7 +252,15 @@ display: none;
                                                 <div class="box-balloon-inline">
                                                     <div class="inside-ballon-line">
                                                         <span calss="balloon-box-entitas">
-                                                            <span>p</span>
+                                                            <span>
+                                                              <div style="margin: 6px 10px 10px;">
+                                                                <p>
+                                                                  <label for="amount">Price range:</label>
+                                                                  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;background: #fffcf8;">
+                                                                </p>
+                                                                <div class="slider"></div>
+                                                              </div>
+                                                            </span>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -445,9 +529,20 @@ display: none;
                                                                 <br>
                                                                 <div style="    position: relative;font-size: 11px;">{assign var="datetime1" value="T"|explode:$flight->fdArrivalTime}{$datetime1[1]}<br>{assign var="date1" value="-"|explode:$datetime1[0]}{$date1[2]}-{$date1[1]}-{$date1[0]}</div>
                                                                 <!--<i class="soap-icon-plane-right takeoff-effect"></i> -->
+                                                            </div>
+                                                            <div class="col-xs-3">
+                                                              <div class="row">
+                                                                  <div style="font-size: 12pt;margin-left: 7px;">{$flight->depart_city}</div>
+                                                                  <div style="font-size: 21pt;float: inherit;">{$flight->depart_airports}</div>
+                                                              </div>
+                                                              <div class="row"></div>
+                                                              <div class="row">
+                                                                  <div style="font-size: 12pt;margin-left: 7px;">{$flight->destination_city}</div>
+                                                                  <div style="font-size: 21pt;float: inherit;">{$flight->destination_airports}</div>
+                                                              </div>
                                                             </div>    
                                                                 {/foreach}
-                                                            </div> 
+                                                      </div> 
 
                                                         {/foreach}
                                                         <!-- <div id="garis-tepi"></div> -->
@@ -510,19 +605,18 @@ jQuery(document).ready(function($) {
         
         if($(".by-name").show()){
             $(".by-depart").hide(200)
-        }else if($(".by-name").show()){
-            $(".by-rating").toggle(200);
+        }else if($(".by-rating").show()){
+            $(".by-rating").hide(200);
         }
    });
 
    $("#keberangkatan").click(function(){
         $(".by-depart").toggle(200);
 
-
         if($(".by-depart").show()){
             $(".by-name").hide(200)
-        }else if($(".by-depart").show()){
-            $(".by-rating").toggle(200);
+        }else if($(".by-rating").show()){
+            $(".by-rating").hide(200);
         }
    });
 
@@ -531,14 +625,28 @@ jQuery(document).ready(function($) {
 
         if($(".by-rating").show()){
             $(".by-depart").hide(200)
-        }else if($(".by-rating").show()){
-            $(".by-name").toggle(200);
+        }else if($(".by-name").show()){
+            $(".by-name").hide(200);
         }
    });
 
-   $("#find-ticket").click(function(){
-        window.location = '{$site_url}/airlines/page?';
-   });
+   // $("#find-ticket").click(function(){
+   //      window.location = '{$site_url}/airlines/page?';
+   // });
+
+   $( ".slider" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 75, 300 ],
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      }
+    });
+
+   //  $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+   //    " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+   //  });
 
 });
 </script>

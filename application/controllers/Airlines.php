@@ -130,6 +130,7 @@ class Airlines extends MY_Controller {
 		  	$arr = json_decode($curl_response);	
 		  	// print_r($arr);
 		  	$data = [];
+		  	$data_flight=[];
 		  	$i=0;
 		  	$flightDetail=[];
 		  	$j=0;
@@ -184,25 +185,47 @@ class Airlines extends MY_Controller {
 
 				$resp = json_decode($req->getBody());
 
-				$value->{'priceDepart'} = $resp->priceDepart;
-				$value->{'priceReturn'} = $resp->priceReturn;
+				// $value->{'priceDepart'} = $resp->priceDepart;
+				// $value->{'priceReturn'} = $resp->priceReturn;
+
+				foreach ($value->segment as $key => $v) {
+					# code...
+					$v->{'priceDepart'} = $resp->priceDepart;
+					$v->{'priceReturn'} = $resp->priceReturn;
+						
+					foreach ($v->flightDetail as $key => $flight) {
+						# code...
+						//aircode 
+						$airlines = $this->db->get_where('airlines',array('code_iata'=>$flight->{'airlineCode'}))->row();
+						
+						//detail airport
+						$airport_depart       = $this->db->get_where('airports',array('airport_code'=>$flight->{'fdOrigin'}))->row();
+						$airport_destination  = $this->db->get_where('airports',array('airport_code'=>$flight->{'fdDestination'}))->row();
+
+						$flight->{'depart_city'}      = $airport_depart->city;
+						$flight->{'depart_airports'}  = $airport_depart->airport_name;
+
+						$flight->{'destination_city'}     = $airport_destination->city;
+						$flight->{'destination_airports'} = $airport_destination->airport_name;
+
+						$data_flight[$j]['name']=$airlines->name;
+						$data_flight[$j]['code']=$flight->{'airlineCode'};
+						
+						$depart_datetime = explode('T', $flight->{'fdDepartTime'});
+						$data_flight[$j]['depart_time']=$depart_datetime[1];
+						
+						$j++;
+					}
+
+					// print_r($v);
+				}
 				
 				$data[$i] = $value;
 				$i++;
 
 			}
-			
-			//set sort airlines
-			$airlineID = $this->db->get('airlines')->result();	
-			$z=0;
-			foreach ($airlineID as $key => $val_airlineID) {
-				# code...
-				// $options[$z] = $val_airlineID->
-			}		
-			
-			// assign to smarty;
-			// $this->smarty->assign('cb_participant',form_dropdown('num_participant', $options, $num_person, ' id="num_participant" '));
-			
+			// die;
+			$this->smarty->assign('airlines',$data_flight);
 			$this->smarty->assign('data',$data);
 			$this->smarty->assign('departure_name',$departure_name);
 			$this->smarty->assign('destination_name',$destination_name);
