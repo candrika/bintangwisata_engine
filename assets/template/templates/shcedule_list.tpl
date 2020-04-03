@@ -122,7 +122,7 @@ display: none;
     transition: opacity .3s ease,transform .3s ease;
     transition: opacity .3s ease,transform .3s ease,-webkit-transform .3s ease;
 }
-._checkbox {
+._checkbox,._checkbox1{
     background: #fff;
     border: 1px solid #b4b4b4;
     -webkit-box-shadow: inset 0 2px 1px 0 rgba(27,27,27,.05);
@@ -133,7 +133,7 @@ display: none;
     position: relative;
     width: 16px;
 }
-._checkbox, ._label {
+._checkbox, ._checkbox1, ._label, ._label1 {
     vertical-align: middle;
 }
 .labeling {
@@ -160,6 +160,14 @@ display: none;
     border-radius: 6px;
     -ms-touch-action: none;
     touch-action: none;
+}
+.font{
+    position: absolute;
+    top: 191px;
+    left: 121px;
+    font-size: 51px;
+    font: -webkit-control;
+    color: #ecebe9;
 }
 </style>
 <section id="content" class="gray-area" style="margin-top:1%;width: 0px;">
@@ -188,8 +196,8 @@ display: none;
                     </div>
                     <div class="row">
                         <div>
-                            <div class="sort-by-section clearfix box" style="margin-left: 16px;margin-right: 14px;">
-                                <ul class="sort-bar clearfix block-sm">
+                          <p class="font">Filter:</p><div class="sort-by-section clearfix box" style="margin-left: 16px;margin-right: 14px;">
+                                <ul class="sort-bar clearfix block-sm" style="margin-left: -169px;">
                                     <li class="sort-by-name active"><a class="sort-by-container asc" id="maskapai" href="#"><span>Maskapai</span></a>
                                         <div class="by-name">
                                             <div class="balloon-container">
@@ -201,14 +209,14 @@ display: none;
                                                                 <input  type="checkbox" class="_checkbox">
                                                                 <!-- <div> -->
                                                                   <!-- <div class="_checkbox"></div> -->
-                                                                  <div class="_label">Pilih Semua</div>
+                                                                  <div class="_label" id="all_choose">Pilih Semua</div>
                                                                 <!-- </div> -->
                                                               </label>
                                                           </span>
                                                           <span>
                                                               {foreach from=$airlines key=k item=plane}
                                                               <label class="labeling"  data-disabled="false">
-                                                                <input  type="checkbox" class="_checkbox">
+                                                                <input  type="checkbox" class="_checkbox" id="checked">
                                                                 <!-- <div> -->
                                                                   <!-- <div class="_checkbox"></div> -->
                                                                   <div class="_label">{$plane.name}
@@ -232,7 +240,7 @@ display: none;
                                                             <span>
                                                               {foreach from=$airlines key=k item=plane}
                                                               <label class="labeling"  data-disabled="false">
-                                                                <input  type="checkbox" class="_checkbox">
+                                                                <input  type="checkbox" class="_checkbox1">
                                                                 <!-- <div> -->
                                                                   <!-- <div class="_checkbox"></div> -->
                                                                   <div class="_label">{$plane.depart_time}</div>
@@ -270,7 +278,7 @@ display: none;
                                 </ul>
                                 <ul class="sort-bar clearfix block-sm pull-right">
                                     <li>
-                                        <button class="btn-medium soap-icon-list uppercase" id="toggle-filter">Filter</button>
+                                        <button class="btn-medium soap-icon-list uppercase" id="toggle-filter">Urutkan</button>
                                     </li>
                                     <li>
                                        <button class="btn-medium soap-icon-search uppercase" id="search-again" data-toggle="modal" data-target="#form-search-again"> Ubah Pencarian</button>
@@ -483,6 +491,27 @@ display: none;
                                           </div>
                                                 </h4>                                               
                                                 <dl class="info">
+                                                    <form method="post" action="{$site_url}/airlines/page_pnr/">
+                                                      <!-- startdate=31-03-2020&enddate=03-04-2020&departure_id=ABU&destination_id=ABU&type=OneWay&paxAdult=1&departure_name=Atambua%20(ABU)&destination_name=Atambua%20(ABU)# -->
+                                                      <input type="hidden" value="{$p->airlineID}" name="airlineID"/>
+                                                      <input type="hidden" value="{$p->jiDepartTime}" name="depart_date"/>
+                                                      <input type="hidden" value="{$p->jiArrivalDate}" name="arrival_date"/>
+                                                      <input type="hidden" value="{$startdate}" name="stardate_date"/>
+                                                      <input type="hidden" value="{$enddate}" name="return_date"/>
+                                                      <input type="hidden" value="{$p->jiDepartDateinfo}" name="jiDepartDateinfo"/>
+                                                      <input type="hidden" value="{$p->jiArrivalDateinfo}" name="jiArrivalDateinfo"/>
+                                                      <input type="hidden" value="{$p->selisih}" name="selisih"/>
+                                                      <input type="hidden" value="{$departure_id}" name="departure_id"/>
+                                                      <input type="hidden" value="{$departure_name}" name="departure_name"/>
+                                                      <input type="hidden" value="{$destination_id}" name="destination_id"/>
+                                                      <input type="hidden" value="{$destination_name}" name="destination_name"/>
+                                                      <input type="hidden" value="{$paxAdult}" name="paxAdult"/>
+                                                      <input type="hidden" value="{$paxChild}" name="paxChild"/>
+                                                      <input type="hidden" value="{$paxInfant}" name="paxInfant"/>
+                                                      <input type="hidden" value="{$type}" name="type"/>
+                                                      <input type="hidden" value="{$p->journeyReference}" name="journeyReference"/>
+                                                      <input type="hidden" value="journeyReturnReference" name="journeyReturnReference"/>
+                                                      
                                                     <dt style="margin-left: 12px;text-align: center;font-size: 22pt;">Harga</dt>
                                                     <br/>
                                                     <dd style="margin-left: 15px;text-align: center;font-size: 15pt;">Rp.&nbsp;{$p->sumPrice}</dd>
@@ -490,8 +519,9 @@ display: none;
                                                     <br>
                                                     <!-- <br> -->
                                                     <!-- <br> -->
-                                                        <button class="btn-mini chooce pull-center">Pilih</button>
+                                                    <button type="submit" class="btn-mini chooce pull-center" value="choose">Pilih</button>
                                                     <!-- </dt> -->
+                                                    </form>
                                                 </dl>
                                             </div>
                                             <div class="booking-info clearfix" style="display:none" id="{$p->airlineID}_{$j++}">
@@ -587,14 +617,44 @@ function myFunction(id) {
     }
 }
 
+// function choose_airline(element_id){
+//     console.log(element_id);
+//     if(element_id=='all_choose'){
+//         // alert('ada')
+//         document.getElementById('checked').checked=true;
+//     }
+// }
+
+var json_arr = {$data|json_encode};
+// var arr = JSON.parse(json_arr.sumPrice)
+var arr = [];
+// console.log(arr);
 jQuery(document).ready(function($) {
+
+    $("#all_choose").click(function(){
+        $("._checkbox").attr("checked",true);
+    })
+
+    console.log(json_arr[0].sumPrice);
+
+    var i=0;
+    var j=0;
+    $.each(json_arr,function(key,obj){
+        console.log(obj.sumPrice);
+        arr.push(0);
+        arr.push(obj.sumPrice.replace(',','')*1);
+        j++;
+    })
+
+    console.log(j)
+
     var x = document.getElementById("snackbar");    
     x.className = "show";
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 
-    $(".chooce").click(function(){
-         window.location = '{$site_url}/airlines/page_pnr?';
-    });
+    // $(".chooce").click(function(){
+    //      window.location = '{$site_url}/airlines/page_pnr?';
+    // });
    
    $("#sort-by-name active").click(function(){
 
@@ -633,14 +693,17 @@ jQuery(document).ready(function($) {
    // $("#find-ticket").click(function(){
    //      window.location = '{$site_url}/airlines/page?';
    // });
+   // var test =[0,500]
 
-   $( ".slider" ).slider({
+   $(".slider").slider({
       range: true,
       min: 0,
-      max: 500,
-      values: [ 75, 300 ],
+      max: arr[j-1],
+      values:arr,
       slide: function( event, ui ) {
-        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+        console.log(ui.value)
+
+        $( "#amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ]);
       }
     });
 

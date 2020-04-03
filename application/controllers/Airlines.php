@@ -134,6 +134,8 @@ class Airlines extends MY_Controller {
 		  	$i=0;
 		  	$flightDetail=[];
 		  	$j=0;
+		  	$filter_price=[];
+		  	$z=0;
 
 		  	foreach ($arr->journeyDepart as $value) {
 				# code...
@@ -143,13 +145,18 @@ class Airlines extends MY_Controller {
 				
 				$value->{'jiDepartTime'}  = $DepartDateTime[1];
 				$value->{'jiDepartDate'}  = $DepartDateTime[0];	
-				$value->{'jiArrivalTime'} = $jiArrivalTime[1];
-				$human_date = strtotime($jiArrivalTime[0]);				
+
+				$human_date = strtotime($DepartDateTime[0]);				
+				
 				$value->{'jiDepartDate'}  = date('d',$human_date);
 				$value->{'jiDepartMonth'} = date('F',$human_date);
-				$value->{'jiDepartDay'}  = date('D',$human_date);
+				$value->{'jiDepartDay'}   = date('D',$human_date);
 
+				$value->{'jiArrivalDate'} = $jiArrivalTime[0];
 				$value->{'jiArrivalTime'} = $jiArrivalTime[1];
+				
+				$value->{'jiDepartDateinfo'} =  backdate2($DepartDateTime[0])." ".$jiArrivalTime[1];
+				$value->{'jiArrivalDateinfo'} = backdate2($jiArrivalTime[0])." ".$jiArrivalTime[1];
 				
 				$awal  = strtotime($value->{'jiDepartTime'}); //waktu awal
 				$akhir = strtotime($value->{'jiArrivalTime'}); //waktu akhir
@@ -185,9 +192,6 @@ class Airlines extends MY_Controller {
 
 				$resp = json_decode($req->getBody());
 
-				// $value->{'priceDepart'} = $resp->priceDepart;
-				// $value->{'priceReturn'} = $resp->priceReturn;
-
 				foreach ($value->segment as $key => $v) {
 					# code...
 					$v->{'priceDepart'} = $resp->priceDepart;
@@ -196,6 +200,7 @@ class Airlines extends MY_Controller {
 					foreach ($v->flightDetail as $key => $flight) {
 						# code...
 						//aircode 
+						// print_r($flight);
 						$airlines = $this->db->get_where('airlines',array('code_iata'=>$flight->{'airlineCode'}))->row();
 						
 						//detail airport
@@ -217,6 +222,17 @@ class Airlines extends MY_Controller {
 						$j++;
 					}
 
+					foreach ($v->priceDepart as $key => $priceDepart) {
+						# code...
+						 
+						foreach ($priceDepart->priceDetail as $key => $priceDetail) {
+							# code...
+							// print_r($priceDepart);
+							$filter_price[$z] = $priceDetail;
+							$z++;
+						}
+					}
+
 					// print_r($v);
 				}
 				
@@ -224,9 +240,18 @@ class Airlines extends MY_Controller {
 				$i++;
 
 			}
+			// print_r($data);
 			// die;
+			$this->smarty->assign('priceDetail',$filter_price);
 			$this->smarty->assign('airlines',$data_flight);
 			$this->smarty->assign('data',$data);
+			
+			//form hidden value
+			$this->smarty->assign('type',$type);
+			$this->smarty->assign('depart_date',$startdate);
+			$this->smarty->assign('return_date',$enddate);
+			$this->smarty->assign('departure_id',$departure_id);
+			$this->smarty->assign('destination_id',$destination_id);
 			$this->smarty->assign('departure_name',$departure_name);
 			$this->smarty->assign('destination_name',$destination_name);
 			$this->smarty->assign('startdate',getHumanDate($startdate));
@@ -234,6 +259,8 @@ class Airlines extends MY_Controller {
 			$this->smarty->assign('paxAdult',($paxAdult));
 			$this->smarty->assign('paxChild',($paxChild));
 			$this->smarty->assign('paxInfant',($paxInfant));
+			
+			//assign view template
 			$this->smarty->assign('home_opt',null);
 			$this->smarty->assign('content_tpl', 'shcedule_list.tpl');	
 			$this->smarty->display('app_template.tpl');	 
@@ -242,68 +269,155 @@ class Airlines extends MY_Controller {
 
 	function page_pnr(){
 
-		$airlineID = $this->input->get('airlineID');
-		$type = $this->input->get('type');
+		$airlineID = $this->input->post('airlineID');
+		$type = $this->input->post('type');
 		
-		if($this->input->get('departure_id')!=null){
-			$departure_id     = str_replace('%20','', $this->input->get('departure_id'));
+		// echo js
+		// print_r(json_decode($this->input->post('data_json')));
+
+		if($this->input->post('depart_date')!=null){
+			$depart_date     =  $this->input->post('depart_date');
+
+		}else{
+			$depart_date     = null;
+		}
+
+		if($this->input->post('arrival_date')!=null){
+			$arrival_date     =  $this->input->post('arrival_date');
+
+		}else{
+			$arrival_date     = null;
+		}
+
+		if($this->input->post('jiDepartDateinfo')!=null){
+			$jiDepartDateinfo     =  $this->input->post('jiDepartDateinfo');
+
+		}else{
+			$jiDepartDateinfo     = null;
+		}
+
+		if($this->input->post('jiArrivalDateinfo')!=null){
+			$jiArrivalDateinfo     =  $this->input->post('jiArrivalDateinfo');
+
+		}else{
+			$jiArrivalDateinfo     = null;
+		}
+
+		if($this->input->post('selisih')!=null){
+			$selisih     = $this->input->post('selisih');
+
+		}else{
+			$selisih     = null;
+		}
+
+		if($this->input->post('departure_id')!=null){
+			$departure_id     = str_replace('%20','', $this->input->post('departure_id'));
 
 		}else{
 			$departure_id     = null;
-
 		}
 		
-		if($this->input->get('destination_id')!=null){
-			$destination_id     = str_replace('%20', '', $this->input->get('destination_id'));
+		if($this->input->post('destination_id')!=null){
+			$destination_id     = str_replace('%20', '', $this->input->post('destination_id'));
 
 		}else{
 			$destination_id   = null;
-			
 		}
 		
-		if($this->input->get('destination_name')!=''){
-		 	$destination_name =str_replace('%20', '', $this->input->get('departure_name'));
+		if($this->input->post('departure_name')!=''){
+		 	$departure_name =str_replace('%20', '', $this->input->post('departure_name'));
 
 		}else{
-			$destination_name = null;
+			$departure_name = null;
 		}
 
-		if($this->input->get('departure_name')!=''){
-		 	$departure_name   = str_replace('%20', '', $this->input->get('destination_name'));
+		if($this->input->post('destination_name')!=''){
+		 	$destination_name   = str_replace('%20', '', $this->input->post('destination_name'));
 
 		}else{
-			$departure_name   = null;
+			$destination_name   = null;
 		}
 
-		if($this->input->get('startdate')!=''){
-		 	$startdate   =$this->input->get('startdate');
+		if($this->input->post('stardate_date')!=''){
+		 	$startdate   =$this->input->post('stardate_date');
 
 		}else{
 			$startdate   = backdate2(date('Y-m-d'));
 		}
 
-		if($this->input->get('enddate')!=''){
-		 	$enddate   =$this->input->get('enddate');
+		if($this->input->post('return_date')!=''){
+		 	$enddate   =$this->input->post('return_date');
 
 		}else{
 			$enddate   = null;
 		}
 
-		$num_person = $this->input->get('num_person');
-		$paxAdult = $this->input->get('paxAdult');
-		$paxChild = $this->input->get('paxChild');
-		$paxInfant = $this->input->get('paxInfant');
+		$num_person = $this->input->post('num_person');
+		
+		if ($this->input->post('paxAdult')!='') {
+			
+			$paxAdult = $this->input->post('paxAdult');
+
+		}else{
+			$paxAdult = 0;
+
+		}
+
+		if ($this->input->post('paxChild')!='') {
+			
+			$paxChild = $this->input->post('paxChild');
+
+		}else{
+			$paxChild = 0;
+
+		}
+
+		if ($this->input->post('paxInfant')!='') {
+			$paxInfant = $this->input->post('paxInfant');
+			
+		}else{
+			$paxInfant = 0;
+		}
+		
 
 		for($i=1;$i<=5;$i++){
 			$options[$i] = $i;
 		}
 
-		$this->smarty->assign('cb_participant',form_dropdown('num_participant', $options, $num_person, ' id="num_participant" '));
+		$price_req_data = array(
+			"airlineID" => $airlineID,
+			"origin" => $departure_id,
+			"destination" => $destination_id,
+			"tripType" => $type,
+			"departDate" => $depart_date,
+			"returnDate" => $arrival_date,
+			"paxAdult" => $paxAdult,
+			"paxChild" => $paxChild,
+			"paxInfant"=> $paxInfant,
+			"airlineAccessCode" => "",
+			"journeyDepartReference" => $this->input->post('journeyReference'),
+			"journeyReturnReference" => "",
+		);
 
+		$req = $this->rest_client->post('Airlines_dummy/price_all',[
+			'form_params'=>$price_req_data
+		]);
+
+		$resp = json_decode($req->getBody());
+
+		$this->smarty->assign('cb_participant',form_dropdown('num_participant', $options, $num_person, ' id="num_participant" '));
+		// print_r($resp);
 		//assign to smarty
+		$this->smarty->assign('airlinePrice',$resp);
+		$this->smarty->assign('airlineID',$airlineID);
+		$this->smarty->assign('DepartDateinfo',$jiDepartDateinfo);
+		$this->smarty->assign('ArrivalDateinfo',$jiArrivalDateinfo);
+		$this->smarty->assign('depart_date',$depart_date);
+		$this->smarty->assign('arrival_date',$arrival_date);
+		$this->smarty->assign('selisih',$selisih);
 		$this->smarty->assign('paxAdult',$paxAdult);
 		$this->smarty->assign('paxChild',$paxChild);
-		$this->smarty->assign('paxInfant',$num_person);
+		$this->smarty->assign('paxInfant',$paxInfant);
 		$this->smarty->assign('num_person',$num_person);
 		$this->smarty->assign('departure_id',$departure_id);
 		$this->smarty->assign('destination_id',$destination_id);
@@ -315,6 +429,10 @@ class Airlines extends MY_Controller {
 		$this->smarty->assign('home_opt',null);
 		$this->smarty->assign('content_tpl', 'pnr_page.tpl');	
 		$this->smarty->display('app_template.tpl');	
+	}
+
+	function get_Allprice(){
+
 	}
 
 	function input_pnr(){

@@ -10,6 +10,11 @@ input.input-text-voucher {
     width: 50% !important; 
     /* margin-bottom: 10px; */
 }
+#voucher_code{
+    float: left;
+    left: 11px;
+    top: -7px;
+}
 /* Extra small devices (phones, 600px and down) */
 /*@media only screen and (max-width: 360px) {
   
@@ -275,7 +280,7 @@ input.input-text-voucher {
                                                    <span class="custom-select">UK</span>
                                                 </div>
                                              </div> -->
-                                             <div class="col-md-6">
+                                           <!--   <div class="col-md-6">
                                                 <label>Kota</label>
                                                 <input type="text" class="input-text full-width" id="city" name="city">
                                                 <span id="city_ch">
@@ -284,11 +289,11 @@ input.input-text-voucher {
                                                 <label>Kode POS</label>
                                                 <input type="text" class="input-text full-width" id="zipcode" name="zipcode">
                                                 <span id="zipcode_ch">
-                                             </div>
+                                             </div> -->
                                           </div>
                                        </div>
                                     </div>
-                                    <div class="row">
+                                    <!-- <div class="row">
                                        <div class="form-group col-sm-6 col-md-5">
                                           <label>Nama Keluarga yang dapat dihubungi</label>
                                           <input type="text" class="input-text full-width" name="heirs_name" id="heirs_name">
@@ -311,7 +316,7 @@ input.input-text-voucher {
                                              </div>
                                           </div>
                                        </div>
-                                    </div>
+                                    </div> -->
                                   </div>
                                     <!-- <div class="form-group">
                                        <div class="checkbox">
@@ -324,59 +329,134 @@ input.input-text-voucher {
                                   {/if}
 
                                  <div class="card-information">
-                                   <hr>
-                                    <h2><i class="soap-icon-bag" style="color: #01b7f2;"></i> Data Pemesanan</h2>
-                                    <h5 class="title">Destinasi</h5>
                                     <div class="row">
-                                       <div class="col-md-6">
-                                          <label>Dari</label>
-                                          <input type="text" class="input-text full-width departure_id" placeholder="Ketikkan kota keberangkatan" id="cb_depart" name="departure_id" value="{$departure_id}" display="none"/>
-                                           <input type="text" class="input-text full-width departure_id" placeholder="Ketikkan kota keberangkatan" id="cb_depart" name="departure_id" value="{$departure_name}"/>
-                                          <!--- <input type="text" class="input-text full-width" placeholder="enter your location" />-->
+                                       <div class="col-md-4">
+                                          <label>Jumlah Dewasa {$paxAdult} Orang</label>
+                                          <!-- <div class="selector">
+                                             {$cb_participant}
+                                          </div> -->
                                        </div>
-                                       <div class="col-md-6">
-                                          <label>Tujuan</label>
-                                          <input type="text" class="input-text full-width destination_id" placeholder="Ketikkan kota tujuan" id="cb_dest" name="destination_id" value="{$destination_id}" display="none"/>
-                                          <input type="text" class="input-text full-width destination_id" placeholder="Ketikkan kota tujuan" id="cb_dest" name="destination_id" value="{$destination_name}"/>
+                                       <div class="col-md-4">
+                                          <label>Jumlah Anak {$paxChild} Orang</label>
+                                          <!-- <div class="selector">
+                                             {$cb_participant}
+                                          </div> -->
+                                       </div>
+                                       <div class="col-md-4">
+                                          <label>Jumlah {$paxInfant} Orang</label>
+                                          <!-- <div class="selector">
+                                             {$cb_participant}
+                                          </div> -->
                                        </div>
                                     </div>
-                                    <br>
-                                    <h5 class="title">Periode</h5>
-                                    <!-- <label>Mulai</label> -->
-                                    <div class="row">
-                                       <div class="col-md-6">
-                                          <label>Tanggal Keberangkatan</label>
-                                          <div class="datepicker-wrap-order">
-                                             <input type="text" id="startdate" class="input-text full-width" placeholder="select date" name="startdate" value="{$startdate}"/>
-                                             <span id="startdate_ch"/>
+                                    <!-- <br> -->
+                                     <hr>
+                                 <div class="row">
+                                   <div class="col-md-4">
+                                          <label>Jumlah Penumpang Dewasa {$paxAdult} Orang</label>
+                                          {if $paxAdult ge 1}
+                                          {for $foo=1 to $paxAdult}
+                                            <div class="form-group col-sm-6 col-md-4">
+                                              <select class="full-width" name="adult_title[]" value="">
+                                                   <option value="Nyonya">Nyonya</option>
+                                                   <option value="Tuan">Tuan</option>
+                                                   <option value="Nona">Nona</option>
+                                              </select>
+                                            <span id="adult_title">
                                           </div>
-                                       </div>
-                                       <div class="col-md-6">
-                                          {if !$enddate}
-                                          <label>Tanggal Kembali</label>
-                                          <div class="datepicker-wrap-order">
-                                             <input type="text" id="enddate" class="input-text full-width" placeholder="select date" name="enddate" value="{$enddate}" />
+                                          <div class="form-group col-md-8">
+                                            <!-- <label>No KTP/KITAS/Passport</label> -->
+                                              <input type="text" class="input-text full-width" id="adult_name" name="adult_name[]">
+                                             <span id="adult_name_ch">
+                                          </div>
+                                          {/for}
+                                          {else}
+                                          <div class="form-group col-sm-6 col-md-4">
+                                              <select class="full-width" name="adult_title[]" value="">
+                                                   <option value="Nyonya">Nyonya</option>
+                                                   <option value="Tuan">Tuan</option>
+                                                   <option value="Nona">Nona</option>
+                                              </select>
+                                            <span id="adult_title">
+                                          </div>
+                                          <div class="form-group col-md-8">
+                                            <!-- <label>No KTP/KITAS/Passport</label> -->
+                                              <input type="text" class="input-text full-width" id="adult_name" name="adult_name[]">
+                                             <span id="adult_name_ch">
                                           </div>
                                           {/if}
                                        </div>
-                                    </div>
-                                    <br>
-                                    <!-- <h5 class="title">Periode</h5> -->
-                                    <!-- <label>Mulai</label> -->
-                                    <div class="row">
-                                       <div class="col-md-6">
-                                          <label>Jumlah Orang</label>
-                                          <div class="selector">
-                                             {$cb_participant}
+                                       <div class="col-md-4">
+                                          <label>Jumlah Penumpang Anak {$paxChild} Orang</label>
+                                          {if $paxChild ge 1}
+                                          {for $foo=1 to $paxChild}
+                                          <div class="form-group col-sm-6 col-md-4">
+                                              <select class="full-width" name="child_title[]" value="">
+                                                   <option value="Nyonya">Nyonya</option>
+                                                   <option value="Tuan">Tuan</option>
+                                                   <option value="Nona">Nona</option>
+                                              </select>
+                                            <span id="child_title">
                                           </div>
+                                          <div class="form-group col-md-8">
+                                            <!-- <label>No KTP/KITAS/Passport</label> -->
+                                              <input type="text" class="input-text full-width" id="child_name" name="child_name[]">
+                                             <span id="child_name_ch">
+                                          </div>
+                                          {/for}
+                                          {else}
+                                             <div class="form-group col-sm-6 col-md-4">
+                                              <select class="full-width" name="child_title[]" value="">
+                                                   <option value="Nyonya">Nyonya</option>
+                                                   <option value="Tuan">Tuan</option>
+                                                   <option value="Nona">Nona</option>
+                                              </select>
+                                            <span id="child_title">
+                                          </div>
+                                          <div class="form-group col-md-8">
+                                            <!-- <label>No KTP/KITAS/Passport</label> -->
+                                              <input type="text" class="input-text full-width" id="child_name" name="child_name[]">
+                                             <span id="child_name_ch">
+                                          </div>
+                                          {/if}
                                        </div>
-                                    </div>
-                                    <br>
-                                     <hr>
-                                 <div class="row">
-                                    <hr>
+                                       <div class="col-md-4">
+                                          <label>Jumlah Penumpang Bayi {$paxInfant} Orang</label>
+                                          {if $paxInfant ge 1}
+                                          {for $foo=1 to $paxInfant}
+                                            <div class="form-group col-sm-6 col-md-4">
+                                              <select class="full-width" name="infant_title[]" value="">
+                                                   <option value="Nyonya">Nyonya</option>
+                                                   <option value="Tuan">Tuan</option>
+                                                   <option value="Nona">Nona</option>
+                                              </select>
+                                            <span id="child_title">
+                                          </div>
+                                          <div class="form-group col-md-8">
+                                            <!-- <label>No KTP/KITAS/Passport</label> -->
+                                              <input type="text" class="input-text full-width" id="infant_name" name="infant_name[]">
+                                             <span id="infant_name_ch">
+                                          </div>
+                                          {/for}
+                                          {else}
+                                             <div class="form-group col-sm-6 col-md-4">
+                                              <select class="full-width" name="infant_title[]" value="">
+                                                   <option value="Nyonya">Nyonya</option>
+                                                   <option value="Tuan">Tuan</option>
+                                                   <option value="Nona">Nona</option>
+                                              </select>
+                                            <span id="child_title">
+                                          </div>
+                                          <div class="form-group col-md-8">
+                                            <!-- <label>No KTP/KITAS/Passport</label> -->
+                                              <input type="text" class="input-text full-width" id="infant_name" name="infant_name[]">
+                                             <span id="infant_name_ch">
+                                          </div>
+                                          {/if}
+                                       </div>
+                                    <!-- <hr> -->
                                     <!-- <a id="add_participant_form">Tambah</a> -->
-                                    
+                                    <!-- </div> -->
                                  </div>
                                  <!-- <hr> -->
                                  <div class="card-information" style="display:none;">
@@ -442,18 +522,48 @@ input.input-text-voucher {
                                                 <div class="details">
                                                    <div class="constant-column-3 timing clearfix">
                                                       <div class="check-in">
-                                                         <label>Mulai</label>
-                                                         <span id="startdate_sum">{$startdate}</span>
+                                                         <!-- <label>Keberangkatan</label> -->
+                                                         <span id="airlineID"><img src="{$base_url}/assets/img/maskapai/{$airlineID}.png" alt="maskapai"></span>
+                                                      </div>
+                                                    </div>
+                                                   <div class="constant-column-3 timing clearfix">
+                                                      <div class="check-in">
+                                                         <label>Kota Keberangkatan</label>
+                                                         <span id="departure_name">{$departure_name}</span>
+                                                      </div>
+                                                      <div class="duration text-center">
+                                                         <i class="icon soap-icon-plane-right takeoff yellow-color"></i>
+                                                         <!-- <span id="days">{$selisih}</span> -->
+                                                      </div>
+                                                      <div class="check-out">
+                                                         <label>Kota Tujuan</label>
+                                                         <span id="destination_name">{$destination_name}</span>
+                                                      </div>
+                                                   </div>
+                                                <!-- </div> -->
+                                                   <div class="constant-column-3 timing clearfix">
+                                                      <div class="check-in">
+                                                         <label>Keberangkatan</label>
+                                                         <span id="DepartDateinfo">{$DepartDateinfo}</span>
                                                       </div>
                                                       <div class="duration text-center">
                                                          <i class="soap-icon-clock"></i>
-                                                         <span id="days"><</span>
+                                                         <span id="days">{$selisih}</span>
                                                       </div>
                                                       <div class="check-out">
-                                                         <label>Akhir</label>
-                                                         <span id="enddate_sum">{$enddate}</span>
+                                                         <label>Kedatangan</label>
+                                                         <span id="ArrivalDateinfo">{$ArrivalDateinfo}</span>
                                                       </div>
                                                    </div>
+                                                      <!-- <div class="duration text-center">
+                                                         <i class="soap-icon-clock"></i>
+                                                         <span id="days">{$selisih}</span>
+                                                      </div>
+                                                      <div class="check-out">
+                                                         <label>Kedatangan</label>
+                                                         <span id="ArrivalDateinfo">{$ArrivalDateinfo}</span>
+                                                      </div>
+                                                   </div> -->
                                                 </div>
                                              </article>
                                              <!-- <h4>Detil</h4> -->
@@ -475,30 +585,79 @@ input.input-text-voucher {
 
                                                  <dt class="feature">Kode Voucher/Promo: <span id="payment_desc"></span></dt>
                                                  <dd class="value"> 
-                                                             <input type="text" class="input-text" id="voucher_code" name="voucher_code" placeholder="Masukan kode disini..."/>
-                                                            <button class="btn-medium btn-warning"  id="voucher_code_btn">Cek Kode</button>
-                                                          <button id="cancel_disc" class="btn-medium btn-danger" style="display:none">Batal</button>
+                                                             <input type="text" class="input-text" id="voucher_code" name="voucher_code" placeholder="Masukan kode disini..." value="{$airlinePrice->promoCode}"/>
+                                                            <!-- <button class="btn-medium btn-warning"  id="voucher_code_btn">Cek Kode</button> -->
+                                                          <!-- <button id="cancel_disc" class="btn-medium btn-danger" style="display:none">Batal</button> -->
                                                     <!-- </div> -->
                                                       <br>
                                                       <span id="success_msg"><p style="text-transform: none;"></p></span>
                                                      
                                                  </dd>
 
-                                                <dt class="total-price" style="font-size: 24px;">Total Pembayaran</dt>
-                                                <dd class="total-price-value" style="font-size: 24px;font-weight: bolder;">Rp <span id="total_amount"></span></dd>
+                                                
                                              </dl>
                                           </div>
                                        </div>
-                                       <div class="form-group col-sm-6 col-md-6" style="margin-top:10%;">
-                                         
-                                       </div>
+                                       <div class="form-group col-sm-6 col-md-6">
+                                          <!-- <label>Credit Card Type</label> -->
+                                          <div class="booking-details travelo-box">
+                                            <article class="image-box cruise listing-style1">
+                                              <div class="details">
+                                            <input type="hidden" name="journeyDepartReference" value="$airlinePrice->journeyDepartReference"/>
+                                              <input type="hidden" name="journeReturnReference" value="$airlinePrice->journeReturnReference"/>
+                                              <input type="hidden" name="airlineID" value="$airlinePrice->airlineID"/>
+                                              <input type="hidden" name="origin" value="$airlinePrice->origin"/>
+                                              <input type="hidden" name="destination" value="$airlinePrice->destination"/>
+                                              <input type="hidden" name="tripType" value="$airlinePrice->tripType"/>
+                                              <h4>Rincian Harga untuk &nbsp;{$airlinePrice->paxAdult}&nbsp;dewasa&nbsp;{$airlinePrice->paxInfant}&nbsp;anak-anak&nbsp;{$airlinePrice->paxInfant}&nbsp;bayi</h4> 
+                                                <!-- {assign var='sub' value='0'} -->
+                                                {assign var='total' value='0'}
+                                                {foreach from = $airlinePrice->priceDepart key=k item=price}
+                                                    {foreach from = $price->priceDetail key=k item=detail}
+                                                      <!-- <div class="constant-column-3 timing clearfix"> -->
+                                                        <!-- <div class="check-in"> -->
+                                                           <label>Detail harga {$detail->paxType}</label>
+                                                            <div class ="row">
+                                                              <div class="constant-column-3 timing clearfix">
+                                                                <div class="check-in">
+                                                                    <!-- <label>Kota Keberangkatan</label> -->
+                                                                  <span id="departure_name"><label>Harga</label></span>
+                                                                  <span id="departure_name"><label>Pajak<label></span>
+                                                                  <span id="departure_name"><label>totalFare</label></span>
+                                                                </div>
+                                                                <div class="duration text-center">
+                                                                    <i class="icon yellow-color"></i>
+                                                                    <!-- <span id="days">{$selisih}</span> -->
+                                                                </div>
+                                                                <div class="check-out">
+                                                                      <!-- <label>Kota Tujuan</label> -->
+                                                                      <span id="destination_name">{$detail->baseFare}</span>
+                                                                      <span id="destination_name">{$detail->tax}</span>
+                                                                      <span id="destination_name">{$detail->totalFare}</span>
+                                                                      <!-- totalFare -->
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                            {assign var='total' value=$total+$detail->totalFare}
+                                                           <!-- <span id="departure_name">{$departure_name}</span> -->
+                                                        <!-- </div> -->
+                                                      <!-- </div> -->
+                                                    {/foreach}
+                                                {/foreach}
+                                              </div>
+                                              <div "other-details">
+                                               <dl class="other-details"> 
+                                                  <dt class="total-price" style="font-size: 24px;">Total Pembayaran</dt>
+                                                  <dd class="total-price-value" style="font-size: 24px;font-weight: bolder;float: right;text-decoration: underline;position: relative;left: -59px;">&nbsp;Rp:&nbsp;<span id="total_amount">{$total}</span></dd>
+                                               </dl> 
+                                             </div>
+                                            </article>
+                                          </div>
+                                       <div>     
                                     </div>
                                  </div>
                               </form>
                            </div>
-                        </div>
-                        <div class="sidebar col-sm-4 col-md-3">
-                          
                         </div>
                      </div>
                   </div>
@@ -522,8 +681,19 @@ function myFunction() {
 
 jQuery(document).ready(function($) {
 
-  console.log(logged);
+  $("#voucher_code").prop('disabled',true);
   
+  $(".feature").hide();
+  $(".value").hide();
+  $("#voucher_code").hide();
+
+  console.log(logged);
+  if('{$airlinePrice->promoCode}'!=''){
+      $(".feature").show();
+      $(".value").show();
+      $("#voucher_code").show();
+  }
+
   if(logged==1){
     $('#voucher_code_btn').css('right','-147px');
   }

@@ -585,7 +585,7 @@ ul.collection{
 
               function redirect_order(id,user_type){
                 
-                window.location = '{$site_url}/airlines/page?startdate='+$('#startdate').val()+'&enddate='+$('#enddate').val()+'&departure_id='+$('.depart_id').val()+'&destination_id='+$('.dest_id').val()+'&type='+$('#route').val()+'&paxAdult='+$("#num_participant_adult").val()+'&departure_name='+$('.departure_id').val()+'&destination_name='+$('.destination_id').val()
+                window.location = '{$site_url}/airlines/page?startdate='+$('#startdate').val()+'&enddate='+$('#enddate').val()+'&departure_id='+$('.depart_id').val()+'&destination_id='+$('.dest_id').val()+'&type='+$('#route').val()+'&paxAdult='+$("#num_participant_adult").val()+'&departure_name='+$('.departure_id').val()+'&destination_name='+$('.destination_id').val()+
                   '&paxChild='+$("#num_participant_child").val()+'&paxInfant='+$("#num_participant_infant").val();  
                  
               }
