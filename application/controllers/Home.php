@@ -15,7 +15,7 @@ class Home extends MY_Controller {
 		$securityCode =MD5($token.MD5($password)); 
 		// echo $token;
 
-		$request = $this->rest_client->post('user_session/login_session',[
+		$request = $this->rest_client->post('login/session',[
 			'form_params'=>[
 				'userID'=>$userID,
 				'pass'=>$password,
