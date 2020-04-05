@@ -86,29 +86,13 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 //XENDIT
 // define('SECRET_API_KEY','xnd_development_OomFfOVxgbCmlJE7LLZKSTaTYdKipdYolXfk+Rxj9WLV/rSmCAF0jg=='); //dev
-define('SECRET_API_KEY','xnd_production_NI6FcLlw0LyvwpU7e+VPGzSXYtenp4R5k3Dh/Rlr+mfQ+LOkCwR1'); //live
+// define('SECRET_API_KEY','xnd_production_NI6FcLlw0LyvwpU7e+VPGzSXYtenp4R5k3Dh/Rlr+mfQ+LOkCwR1'); //live
 
 define('DB_NAME','bintang_travel');
 define('DIR_APP','bintangwisata_engine');
 define('DOCUMENTROOT',$_SERVER['DOCUMENT_ROOT'].'/'.DIR_APP);
 
-//norek withdraw
-define('BANK_NAME','MANDIRI');
-define('ACCOUNT_NAME','JASINDO');
-define('NO_ACCOUNT','999992222221111');
-
-//nusafin prod
-// define('API_KEY_NUSAFIN','NSP_APIxyVdfjEjtfGUBAVd4hGZEb9LBMjAxODEyMTAxNTEyMTE=');
-// define('API_URL_NUSAFIN','https://api.nusafin.com/');
-// define('API_URL_NUSAFIN_BALANCE','https://api.nusafin.com/balance');
-
-//nusafin dev
-define('API_KEY_NUSAFIN','NSP_APIxyVdfjEjtfGUBAVd4hGZEb9LBMjAxODEyMTAxNTEyMTE=');
-define('API_URL_NUSAFIN','http://apidev.nusafin.com/');
-define('API_URL_NUSAFIN_BALANCE','http://apidev.nusafin.com/balance');
-
-//
-// define('ADMIN_URL','http://103.56.206.205/jasindo_admin');
 define('ADMIN_URL','http://localhost/jasindotravel_admin');
 define('API_URL','http://localhost/travel_api/'); 
-define('API_INTERNAL','http://localhost/api_internal_bintang_wisata/index.php/'); 
+define('API_INTERNAL','http://api.bintangwisata.com/index.php/'); 
+// define('API_INTERNAL','http://localhost/api_internal_bintang_wisata/index.php/'); 

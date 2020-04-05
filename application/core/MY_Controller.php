@@ -14,7 +14,7 @@ class MY_Controller extends CI_Controller{
     public $bahasa;
     public $logo;
     public $settings;
-    // public rest_client; 
+    public $rest_client; 
             
     function __construct() {
         parent::__construct();
@@ -25,13 +25,6 @@ class MY_Controller extends CI_Controller{
         $this->settings = $this->settings();
 
         $this->load->helper('text');
-      
-
-        // $this->html2pdf = new Html2Pdf('P', 'A4', 'fr', true, 'UTF-8', 0);
-        // $this->html2pdf->pdf->SetDisplayMode('fullpage');
-
-        // $this->load->model('m_user');
-        // $this->load->model('m_friend');
         
         $this->smarty->template_dir = DOCUMENTROOT.'/assets/template/templates/';
         $this->smarty->compile_dir = DOCUMENTROOT.'/assets/template/templates_c/';
@@ -74,42 +67,42 @@ class MY_Controller extends CI_Controller{
             }
         }
 
-        // $this->rest_client = new GuzzleHttp\Client(['base_uri' => API_URL_INTERNAL,'curl' => array( CURLOPT_SSL_VERIFYPEER => false ,CURLOPT_SSL_VERIFYHOST=>FALSE),'header'=>array('Accept' => 'application/json')]);
+        $this->rest_client = new GuzzleHttp\Client(['base_uri' =>API_URL,'curl' => array( CURLOPT_SSL_VERIFYPEER => false ,CURLOPT_SSL_VERIFYHOST=>FALSE),'header'=>array('Accept' => 'application/json')]);
 
         $this->load->model('m_news');
         $this->smarty->assign('footer_news', $this->m_news->get_news(4));   
     }
 
-    function send_sms($number,$content){
-        $curl = curl_init();
+    // function send_sms($number,$content){
+    //     $curl = curl_init();
 
-        curl_setopt_array($curl, array(
-          CURLOPT_URL => "http://sms.senusa.id/send",
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => "",
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 30,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => "POST",
-          CURLOPT_POSTFIELDS => "account_code=JSNDTRVL&destination=".$number."&content=".$content,
-          CURLOPT_HTTPHEADER => array(
-            "Content-Type: application/x-www-form-urlencoded",
-            "Postman-Token: 7ae6114a-2ca2-454b-8aba-d2f38eb772af",
-            "cache-control: no-cache"
-          ),
-        ));
+    //     curl_setopt_array($curl, array(
+    //       CURLOPT_URL => "http://sms.senusa.id/send",
+    //       CURLOPT_RETURNTRANSFER => true,
+    //       CURLOPT_ENCODING => "",
+    //       CURLOPT_MAXREDIRS => 10,
+    //       CURLOPT_TIMEOUT => 30,
+    //       CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    //       CURLOPT_CUSTOMREQUEST => "POST",
+    //       CURLOPT_POSTFIELDS => "account_code=JSNDTRVL&destination=".$number."&content=".$content,
+    //       CURLOPT_HTTPHEADER => array(
+    //         "Content-Type: application/x-www-form-urlencoded",
+    //         "Postman-Token: 7ae6114a-2ca2-454b-8aba-d2f38eb772af",
+    //         "cache-control: no-cache"
+    //       ),
+    //     ));
 
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
+    //     $response = curl_exec($curl);
+    //     $err = curl_error($curl);
 
-        curl_close($curl);
+    //     curl_close($curl);
 
-        if ($err) {
-          // echo "cURL Error #:" . $err;
-        } else {
-          // echo $response;
-        }
-    }
+    //     if ($err) {
+    //       // echo "cURL Error #:" . $err;
+    //     } else {
+    //       // echo $response;
+    //     }
+    // }
 
     function settings(){
         $q = $this->db->get('settings');

@@ -8,12 +8,27 @@ class Home extends MY_Controller {
 		$userID   = 'HMU5EGTRA2';
 		$password = 'HMU555TRA2';
 		
-		$result = $this->get_auth($userID,$password);
+		// $result = $this->get_auth($userID,$password);
 
-		$res_obj = json_decode($result);
+		$token = date("Y-m-d\TH:i:s.uP");
+		//generate securityCode 
+		$securityCode =MD5($token.MD5($password)); 
+		// echo $token;
 
-		if($res_obj->status=='SUCCESS'){
+		$request = $this->rest_client->post('user_session/login_session',[
+			'form_params'=>[
+				'userID'=>$userID,
+				'pass'=>$password,
+				'token'=>$token,
+				'securityCode'=>$securityCode
+			]
+		]);
 
+		// var_dump($request);
+		$respone = json_decode($request->getBody());
+
+		// echo $respone;
+		if($respone->status=='SUCCESS'){
 			$this->session->set_userdata(array('apikey'=>$response_obj->accessToken,'userID'=>$response_obj->userID));
 		} 
 
@@ -49,25 +64,26 @@ class Home extends MY_Controller {
 		$this->smarty->display('app_template.tpl');	
 	}
 
-	function get_auth($userID,$password){
+	// function get_auth($userID,$password){
 
-		$token = date("Y-m-d\TH:i:s.uP");
-		//generate securityCode 
-		$securityCode =MD5($token.MD5($password)); 
+	// 	$token = date("Y-m-d\TH:i:s.uP");
+	// 	//generate securityCode 
+	// 	$securityCode =MD5($token.MD5($password)); 
 
-		$request = $this->rest_client->post('user_session/login_session',[
-			'form_params'=>[
-				'userID'=>$userID,
-				'pass'=>$password,
-				'token'=>$token,
-				'securityCode'=>$securityCode
-			]
-		]);
+	// 	$request = $this->rest_client->post('user_session/login_session',[
+	// 		'form_params'=>[
+	// 			'userID'=>$userID,
+	// 			'pass'=>$password,
+	// 			'token'=>$token,
+	// 			'securityCode'=>$securityCode
+	// 		]
+	// 	]);
 
-		$respone = $request->getBody();
+	// 	$respone = $request->getBody();
 
-		return $respone;
-	}
+	// 	echo $respone;
+	// 	// return $respone;
+	// }
 
 	function save_question(){
 		$this->load->helper('text');
