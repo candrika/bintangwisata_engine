@@ -15,7 +15,7 @@ class Home extends MY_Controller {
 		$securityCode =MD5($token.MD5($password)); 
 		// echo $token;
 
-		$request = $this->rest_client->post('login/session',[
+		$request = $this->rest_client->post('user_session/login_session',[
 			'form_params'=>[
 				'userID'=>$userID,
 				'pass'=>$password,
@@ -27,7 +27,7 @@ class Home extends MY_Controller {
 		// var_dump($request);
 		$respone = json_decode($request->getBody());
 
-		// echo $respone;
+		// print_r($respone);
 		if($respone->status=='SUCCESS'){
 			$this->session->set_userdata(array('apikey'=>$response_obj->accessToken,'userID'=>$response_obj->userID));
 		} 
