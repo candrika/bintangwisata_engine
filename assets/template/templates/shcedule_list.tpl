@@ -334,7 +334,7 @@ display: none;
                                         <div class="row">
                                                 <input type="text" class="input-text full-width route_id" 
                                                 placeholder="Ketikkan kota tujuan" id="route" name="route_id" 
-                                                /*style="display:none"*/ value=""/>
+                                                style="display:none" value=""/>
                                                 <div class="col-xs-6">
                                                    <label><span style="color:#FFF;">-</span></label>
                                                    <!-- <div class="checkbox"> -->

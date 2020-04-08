@@ -255,7 +255,7 @@ ul.collection{
                                              <div class="row">
                                                 <input type="text" class="input-text full-width route_id" 
                                                 placeholder="Ketikkan kota tujuan" id="route" name="route_id" 
-                                                /*style="display:none"*/ value=""/>
+                                                style="display:none" value=""/>
                                                 <div class="col-md-6">
 <!--                                                 <label>Jenis Perjalanan</label>
  -->                                                <div>
