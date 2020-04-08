@@ -183,11 +183,11 @@ display: none;
                                             - $enddate 
                                             {/if}
                                             | Dewasa {$paxAdult}
-                                            {if !$paxChild}
-                                            {$paxChild}
+                                            {if $paxChild !=0}
+                                            | Anak-anak {$paxChild}
                                             {/if}
-                                            {if !$paxInfant}
-                                            {$paxInfant}
+                                            {if $paxInfant !=0}
+                                            ! Bayi {$paxInfant}
                                             {/if}
                                     </small>
                                 </h2>    
@@ -214,16 +214,15 @@ display: none;
                                                               </label>
                                                           </span>
                                                           <span>
-                                                              {foreach from=$airlines key=k item=plane}
                                                               <label class="labeling"  data-disabled="false">
                                                                 <input  type="checkbox" class="_checkbox" id="checked">
                                                                 <!-- <div> -->
                                                                   <!-- <div class="_checkbox"></div> -->
-                                                                  <div class="_label">{$plane.name}
-                                                                    <img id="img_icon" src="http://localhost/bintangwisata_engine//assets/img/maskapai/{$plane.code}.png"></div>
+                                                                  <div class="_label">
+                                                                    <!-- <img id="img_icon" src="http://localhost/bintangwisata_engine//assets/img/maskapai/{$plane.code}.png"></div> -->
                                                                 <!-- </div> -->
                                                               </label>
-                                                              {/foreach}
+                                                              
                                                           </span>
                                                         </span>
                                                     </div>
@@ -238,15 +237,14 @@ display: none;
                                                     <div class="inside-ballon-line">
                                                         <span calss="balloon-box-entitas">
                                                             <span>
-                                                              {foreach from=$airlines key=k item=plane}
                                                               <label class="labeling"  data-disabled="false">
                                                                 <input  type="checkbox" class="_checkbox1">
                                                                 <!-- <div> -->
                                                                   <!-- <div class="_checkbox"></div> -->
-                                                                  <div class="_label">{$plane.depart_time}</div>
+                                                                  <div class="_label"></div>
                                                                 <!-- </div> -->
                                                               </label>
-                                                              {/foreach}
+                                                              
                                                           </span>
                                                         </span>
                                                     </div>
@@ -494,7 +492,7 @@ display: none;
                                                     <form method="post" action="{$site_url}/airlines/page_pnr/">
                                                       <!-- startdate=31-03-2020&enddate=03-04-2020&departure_id=ABU&destination_id=ABU&type=OneWay&paxAdult=1&departure_name=Atambua%20(ABU)&destination_name=Atambua%20(ABU)# -->
                                                       <input type="hidden" value="{$p->airlineID}" name="airlineID"/>
-                                                      <input type="hidden" value="{$p->jiDepartTime}" name="depart_date"/>
+                                                      <input type="hidden" value="{$p->jiArrivalDate}" name="depart_date"/>
                                                       <input type="hidden" value="{$p->jiArrivalDate}" name="arrival_date"/>
                                                       <input type="hidden" value="{$startdate}" name="stardate_date"/>
                                                       <input type="hidden" value="{$enddate}" name="return_date"/>
@@ -510,6 +508,7 @@ display: none;
                                                       <input type="hidden" value="{$paxInfant}" name="paxInfant"/>
                                                       <input type="hidden" value="{$type}" name="type"/>
                                                       <input type="hidden" value="{$p->journeyReference}" name="journeyReference"/>
+                                                      <input type="hidden" value="{$airlineAccessCode}" name="airlineAccessCode"/>
                                                       <input type="hidden" value="journeyReturnReference" name="journeyReturnReference"/>
                                                       
                                                     <dt style="margin-left: 12px;text-align: center;font-size: 22pt;">Harga</dt>

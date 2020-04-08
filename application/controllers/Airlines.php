@@ -77,7 +77,15 @@ class Airlines extends MY_Controller {
 		$type = $this->input->get('type');
 		$startdate = backdate2($this->input->get('startdate'));
 
-		// echo $type;
+		if($this->input->get('airlineAccessCode')!=null){
+			$airlineAccessCode = $this->input->get('airlineAccessCode');
+
+		}else{
+			$airlineAccessCode = null;
+
+		}
+
+		// print_r($this->session->all_userdata());
 
 		if($type=="OneWay"){
 			$enddate = "";
@@ -86,9 +94,9 @@ class Airlines extends MY_Controller {
 			$enddate = backdate2($this->input->get('enddate'));
 		}
 
-		$post_data = json_encode(array(
+		$post_data = array(
 			"userID" =>$this->session->userdata('userID'),
-			"accessToken"=>$this->session->userdata('accessToken'),
+			"accessToken"=>$this->session->userdata('apikey'),
 			"tripType" => $type,
 			"origin" => $departure_id,
 			"destination" => $destination_id,
@@ -97,47 +105,41 @@ class Airlines extends MY_Controller {
 			"paxAdult" => $paxAdult,
 			"paxChild" => $paxChild,
 			"paxInfant" => $paxInfant,
-			"airlineAccessCode" => " ",
-			"cacheType" => "Mix",
+			"airlineAccessCode" => $airlineAccessCode,
+			"cacheType" => "FullLive",
 			"isShowEachAirline" => false
-		));
+		);
 
-		$service_url = API_INTERNAL.'Airlines_dummy/Shcedule';
+		// echo json_encode($post_data);
+		// $service_url ='https://api.bintangwisata.com/index.php/Flight/scheduleAll';
 
 		$curl = curl_init();
 
-		curl_setopt($curl, CURLOPT_URL, $service_url);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($curl, CURLOPT_POST, 1);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, 
-			array(
-				'Content-Type: application/json',
-				'Connection: Keep-Alive'
-			));	
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+		$req_data = $this->rest_client->post('Flight/scheduleAll',[
+			'form_params'=>$post_data
+		]);
 
-		$curl_response = curl_exec($curl);		
-		$err = curl_error($curl);
+		$resp_data = json_decode($req_data->getBody());
 
-		curl_close($curl);
+		$balikan   = $resp_data->data;
 
-		if ($err) {
-		  	echo "cURL Error #:" . $err;
+		// print_r($balikan);
+
+		$data = [];
+		$data_flight=[];
+		$i=0;
+		$flightDetail=[];
+		$j=0;
+		$filter_price=[];
+		$z=0;
+
+		// die;
+		if ($balikan->status=="FAILED") {
+		  	// echo "cURL Error #:" . $err;
+		  	// print_r($balikan);
 		} else {
-			// echo $curl_response;
-		  	$arr = json_decode($curl_response);	
-		  	// print_r($arr);
-		  	$data = [];
-		  	$data_flight=[];
-		  	$i=0;
-		  	$flightDetail=[];
-		  	$j=0;
-		  	$filter_price=[];
-		  	$z=0;
-
-		  	foreach ($arr->journeyDepart as $value) {
+			
+		  	foreach ($balikan->journeyDepart as $value) {
 				# code...
 				
 				$DepartDateTime = explode('T',$value->{'jiDepartTime'});
@@ -172,6 +174,8 @@ class Airlines extends MY_Controller {
 				$value->{'selisih'} = $jam.' jam '.floor( $menit / 60 ).'menit';
 
 				$price_req_data = array(
+				   "userID" =>$this->session->userdata('userID'),
+			       "accessToken"=>$this->session->userdata('apikey'),
 				   "airlineID" => $value->{'airlineID'},
 				   "origin" => $value->{'jiOrigin'},
 				   "destination" => $value->{'jiDestination'},
@@ -186,7 +190,7 @@ class Airlines extends MY_Controller {
 				   "journeyReturnReference" => "",
 				);
 
-				$req = $this->rest_client->post('Airlines_dummy/price_all',[
+				$req = $this->rest_client->post('Flight/priceAll',[
 					'form_params'=>$price_req_data
 				]);
 
@@ -194,8 +198,8 @@ class Airlines extends MY_Controller {
 
 				foreach ($value->segment as $key => $v) {
 					# code...
-					$v->{'priceDepart'} = $resp->priceDepart;
-					$v->{'priceReturn'} = $resp->priceReturn;
+					// $v->{'priceDepart'} = $resp->priceDepart;
+					// $v->{'priceReturn'} = $resp->priceReturn;
 						
 					foreach ($v->flightDetail as $key => $flight) {
 						# code...
@@ -213,8 +217,8 @@ class Airlines extends MY_Controller {
 						$flight->{'destination_city'}     = $airport_destination->city;
 						$flight->{'destination_airports'} = $airport_destination->airport_name;
 
-						$data_flight[$j]['name']=$airlines->name;
-						$data_flight[$j]['code']=$flight->{'airlineCode'};
+						// $data_flight[$j]['name']=$airlines->name;
+						// $data_flight[$j]['code']=$flight->{'airlineCode'};
 						
 						$depart_datetime = explode('T', $flight->{'fdDepartTime'});
 						$data_flight[$j]['depart_time']=$depart_datetime[1];
@@ -222,16 +226,16 @@ class Airlines extends MY_Controller {
 						$j++;
 					}
 
-					foreach ($v->priceDepart as $key => $priceDepart) {
-						# code...
+					// foreach ($v->priceDepart as $key => $priceDepart) {
+					// 	# code...
 						 
-						foreach ($priceDepart->priceDetail as $key => $priceDetail) {
-							# code...
-							// print_r($priceDepart);
-							$filter_price[$z] = $priceDetail;
-							$z++;
-						}
-					}
+					// 	foreach ($priceDepart->priceDetail as $key => $priceDetail) {
+					// 		# code...
+					// 		// print_r($priceDepart);
+					// 		$filter_price[$z] = $priceDetail;
+					// 		$z++;
+					// 	}
+					// }
 
 					// print_r($v);
 				}
@@ -242,29 +246,34 @@ class Airlines extends MY_Controller {
 			}
 			// print_r($data);
 			// die;
-			$this->smarty->assign('priceDetail',$filter_price);
-			$this->smarty->assign('airlines',$data_flight);
-			$this->smarty->assign('data',$data);
 			
-			//form hidden value
-			$this->smarty->assign('type',$type);
-			$this->smarty->assign('depart_date',$startdate);
-			$this->smarty->assign('return_date',$enddate);
-			$this->smarty->assign('departure_id',$departure_id);
-			$this->smarty->assign('destination_id',$destination_id);
-			$this->smarty->assign('departure_name',$departure_name);
-			$this->smarty->assign('destination_name',$destination_name);
-			$this->smarty->assign('startdate',getHumanDate($startdate));
-			$this->smarty->assign('enddate',getHumanDate($enddate));
-			$this->smarty->assign('paxAdult',($paxAdult));
-			$this->smarty->assign('paxChild',($paxChild));
-			$this->smarty->assign('paxInfant',($paxInfant));
-			
-			//assign view template
-			$this->smarty->assign('home_opt',null);
-			$this->smarty->assign('content_tpl', 'shcedule_list.tpl');	
-			$this->smarty->display('app_template.tpl');	 
 		}
+
+		// $this->smarty->assign('priceDetail',$filter_price);
+		$this->smarty->assign('airlines',$data_flight);
+		$this->smarty->assign('data',$data);
+			
+		//form hidden value
+		$this->smarty->assign('type',$type);
+		$this->smarty->assign('depart_date',$startdate);
+		$this->smarty->assign('return_date',$enddate);
+		$this->smarty->assign('departure_id',$departure_id);
+		$this->smarty->assign('destination_id',$destination_id);
+		$this->smarty->assign('departure_name',$departure_name);
+		$this->smarty->assign('destination_name',$destination_name);
+		$this->smarty->assign('startdate',getHumanDate($startdate));
+		$this->smarty->assign('enddate',getHumanDate($enddate));
+		$this->smarty->assign('paxAdult',($paxAdult));
+		$this->smarty->assign('paxChild',($paxChild));
+		$this->smarty->assign('paxInfant',($paxInfant));
+		$this->smarty->assign('paxInfant',($paxInfant));
+		$this->smarty->assign('airlineAccessCode',($airlineAccessCode));
+		//airlineAccessCode
+
+		//assign view template
+		$this->smarty->assign('home_opt',null);
+		$this->smarty->assign('content_tpl', 'shcedule_list.tpl');	
+		$this->smarty->display('app_template.tpl');	 
 	}
 
 	function page_pnr(){
@@ -272,8 +281,13 @@ class Airlines extends MY_Controller {
 		$airlineID = $this->input->post('airlineID');
 		$type = $this->input->post('type');
 		
-		// echo js
-		// print_r(json_decode($this->input->post('data_json')));
+		if($this->input->post('airlineAccessCode')!=null){
+			$airlineAccessCode     =  $this->input->post('airlineAccessCode');
+
+		}else{
+			$airlineAccessCode     = null;
+		}
+
 
 		if($this->input->post('depart_date')!=null){
 			$depart_date     =  $this->input->post('depart_date');
@@ -385,30 +399,34 @@ class Airlines extends MY_Controller {
 		}
 
 		$price_req_data = array(
+			"userID" =>$this->session->userdata('userID'),
+			"accessToken"=>$this->session->userdata('apikey'),
 			"airlineID" => $airlineID,
 			"origin" => $departure_id,
 			"destination" => $destination_id,
 			"tripType" => $type,
 			"departDate" => $depart_date,
-			"returnDate" => $arrival_date,
+			"returnDate" => null,
 			"paxAdult" => $paxAdult,
 			"paxChild" => $paxChild,
 			"paxInfant"=> $paxInfant,
-			"airlineAccessCode" => "",
+			"airlineAccessCode" => $airlineAccessCode,
 			"journeyDepartReference" => $this->input->post('journeyReference'),
 			"journeyReturnReference" => "",
 		);
+		// echo json_encode($price_req_data);
 
-		$req = $this->rest_client->post('Airlines_dummy/price_all',[
+		$req = $this->rest_client->post('Flight/priceAll',[
 			'form_params'=>$price_req_data
 		]);
 
-		$resp = json_decode($req->getBody());
-
+		$resp = $req->getBody();
+		// echo $resp;
+		$array_response = json_decode($req->getBody());
+		$priceData = $array_response->data;
+		// die;
 		$this->smarty->assign('cb_participant',form_dropdown('num_participant', $options, $num_person, ' id="num_participant" '));
-		// print_r($resp);
-		//assign to smarty
-		$this->smarty->assign('airlinePrice',$resp);
+		$this->smarty->assign('airlinePrice',$priceData);
 		$this->smarty->assign('airlineID',$airlineID);
 		$this->smarty->assign('DepartDateinfo',$jiDepartDateinfo);
 		$this->smarty->assign('ArrivalDateinfo',$jiArrivalDateinfo);
@@ -479,6 +497,34 @@ class Airlines extends MY_Controller {
 		// 	] 
 		// }
 
+	}
+
+	public function scrap_natoin_code(){
+
+		$clien = new GuzzleHttp\Client();
+
+		$body = '<th data-field="name" data-sortable="true">';
+
+		$req = $clien->request('GET','https://id.wikipedia.org/wiki/Daftar_bendera_negara_di_dunia',[
+			'headers' => [
+        		'Content-Type' => 'text/plain',
+    		],
+			'body'=> $body
+		]);
+
+		$resp = $req->getBody();
+		
+		echo $resp;
+	}
+
+	public function getStringBetween($text,$sebelum,$sesudah){
+		$text= ''.$text;
+		$ini = strpos($text, $sebelum);
+		if($ini==0)
+			return '';
+		$ini +=strlen($sebelum);
+		$panjang = strripos($text, $ini, $panjang);
+		return substr($text, $ini,$panjang);
 	}
 }
 ?>

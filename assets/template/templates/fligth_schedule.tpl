@@ -260,10 +260,10 @@ ul.collection{
 <!--                                                 <label>Jenis Perjalanan</label>
  -->                                                <div>
                                                    <label class="radio radio-inline radio-square checked">
-                                                   <input type="radio" name="route_type" checked="checked" value="1">Oneway
+                                                   <input type="radio" name="route_type" checked="checked" value="1" id="cb_one_way">Oneway
                                                    </label>
                                                    <label class="radio radio-inline radio-square">
-                                                   <input type="radio" name="route_type" value="2">Roundtrip
+                                                   <input type="radio" name="route_type" value="2" id="cb_round_trip">Roundtrip
                                                    </label>
                                                 </div>
                                              </div>
@@ -275,14 +275,14 @@ ul.collection{
                                                 <div class="col-md-6">
                                                    <label>Keberangkatan</label>
                                                    <div class="datepicker-wrap-order">
-                                                      <input type="text" id="startdate" class="input-text full-width" placeholder="select date" autocomplete="off"/>
+                                                      <input type="text" id="startdate" class="input-text full-width" placeholder="select date" autocomplete="off" name="depart_date"/>
                                                    </div>
                                                 </div>
 
                                                 <div class="col-md-6">
                                                    <label>Kepulangan</label>
                                                    <div class="datepicker-wrap-order">
-                                                      <input type="text" id="enddate" class="input-text full-width" placeholder="select date" autocomplete="off"/>
+                                                      <input type="text" id="enddate" class="input-text full-width" placeholder="select date" autocomplete="off" name="return_date"/>
                                                    </div>
                                                 </div>
                                              </div>
@@ -292,7 +292,7 @@ ul.collection{
                                                 <div class="col-md-4">
                                                   <label>Dewasa</label> 
                                                    <div class="selector" style="text-align: left;">
-                                                      <select id="num_participant_adult" style="width: 170px">
+                                                      <select id="num_participant_adult" style="width: 170px" name="adultPax">
                                                          <option value="1">1</option>
                                                          <option value="2">2</option>
                                                          <option value="3">3</option>
@@ -309,7 +309,7 @@ ul.collection{
                                                 <div class="col-md-4">
                                                   <label>Anak</label> 
                                                    <div class="selector" style="text-align: left;">
-                                                      <select id="num_participant_child" style="width: 170px">
+                                                      <select id="num_participant_child" style="width: 170px" name="childPax">
                                                          <option value="0">0</option>
                                                          <option value="1">1</option>
                                                          <option value="2">2</option>
@@ -327,7 +327,7 @@ ul.collection{
                                                 <div class="col-md-4">
                                                   <label>Bayi</label> 
                                                    <div class="selector" style="text-align: left;">
-                                                      <select id="num_participant_infant" style="width: 170px">
+                                                      <select id="num_participant_infant" style="width: 170px" name="infantPax">
                                                          <option value="0">0</option>
                                                          <option value="1">1</option>
                                                          <option value="2">2</option>
@@ -347,6 +347,15 @@ ul.collection{
                                                 <div class="col-md-12">
                                                    <!-- {* <hr> *} -->
                                                    <a href="#" class="button green btn-small full-width"><span id="search_msg"></span></a>
+                                                </div>
+                                             </div>
+                                             <div class="row" style="display:none;" id="chapca_info">
+                                                <div class="col-md-3">
+                                                   <!-- {* <hr> *} -->
+                                                   <img src="" alt="" id="myChapca" style="width: 91px;position: relative;left: 1px;border-radius: 10%;">
+                                                </div>
+                                                <div class="col-md-5">
+                                                  <input type="text" id="airlineaccessCode" class="input-text full-width" placeholder="input chapca" autocomplete="off" name="airlineaccessCode" style="position: relative;top: -1px;left: -39px;height: 39px;">
                                                 </div>
                                              </div>
                                              <div style="display:none;margin-top: 20px;" id="package_chooser_domestic">
@@ -376,286 +385,289 @@ ul.collection{
                     </div>
 <script type="text/javascript">
 
-               jQuery(document).ready(function($) {
-                   $('form').submit(function(e) {
-                       e.preventDefault();
-                   });
+jQuery(document).ready(function($) {
+
+  $('form').submit(function(e) {
+    e.preventDefault();
+  });
                    
                   
-                  $(".airlines_id").focus(function () {
-                      $('#maskapai-list').slideDown("fast");
-                      $('#depart-list').slideUp("fast");
-                      $(".airlines_id").addClass("airline-input");
-                  })
+  $(".airlines_id").focus(function () {
+      $('#maskapai-list').slideDown("fast");
+      $('#depart-list').slideUp("fast");
+      $(".airlines_id").addClass("airline-input");
+  })
 
-                  $("#cb_depart").change(function() {
-                       // set_package();
-                  });
-               
-                   $("#cb_dest").change(function() {
-                       // set_package();
-                   });
-               
-                   $("#startdate").change(function() {
-                       set_package();
-                   });
-                   // $("#name").prop("disabled", false);
-                   $("#enddate").prop("disabled", true);
+  $("#cb_airlines").change(function () {
+      set_package();
+  })
 
-                   $("#enddate").change(function() {
-                        set_package();
-                   });
+  $("#cb_depart").change(function() {
+       // set_package();
+  });
                
-                   $("#num_participant").change(function() {
-                        set_package();
-                   });
+  $("#cb_dest").change(function() {
+      // set_package();
+  });
                
-                   $("#cb_family").change(function() {
-                        set_package();
-                   });
+  $("#startdate").change(function() {
+      set_package();
+  });
+ 
+  $("#enddate").prop("disabled", true);
+
+  $("#enddate").change(function() {
+    set_package();
+  });
+               
+  $("#num_participant").change(function() {
+    set_package();
+  });
+               
+  $("#cb_family").change(function() {
+    set_package();
+  });
                    
-                   var startdate = new Date();
+  var startdate = new Date();
                    
-                   if(startdate.getDate()<10){
-                      day = '0'+startdate.getDate()
-                   }else{
-                      day = startdate.getDate()
+  if(startdate.getDate()<10){
+    day = '0'+startdate.getDate()
+  }else{
+    day = startdate.getDate()
 
-                   }
-
-                   if(startdate.getMonth()*1 < 10){
-                      var bulan = '0'+(startdate.getMonth()*1+1);
-                   }else{
-                      var bulan = (startdate.getMonth()*1+1);
-                   }
-
-                   var startdate_ymd = day+'-'+bulan+'-'+startdate.getFullYear();
-                   
-                   $("#startdate").val(startdate_ymd);
-
-                   $("#route").val("OneWay");
-
-                   if($("#route").val()=="OneWay"){
-                      
-                      $("#cb_one_way").attr("checked",true);
-                      $("#cb_one_way").prop("disabled",true);
-
-                       var a = new Date(to_ymd($('#startdate').val()));
-                          var arr_day = a.getTime()+3*24*60*60*1000;
-                          var b     = new Date(arr_day);
-                       
-                          if(b.getDate()*1 < 10){
-                             var date = '0'+b.getDate();
-                          }else{
-                             var date = b.getDate();
-                          }
-
-                          if(b.getMonth()*1 < 10){
-                             var month = '0'+(b.getMonth()*1+1);
-                          }else{
-                             var month = (b.getMonth()*1+1);
-                          }
-
-                          var new_b = date+'-'+month+'-'+b.getFullYear(); 
-                          
-                          if($("startdate")!=''){
-                            
-                            $('#enddate').val(new_b);
-
-                          }
-
-                          var diffDays    = dateDiffInDays(a, b); 
-                          console.log(diffDays);
-                   }
-
-                   $("#cb_round_trip").click(function() {
-                          
-                      $(".route_id").val("RoundTrip");
-                      $("#enddate").prop("disabled", false);
-                          
-                      if($("#route").val()=="RoundTrip"){
-                          $("#cb_one_way").attr("checked",false);
-                          $("#cb_one_way").prop("disabled",false);
-
-                          var a = new Date(to_ymd($('#startdate').val()));
-                          $('#enddate').val($('#enddate').val());
-                          var b = new Date(to_ymd($('#enddate').val()));
-                          var diffDays    = dateDiffInDays(a, b);  
-                      }                                  
-                    
-                    });
-
-                    $("#cb_one_way").click(function() {
-                          
-                      // alert('hal')
-                      $(".route_id").val("OneWay");
-                      
-                      if($("#route").val()=="OneWay"){
-
-                        $("#cb_round_trip").hide();
-                        $("#cb_one_way").prop("disabled",true);      
-                        $("#enddate").prop("disabled", true);  
-                        
-                      }                                  
-                    
-                    });                     
-
-                   function set_package(){
-                       $("#notif_searchbox").hide(200);
-                       $("#package_chooser").hide(200);
-
-                       if($("#route").val()=='OneWay') {
-
-                          var a = new Date(to_ymd($('#startdate').val()));
-                          var arr_day = a.getTime()+3*24*60*60*1000;
-                          var b     = new Date(arr_day);
-                       
-                          if(b.getDate()*1 < 10){
-                             var date = '0'+b.getDate();
-                          }else{
-                             var date = b.getDate();
-                          }
-
-                          if(b.getMonth()*1 <= 9){
-                             var bulan = '0'+(b.getMonth()*1+1);
-                          }else{
-                             var bulan = (b.getMonth()*1+1);
-                          }
-
-                          console.log(bulan);
-
-                          var new_b = date+'-'+(bulan)+'-'+b.getFullYear(); 
-                          
-                          if($("startdate")!=''){
-                            
-                            $('#enddate').val(new_b);
-
-                          }
-
-                          var diffDays    = dateDiffInDays(a, b);         
-                       }
-
-
-                       console.log($('#cb_depart').val());
-                       
-                       if($("#cb_airlines").val()==''){
-                           $("#notif_searchbox").show(200);
-                           $('#search_msg').html("Pilih Maskapai");
-                       }else if($('#cb_depart').val()==''){
-                           $("#notif_searchbox").show(200);
-                           $('#search_msg').html("Pilih Keberangkatan");
-                       } else if($('#cb_dest').val()==''){
-                           $("#notif_searchbox").show(200);
-                           $('#search_msg').html("Pilih Tujuan");
-                       } else if($('#startdate').val()==''){
-                           $("#notif_searchbox").show(200);
-                           $('#search_msg').html("Pilih Tanggal Berangkat");
-                       }  else if($('#enddate').val()==''){
-                           $("#notif_searchbox").show(200);
-                           
-                           if($("#route").val()=='RoundTrip'){
-                              $('#search_msg').html("Pilih Tanggal Kembali");
-                           }
-                       } else {
-                          $("#package_chooser_domestic").show(1000);
-                          $('#package_chooser').hide();
-                       }
-                       
-                   }
-
-                $('.departure_id').focus(function(){
-                    $('#depart-list').slideDown("fast");
-                    $('#dest-list').slideUp("fast");
-                });
-
-                $('.destination_id').focus(function(){
-                    $('#dest-list').slideDown("fast");
-                    $('#depart-list').slideUp("fast");
-                });                
-                
-                
-                $("#orderBtn4").click(function() {
-                  redirect_order($("#orderBtn4").val(),$("#user_type").val());
-                });
-
-                
-                $("#add_participant_form").click(function(){
-                    $('#form_participant').clone().appendTo('#list_participant');
-                });
-
-              function redirect_order(id,user_type){
-                
-                window.location = '{$site_url}/airlines/page?startdate='+$('#startdate').val()+'&enddate='+$('#enddate').val()+'&departure_id='+$('.depart_id').val()+'&destination_id='+$('.dest_id').val()+'&type='+$('#route').val()+'&paxAdult='+$("#num_participant_adult").val()+'&departure_name='+$('.departure_id').val()+'&destination_name='+$('.destination_id').val()+
-                  '&paxChild='+$("#num_participant_child").val()+'&paxInfant='+$("#num_participant_infant").val();  
-                 
-              }
-
-              $("#maskapai-list").click(function(){
-                    $("#maskapai-list").slideUp("fast");
-                    // $('#arrival-list').slideUp("fast");
-
-              })
-
-              $("#depart-list").click(function(){
-                    $("#depart-list").slideUp("fast");
-                    // $('#arrival-list').slideUp("fast");
-
-              }) 
-
-              $("#dest-list").click(function(){
-                  // alert('---');  
-                    $("#dest-list").slideUp("fast");
-                    // // $('#arrival-list').slideUp("fast");
-
-              })  
-
-    });
-   
-   function change(name,code) { 
-      console.log(code)
-      console.log(name)
-      
-      document.getElementById("cb_airlines").value = name + " ("+code+")";
-      document.getElementById("airlines_code").value = code;
-   }       
-
-   function change_depart(city,airport,code) { 
-      console.log(city)
-      console.log(airport)
-      console.log(code)
-      document.getElementById("cb_depart").value  =city +" ("+code+")";
-      document.getElementById("depart_code").value = code;
-   } 
-  
-   function change_arrival(city,airport,code) { 
-      console.log(city)
-      console.log(airport)
-      console.log(code)
-      document.getElementById("cb_dest").value =city +" ("+code+")";
-      document.getElementById("dest_code").value = code;
-   } 
-
-   function search_algorithm(inputid, ulid) {
-      
-      var input, filter, ul, li, a, i;
-      input = document.getElementById(inputid);
-      filter = input.value.toUpperCase();
-      ul = document.getElementById(ulid);
-      // console.log(ul);
-      li = ul.getElementsByTagName("li");
-      for (i = 0; i < li.length; i++) {
-          a = li[i].getElementsByTagName("p")[0];
-          if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-              li[i].style.display = "";
-          } else {
-              li[i].style.display = "none";
-
-          }
-      }
   }
 
- 
-  </script>
+  if(startdate.getMonth()*1 < 10){
+    var bulan = '0'+(startdate.getMonth()*1+1);
+  }else{
+    var bulan = (startdate.getMonth()*1+1);
+  }
+
+  var startdate_ymd = day+'-'+bulan+'-'+startdate.getFullYear();
+                   
+  $("#startdate").val(startdate_ymd);
+
+  $("#route").val("OneWay");
+
+  if($("#route").val()=="OneWay"){
+                      
+    $("#cb_one_way").attr("checked",true);
+    $("#cb_one_way").prop("disabled",true);
+
+    var a = new Date(to_ymd($('#startdate').val()));
+    var arr_day = a.getTime()+3*24*60*60*1000;
+    var b     = new Date(arr_day);
+                       
+    if(b.getDate()*1 < 10){
+       var date = '0'+b.getDate();
+    }else{
+       var date = b.getDate();
+    }
+
+    if(b.getMonth()*1 < 10){
+      var month = '0'+(b.getMonth()*1+1);
+    }else{
+      var month = (b.getMonth()*1+1);
+    }
+
+    var new_b = date+'-'+month+'-'+b.getFullYear();                        
+    if($("startdate")!=''){
+     $('#enddate').val(new_b);
+    }
+
+    var diffDays    = dateDiffInDays(a, b); 
+    console.log(diffDays);
+  }
+
+  $("#cb_round_trip").click(function() {
+                          
+    $(".route_id").val("RoundTrip");
+    $("#enddate").prop("disabled", false);
+                            
+    if($("#route").val()=="RoundTrip"){
+       $("#cb_one_way").attr("checked",false);
+       $("#cb_one_way").prop("disabled",false);
+
+       var a = new Date(to_ymd($('#startdate').val()));
+       $('#enddate').val($('#enddate').val());
+       var b = new Date(to_ymd($('#enddate').val()));
+       var diffDays    = dateDiffInDays(a, b);  
+    }                                                     
+  });
+
+  $("#cb_one_way").click(function() {
+                          
+    $(".route_id").val("OneWay");
+                      
+    if($("#route").val()=="OneWay"){
+
+      $("#cb_round_trip").hide();
+      $("#cb_one_way").prop("disabled",true);      
+      $("#enddate").prop("disabled", true);  
+                        
+    }                                  
+                    
+  });                     
+
+  function set_package(){
+    $("#notif_searchbox").hide(200);
+    $("#package_chooser").hide(200);
+
+    if($("#route").val()=='OneWay') {
+
+      var a = new Date(to_ymd($('#startdate').val()));
+      var arr_day = a.getTime()+3*24*60*60*1000;
+      var b     = new Date(arr_day);
+                       
+      if(b.getDate()*1 < 10){
+         var date = '0'+b.getDate();
+      }else{
+         var date = b.getDate();
+      }
+
+      if(b.getMonth()*1 <= 9){
+        var bulan = '0'+(b.getMonth()*1+1);
+      }else{
+        var bulan = (b.getMonth()*1+1);
+      }
+
+      var new_b = date+'-'+(bulan)+'-'+b.getFullYear(); 
+                          
+      if($("startdate")!=''){
+        $('#enddate').val(new_b);
+
+      }
+
+      var diffDays    = dateDiffInDays(a, b);         
+    }
+                       
+    if($("#cb_airlines").val()==''){
+      $("#notif_searchbox").show(200);
+      $('#search_msg').html("Pilih Maskapai");
+    }else if($('#cb_depart').val()==''){
+      $("#notif_searchbox").show(200);
+      $('#search_msg').html("Pilih Keberangkatan");
+    } else if($('#cb_dest').val()==''){
+      $("#notif_searchbox").show(200);
+      $('#search_msg').html("Pilih Tujuan");
+    } else if($('#startdate').val()==''){
+      $("#notif_searchbox").show(200);
+      $('#search_msg').html("Pilih Tanggal Berangkat");
+    }  else if($('#enddate').val()==''){
+      $("#notif_searchbox").show(200);
+                           
+      if($("#route").val()=='RoundTrip'){
+        $('#search_msg').html("Pilih Tanggal Kembali");
+      }
+    } else{
+      
+      $("#package_chooser_domestic").show(1000);
+      $('#package_chooser').hide();
+
+      // console.log($("form").serialize());
+
+      $.ajax({
+        url:'{$base_url}/home/ajax_response',
+        method:'POST',
+        data:$("form").serialize(),
+        dataType: 'json',
+        success:function(data){
+         // var obj = JSON.parse(data);
+         var img = '{$base_url}upload/chapca/'+data.img;
+         $("#myChapca").attr("src",img);
+         $("#chapca_info").show();
+         console.log(data.img);
+
+        },
+        failed:function(data){
+
+        }
+      })
+    }
+                       
+  }
+
+  $('.departure_id').focus(function(){
+      $('#depart-list').slideDown("fast");
+      $('#dest-list').slideUp("fast");
+  });
+
+  $('.destination_id').focus(function(){
+      $('#dest-list').slideDown("fast");
+      $('#depart-list').slideUp("fast");
+  });                
+                
+                
+  $("#orderBtn4").click(function() {
+      redirect_order($("#orderBtn4").val(),$("#user_type").val());
+  });
+
+                
+  $("#add_participant_form").click(function(){
+      $('#form_participant').clone().appendTo('#list_participant');
+  });
+
+  function redirect_order(id,user_type){
+                
+    window.location = '{$site_url}/airlines/page?startdate='+$('#startdate').val()+'&enddate='+$('#enddate').val()+'&departure_id='+$('.depart_id').val()+'&destination_id='+$('.dest_id').val()+'&type='+$('#route').val()+'&paxAdult='+$("#num_participant_adult").val()+'&departure_name='+$('.departure_id').val()+'&destination_name='+$('.destination_id').val()+'&paxChild='+$("#num_participant_child").val()+'&paxInfant='+$("#num_participant_infant").val()+'&airlineAccessCode='+$("#airlineaccessCode").val();  
+                 
+  }
+
+  $("#maskapai-list").click(function(){
+    $("#maskapai-list").slideUp("fast");
+    
+  })
+
+  $("#depart-list").click(function(){
+    $("#depart-list").slideUp("fast");
+    
+  }) 
+
+  $("#dest-list").click(function(){
+    $("#dest-list").slideUp("fast");  
+  })  
+
+});
+   
+function change(name,code) { 
+      
+  document.getElementById("cb_airlines").value = name + " ("+code+")";
+  document.getElementById("airlines_code").value = code;
+
+}       
+
+function change_depart(city,airport,code) { 
+      
+  document.getElementById("cb_depart").value  =city +" ("+code+")";
+  document.getElementById("depart_code").value = code;
+
+} 
+  
+function change_arrival(city,airport,code) { 
+     
+  document.getElementById("cb_dest").value =city +" ("+code+")";
+  document.getElementById("dest_code").value = code;
+
+} 
+
+function search_algorithm(inputid, ulid) {
+      
+  var input, filter, ul, li, a, i;
+  input = document.getElementById(inputid);
+  filter = input.value.toUpperCase();
+  ul = document.getElementById(ulid);
+  li = ul.getElementsByTagName("li");
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("p")[0];
+    if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+
+    }
+  }
+}
+</script>
 
     <script src="{$base_url}assets/libs/imageslider/examples-bootstrap/docs.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

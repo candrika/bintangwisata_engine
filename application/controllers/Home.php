@@ -24,17 +24,16 @@ class Home extends MY_Controller {
 			]
 		]);
 
-		// var_dump($request);
 		$respone = json_decode($request->getBody());
 
-		// print_r($respone);
-		if($respone->status=='SUCCESS'){
-			$this->session->set_userdata(array('apikey'=>$response_obj->accessToken,'userID'=>$response_obj->userID));
+		// print_r($respone->data);
+		if($respone->data->status=='SUCCESS'){
+			$this->session->set_userdata(array('apikey'=>$respone->data->accessToken,'userID'=>$respone->data->userID));
 		} 
 
 		$q = $this->db->query("SELECT *,DATE_FORMAT(now(),'%Y-%m-%d') FROM slider_image WHERE TRUE and deleted=0 and status=1 and deleted=0 
-								  AND startdate <= DATE_FORMAT(now(),'%Y-%m-%d')
-								  AND enddate >= DATE_FORMAT(now(),'%Y-%m-%d')");
+							   AND startdate <= DATE_FORMAT(now(),'%Y-%m-%d')
+							   AND enddate >= DATE_FORMAT(now(),'%Y-%m-%d')");
 	
 			
 		$data = $q->result_array();
@@ -64,26 +63,54 @@ class Home extends MY_Controller {
 		$this->smarty->display('app_template.tpl');	
 	}
 
-	// function get_auth($userID,$password){
+	function ajax_response(){
+		$response_array=array(
+			"userID" =>$this->session->userdata('userID'),
+			"accessToken"=>$this->session->userdata('apikey'),
+			"origin" => $this->input->post('depart_code'),
+			"destination" => $this->input->post('dest_code'),
+			"tripType" => $this->input->post('route_id'),
+			"departDate" => $this->input->post('depart_date'),
+			"paxAdult" => $this->input->post('adultPax'),
+			"paxChild" => $this->input->post('childPax'),
+			"paxInfant" => $this->input->post('infantPax'),
+			"airlineAccessCode" =>null,
+			"cacheType" => "FullLive",
+			"isShowEachAirline" => false
+		);
 
-	// 	$token = date("Y-m-d\TH:i:s.uP");
-	// 	//generate securityCode 
-	// 	$securityCode =MD5($token.MD5($password)); 
+		$request = $this->rest_client->post('Flight/searchAirline',[
+			'form_params'=>$response_array
+			// 'http_erros'
+		]);
 
-	// 	$request = $this->rest_client->post('user_session/login_session',[
-	// 		'form_params'=>[
-	// 			'userID'=>$userID,
-	// 			'pass'=>$password,
-	// 			'token'=>$token,
-	// 			'securityCode'=>$securityCode
-	// 		]
-	// 	]);
+		$response = json_decode($request->getBody());
 
-	// 	$respone = $request->getBody();
+		// print_r($response);
+		$decode = $response->data;
+		
+		// if($decode->status=='FAILED'){
+			// print_r($response);
+			// $this->logout_session();
+		// }else{
+			$img = $this->decodeImg($decode->airlineAccessCode);
+			echo json_encode(array('img'=>$img));
+		// }
+		
+	}
 
-	// 	echo $respone;
-	// 	// return $respone;
-	// }
+	function decodeImg($String){
+
+		$file_chapcha = date('YmsHms')."_CHAPCA_".rand('1111','99999').'.png';
+
+		//save to directory
+		$file = fopen("./upload/chapca/$file_chapcha","wb");
+		
+		fwrite($file, base64_decode($String));
+		fclose($file);
+
+		return $file_chapcha;
+	}
 
 	function save_question(){
 		$this->load->helper('text');

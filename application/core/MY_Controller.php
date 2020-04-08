@@ -67,7 +67,7 @@ class MY_Controller extends CI_Controller{
             }
         }
 
-        $this->rest_client = new GuzzleHttp\Client(['base_uri' =>API_URL,'curl' => array( CURLOPT_SSL_VERIFYPEER => false ,CURLOPT_SSL_VERIFYHOST=>FALSE),'header'=>array('Accept' => 'application/json')]);
+        $this->rest_client = new GuzzleHttp\Client(['base_uri' =>API_INTERNAL,'curl' => array( CURLOPT_SSL_VERIFYPEER => false ,CURLOPT_SSL_VERIFYHOST=>FALSE),'header'=>array('Accept' => 'application/json')]);
 
         $this->load->model('m_news');
         $this->smarty->assign('footer_news', $this->m_news->get_news(4));   
@@ -112,6 +112,34 @@ class MY_Controller extends CI_Controller{
     function assets_url()
     {
         return base_url().'/assets/tpl/';
+    }
+
+    public function logout_session()
+    {
+        // print_r($this->);
+        $userID = $this->session->userdata('userID');
+        $accessToken = $this->session->userdata('userID');
+        $token = date("Y-m-d\TH:i:s.uP");
+        
+        $request = $this->rest_client->post('user_session/logout_session',[
+            'form_params'=>[
+                'userID'=>$userID,
+                'accessToken'=>$accessToken,
+                'token'=>$token,
+                // 'securityCode'=>$securityCode
+            ]
+        ]);
+
+        $respone = json_decode($request->getBody());
+        
+        if($respone->status=="SUCCESS"){
+            $this->session->sess_destroy();
+            // redirect('login');  
+            
+        }else{
+            redirect('logout');
+        }
+        
     }
 }
 ?>

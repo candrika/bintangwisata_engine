@@ -94,5 +94,5 @@ define('DOCUMENTROOT',$_SERVER['DOCUMENT_ROOT'].'/'.DIR_APP);
 
 define('ADMIN_URL','http://localhost/jasindotravel_admin');
 define('API_URL','http://localhost/travel_api/'); 
-define('API_INTERNAL','http://api.bintangwisata.com/index.php/'); 
+define('API_INTERNAL','https://api.bintangwisata.com/index.php/'); 
 // define('API_INTERNAL','http://localhost/api_internal_bintang_wisata/index.php/'); 
