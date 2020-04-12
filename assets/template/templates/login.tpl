@@ -63,9 +63,13 @@
                                                             <label>Password</label>
                                                             <input type="password" name="password" class="input-text input-large full-width" placeholder="enter your password">
                                                         </div>
+                                                         <div class="form-group input-password">
+                                                            <label>Password</label>
+                                                            <input type="hidden" name="prod_id" class="input-text input-large full-width" value="{$prod_id}">
+                                                        </div>
                                                         {if $message neq null}
                                                         <div class="alert alert-notice">
-                                                           {$message}
+                                                        {$message}
                                                         </div>
                                                         {/if}
                                                         <button type="submit" class="btn-large full-width yellow">

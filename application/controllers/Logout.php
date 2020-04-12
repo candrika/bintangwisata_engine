@@ -24,11 +24,10 @@ class Logout extends MY_Controller {
 		// die;
 		if($respone->data->status=="SUCCESS"){
 			$this->session->sess_destroy();
-			// echo base_url('home');
-			redirect('');	
+			redirect('home');
 			
 		}else{
-			// redirect('logout');
+			redirect('logout');
 		}
 		
 	}

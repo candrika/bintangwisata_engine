@@ -13,10 +13,10 @@
                                  <a href="{$site_url}">Pesawat</a>
                               </li>
                                <li>
-                                 <a href="{$site_url}/page/benefit_jasindo_travel">Topup</a>
+                                 <a href="{$site_url}/page/topup">Topup</a>
                               </li>
                                <li>
-                                 <a href="{$site_url}/page/cara_pembayaran">PPOB</a>
+                                 <a href="{$site_url}/page/ppob">PPOB</a>
                               </li>
                                <li>
                                 

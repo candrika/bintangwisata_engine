@@ -6,6 +6,7 @@ class Login extends MY_Controller {
 	public function index()
 	{
 		$this->smarty->assign('message',null);
+		$this->smarty->assign('prod_id',null);
 		$this->smarty->assign('content_tpl', 'login.tpl');	
 		$this->smarty->display('app_template.tpl');	
 	}
@@ -128,6 +129,7 @@ class Login extends MY_Controller {
 
 		if($_POST){
 			$mode = $this->input->post('mode');
+			$prod_id = $this->input->post('prod_id');
 
 			$q = $this->db->get_where('users',array(
 				'email'=>$this->input->post('email'),
@@ -137,78 +139,60 @@ class Login extends MY_Controller {
 				$d = $q->result_array()[0];
 				$this->session->set_userdata($d);
 
-				if($d['user_type_id']!=1 and $d['user_type_id']!=4){
-						$qins = $this->db->query("select a.*,
-									case 
-									when gender= 1 then 'Pria'
-									else 'wanita' end as gender_name
-									from insured a
-									where a.user_id = ".$d['user_id']." ")->result_array()[0];
-						// $qins = $this->db->get_where('insured',array('user_id'=>$d['user_id']))->result_array()[0];
-						$this->session->set_userdata($qins);
-				} else {
-					$qins['insured_id'] = null;
+				// $this->session->set_userdata(array('logged'=>true));
+
+				$cek_member = $this->db->get_where('member',array(
+					'email'=>$this->input->post('email'),
+					'password'=>$this->input->post('password')
+				));
+
+				if($cek_member->num_rows() > 0){
+					
+					$r_member = $cek_member->row(); 
+
+					$userID   = 'HMU5EGTRA2';
+					$password = 'HMU555TRA2';
+					
+					
+					$token = date("Y-m-d\TH:i:s.uP");
+					$securityCode =MD5($token.MD5($password)); 
+					
+					$request = $this->rest_client->post('user_session/login_session',[
+						'form_params'=>[
+							'userID'=>$userID,
+							'pass'=>$password,
+							'token'=>$token,
+							'securityCode'=>$securityCode
+						]
+					]);
+
+					$respone = json_decode($request->getBody());
+
+					if($respone->data->status=='SUCCESS'){
+						// $this->session->sess_destroy();
+						$this->session->set_userdata(array(
+								'apikey'=>$respone->data->accessToken,
+								'userID'=>$respone->data->userID,
+								'member_id'=>$r_member->id_member,
+								'id_member_type'=>$r_member->id_member_type,
+								'real_name'=>$r_member->real_name,
+								'logged'=>true
+							)
+						);	
+						
+						$prod = $this->db->get_where('product',array('prod_id'=>$prod_id))->row();
+
+						redirect("$prod->prod_name");
+
+					}else{
+
+					} 
+					
+				}else{
+					$this->smarty->assign('message', '<font color=red>Anda belum memiliki akun</font>');	
+					$this->smarty->assign('content_tpl', 'login.tpl');		
+					$this->smarty->display('app_template.tpl');	
 				}
-			
-				$this->session->set_userdata(array('logged'=>true));
-
-				if($mode=='ajax'){
-					
-					echo json_encode(array(
-						'success'=>true,
-						'message'=>'Login berhasil',
-						'insured_id'=>$qins['insured_id'],
-						'user_id'=>$qins['user_id'],
-						'fullname'=>$qins['firstname'].' '.$qins['lastname']));
-				} else {
-					if($d['user_type_id']==1){
-						redirect('admin_panel');
-					} else if($d['user_type_id']==3){
-						$q = $this->db->get_where("insured",array('user_id'=>$user_id,'deleted'=>0));
-
-						if($q->num_rows() > 0){
-							$insured=$q->result_array()[0];
-							$this->session->set_userdata($insured);
-						}					
-					
-						redirect('user_panel');
-					
-					}else if($d['user_type_id']==4){
-						$user_id=$d['user_id'];
-						
-						$q = $this->db->get_where("intermediary",array('user_id'=>$user_id,'deleted'=>0));
-						$cek_actived=$q->row();
-						// $this->session->set_userdata($cek_actived);
-												
-						if($q->num_rows()>0){
-							if($cek_actived->status==1){
-								$this->smarty->assign('message', '<font color=red>Akun anda masih dalam tahap verifikasi</font>');	
-								$this->smarty->assign('content_tpl', 'login.tpl');		
-								$this->smarty->display('app_template.tpl');	
-							}else if($cek_actived->status==4){
-								$this->smarty->assign('message', '<font color=red>Akun anda telah ditolak</font>');	
-								$this->smarty->assign('content_tpl', 'login.tpl');		
-								$this->smarty->display('app_template.tpl');
-							}else{
-								// print_r($q->row());
-								$this->session->set_userdata($q->result_array()[0]);
-								redirect("intermediary/profile_intermediary");
-								// print_r($this->session->userdata());
-							}	
-
-						}if($mode=='ajax'){
-							echo json_encode(array(
-								'success'=>false,
-								'message'=>'<font color=red>Anda Belum terdaftar sebagai intermediary</font>'));
-						} else {
-							$this->smarty->assign('message', '<font color=red>Anda Belum terdaftar sebagai intermediary</font>');	
-							$this->smarty->assign('content_tpl', 'login.tpl');		
-							$this->smarty->display('app_template.tpl');	
-						}
-						
-					}	
-				}
-						
 				
 			} else {
 				if($mode=='ajax'){
@@ -216,6 +200,7 @@ class Login extends MY_Controller {
 						'success'=>false,
 						'message'=>'<font color=red>Email atau password salah</font>'));
 				} else {
+					$this->smarty->assign('prod_id',$prod_id);
 					$this->smarty->assign('message', '<font color=red>Email atau password salah</font>');	
 					$this->smarty->assign('content_tpl', 'login.tpl');		
 					$this->smarty->display('app_template.tpl');	

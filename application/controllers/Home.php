@@ -26,7 +26,7 @@ class Home extends MY_Controller {
 
 		$respone = json_decode($request->getBody());
 
-		// print_r($respone->data);
+		print_r($respone->data);
 		if($respone->data->status=='SUCCESS'){
 			$this->session->set_userdata(array('apikey'=>$respone->data->accessToken,'userID'=>$respone->data->userID));
 		} 
