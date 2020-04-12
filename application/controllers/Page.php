@@ -102,11 +102,12 @@ class Page extends MY_Controller {
 	// 	$this->smarty->display('app_template.tpl');	
 	// }
 
-	// function hubungi_kami(){
-	// 	$this->smarty->assign('site_title','Hubungi Kami - '.$this->settings['site_title']);
-	// 	$this->smarty->assign('site_description','Hubungi asuransi perjalanan Jasindo Travel');
-	// 	$this->smarty->assign('home_opt',null);
-	// 	$this->smarty->assign('content_tpl', 'hubungi_kami.tpl');	
-	// 	$this->smarty->display('app_template.tpl');	
-	// }
+	function hubungi_kami(){
+		$this->smarty->assign('site_title','Hubungi Kami - '.$this->settings['site_title']);
+		$this->smarty->assign('site_description','Hubungi asuransi perjalanan Jasindo Travel');
+		$this->smarty->assign('home_opt',null);
+		$this->smarty->assign('content_tpl', 'hubungi_kami.tpl');	
+		$this->smarty->display('app_template.tpl');	
+	}
+	
 }
