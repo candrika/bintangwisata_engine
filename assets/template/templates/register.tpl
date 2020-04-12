@@ -51,7 +51,7 @@
                                           <div class="title-container">
                                              <h2 class="search-title">Daftar</h2>
                                              <p>Masukan data-data yang dibutuhkan melalui form dibawah ini.</p>
-                                             <i class="soap-icon-plane-right takeoff-effect"></i>
+                                             <i class="soap-icon-doc-plus"></i>
                                           </div>
                                          <div class="search-content">
 <!--                                              <h5 class="title">Profil</h5>
@@ -150,52 +150,6 @@
                                                     <!-- </div> -->
                                                 </div>
                                              </div>
-
-                                             <hr>
- 
-                                            <h5 class="title">DATA KELUARGA YANG BISA DIHUBUNGI</h5>
-                                             <div class="row">
-                                                <div class="col-md-12">
-                                                   <label>Nama Lengkap</label>
-                                                   <!-- <div class="datepicker-wrap-order"> -->
-                                                      <input type="text" id="heirs_name"name="heirs_name" class="input-text full-width" placeholder="Masukkan Nama Lengkap Ahli Waris"/>
-													                            <span id="heirs_name_ch">
-                                                   <!-- </div> -->
-                                                </div>
-                                             </div>
-                                              <div class="row">
-                                                <div class="col-md-6">
-                                                   <label>Tanggal Lahir</label>
-                                                   <div class="datepicker-wrap-order">
-                                                      <input type="text" id="heirs_birthdate" name="heirs_birthdate" class="input-text full-width" placeholder="Masukkan Tanggal Lahir Ahli Waris"/>
-													                           <span id="heirs_birthdate_ch">
-                                                   </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                   <label>No KTP/KITAS/PASSPORT</label>
-                                                   <!-- <div class="datepicker-wrap-order"> -->
-                                                      <input type="text" id="heirs_identity_no" name="heirs_identity_no" class="input-text full-width" placeholder="Masukkan No KTP/KITAS/PASSPORT Ahli Waris"/>
-													                            <span id="heirs_identity_no_ch">
-                                                   <!-- </div> -->
-                                                </div>
-                                             </div>
-                                             <div class="row">
-                                                <div class="col-md-6">
-                                                   <label>No Handphone</label>
-                                                   <!-- <div class="datepicker-wrap-order"> -->
-                                                      <input type="text" id="heirs_phone" name="heirs_phone" class="input-text full-width" placeholder="Masukkan No Handphone Ahli Waris"/>
-													                            <span id="heirs_phone_ch">
-                                                   <!-- </div> -->
-                                                </div>
-                                                <div class="col-md-6">
-                                                   <label>No Telepon</label>
-                                                   <!-- <div class="datepicker-wrap-order"> -->
-                                                      <input type="text" id="heirs_phone1" name="heirs_phone1" class="input-text full-width" placeholder="Masukkan No No Telepon Waris"/>
-													                            <span id="heirs_phone1">
-                                                   <!-- </div> -->
-                                                </div>
-                                             </div>
-
                                              <br>
                                                    <button id="btn_submit_register" class="button btn-large sky-blue1" style="width:100%;" id="btn_register">Daftar
                                           </div>

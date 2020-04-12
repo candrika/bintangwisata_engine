@@ -28,7 +28,7 @@
                                  <a href="{$site_url}/intermediary/register">Intermediary</a>
                               </li> -->
                               <li>
-                                  <a href="#">Tentang Kami</a>
+                                  <a href="{$site_url}/page/hubungi_kami">Tentang Kami</a>
                                    <ul>
                                       <!--  <li> <a href="{$site_url}/page/tentang_jasindo_travel">Tentang Jasindo Travel</a></li>
                                        <li> <a href="{$site_url}/page/syarat_dan_ketentuan">Syarat dan Ketentuan</a></li>

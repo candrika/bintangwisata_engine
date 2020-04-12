@@ -50,7 +50,8 @@
                                           <div class="title-container">
                                              <h2 class="search-title">Masuk Ke Dalam Akun Anda</h2>
                                              <!-- <p>Ensure Your Travel.</p> -->
-                                             <i class="soap-icon-plane-right takeoff-effect"></i>
+                                             <!-- <i class="fas fa-user"></i> -->
+                                             <i class="glyphicon glyphicon-user"></i>
                                           </div>
                                           <div class="search-content">
                                                 
@@ -63,28 +64,31 @@
                                                             <label>Password</label>
                                                             <input type="password" name="password" class="input-text input-large full-width" placeholder="enter your password">
                                                         </div>
-                                                         <div class="form-group input-password">
+                                                       <!--  <div class="form-group input-password">
                                                             <label>Password</label>
                                                             <input type="hidden" name="prod_id" class="input-text input-large full-width" value="{$prod_id}">
-                                                        </div>
+                                                        </div> -->
                                                         {if $message neq null}
                                                         <div class="alert alert-notice">
                                                         {$message}
                                                         </div>
                                                         {/if}
-                                                        <button type="submit" class="btn-large full-width yellow">
-                                                            Masuk
+                                                        <a href="" id="forgot_btn" class="dark-blue2" style="margin-top:10px;    color: #01a6f5;">Lupa Kata Kunci?</a> | <a href="" id="register_btn" class="dark-blue2" style="margin-top:10px;color: #01a6f5;">Belum Punya Akun? Daftar Disini!</a>
+                                                        <br>
+                                                        <br>
+                                                        <button type="submit" class="btn-large full-width light-orange">
+                                                            Login
                                                             <i class="soap-icon-check circle"></i>
                                                         </button>
                                                        
                                                         <center>
-                                                        <button id="forgot_btn" class="btn-medium sky-blue1" style="margin-top:10px;">
+                                                       <!--  <button id="forgot_btn" class="btn-medium dark-blue2" style="margin-top:10px;">
                                                             Lupa Kata Kunci?
                                                         </button>
 
-                                                         <button id="register_btn" class="btn-medium sky-blue1" style="margin-top:10px;">
+                                                         <button id="register_btn" class="btn-medium dark-blue2" style="margin-top:10px;">
                                                             Belum Punya Akun? Daftar Disini!
-                                                        </button>
+                                                        </button> -->
                                                     </form>
                                           </div>
                                        
