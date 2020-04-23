@@ -25,8 +25,8 @@ class Home extends MY_Controller {
 		]);
 
 		$respone = json_decode($request->getBody());
-
-		print_r($respone->data);
+		
+		// print_r($respone->data);
 		if($respone->data->status=='SUCCESS'){
 			$this->session->set_userdata(array('apikey'=>$respone->data->accessToken,'userID'=>$respone->data->userID));
 		} 
@@ -59,18 +59,36 @@ class Home extends MY_Controller {
 		}	
 	
 		
+		$this->smarty->assign('userID',$this->session->userdata('userID'));	
+		$this->smarty->assign('apikey',$this->session->userdata('apikey'));	
 		$this->smarty->assign('content_tpl', 'fligth_schedule.tpl');	
 		$this->smarty->display('app_template.tpl');	
 	}
 
 	function ajax_response(){
+		
+		if($this->input->post('depart_date') !=''){
+			$depart_date = backdate2($this->input->post('depart_date'));
+		}else{
+			$depart_date = null;
+
+		}
+
+		if($this->input->post('return_date')!=''){
+			$return_date = backdate2($this->input->post('return_date'));
+
+		}else{
+			$return_date = null;
+		}
+		
 		$response_array=array(
 			"userID" =>$this->session->userdata('userID'),
 			"accessToken"=>$this->session->userdata('apikey'),
 			"origin" => $this->input->post('depart_code'),
 			"destination" => $this->input->post('dest_code'),
 			"tripType" => $this->input->post('route_id'),
-			"departDate" => $this->input->post('depart_date'),
+			"departDate" => $depart_date,
+			"returnDate" => $return_date,
 			"paxAdult" => $this->input->post('adultPax'),
 			"paxChild" => $this->input->post('childPax'),
 			"paxInfant" => $this->input->post('infantPax'),
@@ -78,7 +96,9 @@ class Home extends MY_Controller {
 			"cacheType" => "FullLive",
 			"isShowEachAirline" => false
 		);
-
+		
+		// echo json_encode($response_array);
+		
 		$request = $this->rest_client->post('Flight/searchAirline',[
 			'form_params'=>$response_array
 			// 'http_erros'
@@ -89,14 +109,8 @@ class Home extends MY_Controller {
 		// print_r($response);
 		$decode = $response->data;
 		
-		// if($decode->status=='FAILED'){
-			// print_r($response);
-			// $this->logout_session();
-		// }else{
-			$img = $this->decodeImg($decode->airlineAccessCode);
-			echo json_encode(array('img'=>$img));
-		// }
-		
+		$img = $this->decodeImg($decode->airlineAccessCode);
+		echo json_encode(array('img'=>$img));
 	}
 
 	function decodeImg($String){

@@ -200,6 +200,9 @@ ul.collection{
                                           <div class="search-content">
                                              <div class="row">
                                                 <div class="col-md-12">
+                                                   <input type="hidden" class="input-text  full-width userID" id="userID" value="userID" name="userID">
+                                                   <input type="hidden" class="input-text  full-width apikey" id="apikey" value="apikey" name="apikey">
+                                                  
                                                   <h5 class="title">Maskapai</h5>
                                                    <!-- <label>Maskapai</label> -->
                                                    <input type="hidden" class="input-text  full-width airlines_code" id="airlines_code" name="airlines_code">
@@ -257,16 +260,15 @@ ul.collection{
                                                 placeholder="Ketikkan kota tujuan" id="route" name="route_id" 
                                                 style="display:none" value=""/>
                                                 <div class="col-md-6">
-<!--                                                 <label>Jenis Perjalanan</label>
- -->                                                <div>
-                                                   <label class="radio radio-inline radio-square checked">
-                                                   <input type="radio" name="route_type" checked="checked" value="1" id="cb_one_way">Oneway
-                                                   </label>
-                                                   <label class="radio radio-inline radio-square">
-                                                   <input type="radio" name="route_type" value="2" id="cb_round_trip">Roundtrip
-                                                   </label>
+                                                  <div>
+                                                     <label class="radio radio-inline radio-square checked">
+                                                     <input type="radio" name="route_type" checked="checked" value="1" id="cb_one_way">Oneway
+                                                     </label>
+                                                     <label class="radio radio-inline radio-square">
+                                                     <input type="radio" name="route_type" value="2" id="cb_round_trip">Roundtrip
+                                                     </label>
+                                                  </div>
                                                 </div>
-                                             </div>
                                              </div>
                                              
                                              <!-- <h5 class="title">Periode</h5> -->
@@ -609,7 +611,7 @@ jQuery(document).ready(function($) {
 
   function redirect_order(id,user_type){
                 
-    window.location = '{$site_url}/airlines/page?startdate='+$('#startdate').val()+'&enddate='+$('#enddate').val()+'&departure_id='+$('.depart_id').val()+'&destination_id='+$('.dest_id').val()+'&type='+$('#route').val()+'&paxAdult='+$("#num_participant_adult").val()+'&departure_name='+$('.departure_id').val()+'&destination_name='+$('.destination_id').val()+'&paxChild='+$("#num_participant_child").val()+'&paxInfant='+$("#num_participant_infant").val()+'&airlineAccessCode='+$("#airlineaccessCode").val();  
+    window.location = '{$site_url}/airlines/page?airlines_code='+$('#airlines_code').val()+'&startdate='+$('#startdate').val()+'&enddate='+$('#enddate').val()+'&departure_id='+$('.depart_id').val()+'&destination_id='+$('.dest_id').val()+'&type='+$('#route').val()+'&paxAdult='+$("#num_participant_adult").val()+'&departure_name='+$('.departure_id').val()+'&destination_name='+$('.destination_id').val()+'&paxChild='+$("#num_participant_child").val()+'&paxInfant='+$("#num_participant_infant").val()+'&airlineAccessCode='+$("#airlineaccessCode").val();  
                  
   }
 

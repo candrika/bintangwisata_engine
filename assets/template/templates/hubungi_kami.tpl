@@ -6,7 +6,7 @@
                             <div class="gm-err-container">
 
                                 <div class="mapouter">
-                                    <div class="gmap_canvas"><iframe width="100%" height="100%" id="gmap_canvas" src="https://maps.google.com/maps?q=Menara%20MTH%2C%20Jalan%20Letnan%20Jendral%20M.T.%20Haryono%2C%20East%20Tebet%2C%20South%20Jakarta%20City%2C%20Jakarta%2C%20Indonesia&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                                    <div class="gmap_canvas"><iframe width="100%" height="100%" id="gmap_canvas" src="https://maps.google.com/maps?q=bintang%20wisata%20Jl.%20Lumbu%20Barat%20II%20No.12&amp;t=m&amp;z=10&amp;output=embed&amp;iwloc=near"
                                             frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div>
                                     <style>
                                         .mapouter {

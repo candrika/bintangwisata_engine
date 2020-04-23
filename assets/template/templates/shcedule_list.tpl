@@ -169,6 +169,54 @@ display: none;
     font: -webkit-control;
     color: #ecebe9;
 }
+ul.collection{
+  border: 1px solid #aaa;
+  /* display: none; */
+  max-height: 300px;
+  overflow-y: scroll;
+  position: absolute;
+  /* top: 104px; */
+  background: #fff;
+  width: 375px;
+  z-index: 15;
+                    
+}
+
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+ul.collection .collection-item {
+    padding: 10px 10px;
+    border-bottom: 1px solid #ccc;
+}
+ul.collection .collection-item p{
+    margin-bottom:0px;
+}
+#return_date{
+    z-index:1151 !important;
+}
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+     border-top: 1px solid #fff; 
+}
 </style>
 <section id="content" class="gray-area" style="margin-top:1%;width: 0px;">
     <div class="container">
@@ -187,7 +235,7 @@ display: none;
                                             | Anak-anak {$paxChild}
                                             {/if}
                                             {if $paxInfant !=0}
-                                            ! Bayi {$paxInfant}
+                                            | Bayi {$paxInfant}
                                             {/if}
                                     </small>
                                 </h2>    
@@ -213,17 +261,19 @@ display: none;
                                                                 <!-- </div> -->
                                                               </label>
                                                           </span>
+                                                          <!-- {foreach from=$airlines key=k item=plane} -->
                                                           <span>
                                                               <label class="labeling"  data-disabled="false">
+                                                              
                                                                 <input  type="checkbox" class="_checkbox" id="checked">
                                                                 <!-- <div> -->
                                                                   <!-- <div class="_checkbox"></div> -->
                                                                   <div class="_label">
                                                                     <!-- <img id="img_icon" src="http://localhost/bintangwisata_engine//assets/img/maskapai/{$plane.code}.png"></div> -->
                                                                 <!-- </div> -->
-                                                              </label>
-                                                              
+                                                              </label>                                                          
                                                           </span>
+                                                          <!-- {/foreach} -->
                                                         </span>
                                                     </div>
                                                 </div>
@@ -286,7 +336,7 @@ display: none;
                         </div>
                     </div>
                     <!-- Modal start here -->
-                    <div id="form-search-again" class="modal fade" role="dialog">
+                    <div id="form-search-again" class="modal fade" tabindex="-1" role="dialog">
                         <div class="modal-dialog">
                             <!-- konten modal-->
                             <div class="modal-content">
@@ -300,13 +350,14 @@ display: none;
                                     <form>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                   
+                                                   <!-- <input type="hidden" class="input-text  full-width userID" id="userID" value="userID" name="userID">
+                                                   <input type="hidden" class="input-text  full-width apikey" id="apikey" value="apikey" name="apikey"> -->
                                                    <label>Dari</label>
-                                                   <input type="hidden" class="input-text  full-width depart_id" id="depart_code" name="depart_code">
-                                                   <input type="text" class="input-text full-width departure_id" autocomplete="off" placeholder="Ketikkan kota keberangkatan" id="cb_depart" name="departure_id"  onkeyup="search_algorithm('cb_depart','depart-list')"/>
-                                                   <ul style="display:none" class="collection" id="depart-list">
+                                                   <input type="hidden" class="input-text  full-width depart_id" id="origin_code" name="depart_code">
+                                                   <input type="text" class="input-text full-width origin_id" autocomplete="off" placeholder="Ketikkan kota keberangkatan" id="cb_origin" name="departure_id"  onkeyup="search_algorithm('cb_origin','origin-list')"/>
+                                                   <ul style="display:none" class="collection" id="origin-list">
                                                           {foreach from=$depart_ul key=k item=depart}
-                                                          <li class="collection-item" onclick="change_depart('{$depart->city}','{$depart->airport_name}','{$depart->airport_code}')" id="depart-list">
+                                                          <li class="collection-item" onclick="change_departure('{$depart->city}','{$depart->airport_name}','{$depart->airport_code}')" id="origin-list">
                                                           <p class="nama_bandara title6" style="text-align: left;"> 
                                                             
                                                               <b>{$depart->city}</b> - <span style="color:#999">{$depart->airport_name}&nbsp;({$depart->airport_code})<span>
@@ -317,11 +368,11 @@ display: none;
                                                 </div>
                                                 <div class="col-md-6">
                                                    <label>Tujuan</label>
-                                                   <input type="hidden" class="input-text  full-width dest_id" id="dest_code" name="dest_code">
-                                                    <input type="text" class="input-text full-width destination_id" autocomplete="off"  onkeyup="search_algorithm('cb_dest','dest-list')" placeholder="Ketikkan kota tujuan" id="cb_dest" name="destination_id"/>
-                                                    <ul style="display:none" class="collection" id="dest-list">
+                                                   <input type="hidden" class="input-text  full-width arrival_id" id="arrival_code" name="dest_code">
+                                                    <input type="text" class="input-text full-width arrivalID" autocomplete="off"  onkeyup="search_algorithm('cb_arrival','arrival-list')" placeholder="Ketikkan kota tujuan" id="cb_arrival" name="destination_id"/>
+                                                    <ul style="display:none" class="collection" id="arrival-list">
                                                           {foreach from=$arrival_ul key=k item=arrival}
-                                                          <li class="collection-item" onclick="change_arrival('{$arrival->city}','{$arrival->airport_name}','{$arrival->airport_code}')" id="dest-list">
+                                                          <li class="collection-item" onclick="change_destination('{$arrival->city}','{$arrival->airport_name}','{$arrival->airport_code}')" id="arrival-list">
                                                           <p class="nama_bandara title6" style="text-align: left;"> 
                                                             
                                                               <b>{$arrival->city}</b> - <span style="color:#999">{$arrival->airport_name}&nbsp;({$arrival->airport_code})<span>
@@ -332,38 +383,31 @@ display: none;
                                                 </div>
                                         </div>
                                         <div class="row">
-                                                <input type="text" class="input-text full-width route_id" 
-                                                placeholder="Ketikkan kota tujuan" id="route" name="route_id" 
+                                            <input type="text" class="input-text full-width route_id" placeholder="Ketikkan kota tujuan" id="route" name="route_id" 
                                                 style="display:none" value=""/>
-                                                <div class="col-xs-6">
-                                                   <label><span style="color:#FFF;">-</span></label>
-                                                   <!-- <div class="checkbox"> -->
-                                                      <label>
-                                                      <input type="checkbox" id="mcb_one_way" value="" class="radio-square">One Way
-                                                      </label>
-                                                   <!-- </div> -->
+                                            <div class="col-md-6">
+                                                <div>
+                                                     <label class="radio radio-inline radio-square checked">
+                                                     <input type="radio" name="route_type" checked="checked" value="1" id="cb_one_way">Oneway
+                                                     </label>
+                                                     <label class="radio radio-inline radio-square">
+                                                     <input type="radio" name="route_type" value="2" id="cb_round_trip">Roundtrip
+                                                     </label>
                                                 </div>
-                                                <div class="col-xs-6">
-                                                   <label><span style="color:#FFF;">-</span></label>
-                                                   <!-- <div class="checkbox"> -->
-                                                      <label>
-                                                      <input type="checkbox" id="mcb_round_trip" value="">Round Trip
-                                                      </label>
-                                                   <!-- </div> -->
-                                                </div>
-                                             </div>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                                 <div class="col-md-6">
                                                    <label>Keberangkatan</label>
-                                                   <div class="datepicker-wrap-order">
-                                                      <input type="text" id="departdate" class="input-text full-width" placeholder="select date" autocomplete="off"/>
+                                                    <div class="datepicker-wrap">
+                                                      <input type="text" id="departure_date" class="input-text full-width" placeholder="select date" data-provide="datepicker"/>
                                                    </div>
                                                 </div>
 
                                                 <div class="col-md-6">
                                                    <label>Kepulangan</label>
-                                                   <div class="datepicker-wrap-order">
-                                                      <input type="text" id="returndate" class="input-text full-width" placeholder="select date" autocomplete="off"/>
+                                                    <div class="datepicker-wrap">
+                                                      <input type="text" id="return_date" class="input-text full-width" placeholder="select date" data-provide="datepicker"/>
                                                    </div>
                                                 </div>
                                              </div>
@@ -371,12 +415,12 @@ display: none;
                                              <div class="col-md-6">
                                                   <h5 class="title">Maskapai</h5>
                                                    <!-- <label>Maskapai</label> -->
-                                                   <input type="hidden" class="input-text  full-width airlines_code" id="airlines_code" name="airlines_code">
-                                                   <input type="text" class="input-text full-width airlines_id" autocomplete="off" placeholder="Ketikkan kota maskapai" id="cb_airlines" name="airlines_id" onkeyup="search_algorithm('cb_airlines','maskapai-list')"/>
-                                                  <ul style="display:none" class="collection" id="maskapai-list">
+                                                   <input type="hidden" class="input-text  full-width airlinesCode" id="airlinesCode" name="airlines_code">
+                                                   <input type="text" class="input-text full-width airlinesID" autocomplete="off" placeholder="Ketikkan kota maskapai" id="cb_maskapai" name="airlines_id" onkeyup="search_algorithm('cb_maskapai','item-list')"/>
+                                                  <ul style="display:none" class="collection" id="item-list">
                                                           {foreach from=$airline_list key=k item=li}
-                                                          <li class="collection-item" onclick="change('{$li->name}','{$li->code_iata}')" id="maskapai-list">
-                                                          <p class="nama_bandara title6" style="text-align: left;"> 
+                                                          <li class="collection-item" onclick="change_airlines('{$li->name}','{$li->code_iata}')" id="item-list">
+                                                          <p class="nama_bandara" style="text-align: left;"> 
                                                             <!-- {$li->name} -->
                                                               <b>{$li->name}</b> <span style="color:#999">({$li->code_iata})<span>
                                                           </p>
@@ -387,7 +431,7 @@ display: none;
                                                 <div class="col-md-2">
                                                    <label>Dewasa</label> 
                                                    <div class="selector" style="text-align: left;">
-                                                      <select id="num_participant_adult" style="width: 170px">
+                                                      <select id="num_pax_adult" style="width: 170px">
                                                          <option value="1">1</option>
                                                          <option value="2">2</option>
                                                          <option value="3">3</option>
@@ -404,7 +448,7 @@ display: none;
                                                 <div class="col-md-2">
                                                     <label>Dewasa</label> 
                                                    <div class="selector" style="text-align: left;">
-                                                      <select id="num_participant_adult" style="width: 170px">
+                                                      <select id="num_pax_child" style="width: 170px">
                                                          <option value="1">1</option>
                                                          <option value="2">2</option>
                                                          <option value="3">3</option>
@@ -421,7 +465,7 @@ display: none;
                                                 <div class="col-md-2">
                                                     <label>Dewasa</label> 
                                                    <div class="selector" style="text-align: left;">
-                                                      <select id="num_participant_adult" style="width: 170px">
+                                                      <select id="num_pax_infant" style="width: 170px">
                                                          <option value="1">1</option>
                                                          <option value="2">2</option>
                                                          <option value="3">3</option>
@@ -455,6 +499,8 @@ display: none;
                                     {$i=0}
                                     {$j=0}
                                     {$x=0}
+                                    {$xi=0}
+                                    {$xx=0}
                                     {foreach from=$data key=k item=p}
                                     <div class="booking-info clearfix">
                                         <div class="date" id="{$p->jiDepartDate}">
@@ -489,31 +535,69 @@ display: none;
                                           </div>
                                                 </h4>                                               
                                                 <dl class="info">
-                                                    <form method="post" action="{$site_url}/airlines/page_pnr/">
+                                                    {if $type eq 'OneWay'}
+                                                    <form method="post" action="{$site_url}/airlines/preview_detail/">
+                                                    {else if $type eq 'RoundTrip'}
+                                                    <form method="post" action="{$site_url}/airlines/round_trip_page/">
+
+                                                    {/if}
                                                       <!-- startdate=31-03-2020&enddate=03-04-2020&departure_id=ABU&destination_id=ABU&type=OneWay&paxAdult=1&departure_name=Atambua%20(ABU)&destination_name=Atambua%20(ABU)# -->
-                                                      <input type="hidden" value="{$p->airlineID}" name="airlineID"/>
-                                                      <input type="hidden" value="{$p->jiArrivalDate}" name="depart_date"/>
-                                                      <input type="hidden" value="{$p->jiArrivalDate}" name="arrival_date"/>
-                                                      <input type="hidden" value="{$startdate}" name="stardate_date"/>
-                                                      <input type="hidden" value="{$enddate}" name="return_date"/>
-                                                      <input type="hidden" value="{$p->jiDepartDateinfo}" name="jiDepartDateinfo"/>
-                                                      <input type="hidden" value="{$p->jiArrivalDateinfo}" name="jiArrivalDateinfo"/>
+                                                      <input type="hidden" value="{$p->airlineID}" name="airlineID" id="page_airlineID"/>
+                                                      <input type="hidden" value="{$p->jiArrivalDate}" name="depart_date" id="page_departdate"/>
+                                                      <input type="hidden" value="{$p->jiArrivalDate}" name="arrival_date" id="page_arrivaldate"/>
+                                                      <input type="hidden" value="{$return_date}" name="returndate" id="page_returndate"/>
+                                                      <input type="hidden" value="{$startdate}" name="stardate_date" id="page_stardatedate"/>
+                                                      <input type="hidden" value="{$enddate}" name="return_date" id="page_return_date"/>
+                                                      <input type="hidden" value="{$p->jiDepartDateinfo}" name="jiDepartDateinfo" id="page_Departinfo"/>
+                                                      <input type="hidden" value="{$p->jiArrivalDateinfo}" name="jiArrivalDateinfo" id="page_Arrivalinfo"/>
                                                       <input type="hidden" value="{$p->selisih}" name="selisih"/>
-                                                      <input type="hidden" value="{$departure_id}" name="departure_id"/>
-                                                      <input type="hidden" value="{$departure_name}" name="departure_name"/>
-                                                      <input type="hidden" value="{$destination_id}" name="destination_id"/>
-                                                      <input type="hidden" value="{$destination_name}" name="destination_name"/>
-                                                      <input type="hidden" value="{$paxAdult}" name="paxAdult"/>
-                                                      <input type="hidden" value="{$paxChild}" name="paxChild"/>
-                                                      <input type="hidden" value="{$paxInfant}" name="paxInfant"/>
-                                                      <input type="hidden" value="{$type}" name="type"/>
-                                                      <input type="hidden" value="{$p->journeyReference}" name="journeyReference"/>
-                                                      <input type="hidden" value="{$airlineAccessCode}" name="airlineAccessCode"/>
-                                                      <input type="hidden" value="journeyReturnReference" name="journeyReturnReference"/>
-                                                      
+                                                      <input type="hidden" value="{$departure_id}" name="departure_id" id="page_departid"/>
+                                                      <input type="hidden" value="{$departure_name}" name="departure_name" id="page_departname"/>
+                                                      <input type="hidden" value="{$destination_id}" name="destination_id" id="page_destid"/>
+                                                      <input type="hidden" value="{$destination_name}" name="destination_name" id="page_destname"/>
+                                                      <input type="hidden" value="{$paxAdult}" name="paxAdult" id="page_paxAdult"/>
+                                                      <input type="hidden" value="{$paxChild}" name="paxChild" id="page_paxChild"/>
+                                                      <input type="hidden" value="{$paxInfant}" name="paxInfant" id="page_paxInfant"/>
+                                                      <input type="hidden" value="{$type}" name="type" id="page_type"/>
+                                                      <input type="hidden" value="{$p->category}" name="category" id="category"/>
+                                                      <input type="hidden" value="{$p->category}" name="category" id="category"/>
+                                                      <input type="hidden" value="{$airlineCode}" name="airlineCode" id="airlineCode"/>
+                                                      {foreach from=$p->segment key=k item=sgm}
+                                                        
+                                                        {foreach from=$sgm->flightDetail key=k item=flg}
+                                                            <input type="hidden" value="{$flg->airlineCode}" name="flight[0]" id="flg_id"/>
+                                                            <input type="hidden" value="{$flg->flightNumber}" name="flight[1]" id="flg_id"/>
+                                                            <input type="hidden" value="{$flg->fdDepartTime}" name="flight[2]" id="flg_id"/>
+                                                            <input type="hidden" value="{$flg->fdArrivalTime}" name="flight[3]" id="flg_id"/>
+                                                            <input type="hidden" value="{$flg->fdOrigin}" name="flight[4]" id="flg_id"/>
+                                                            <input type="hidden" value="{$flg->fdDestination}" name="flight[5]" id="flg_id"/>
+                                                            <input type="hidden" value="{$flg->routeInfo}" name="flight[6]" id="flg_id"/>
+                                                        {/foreach}                                                  
+                                                        {foreach from=$sgm->availableDetail key=k item=availDetail}
+                                                            <input type="hidden" value="{$availDetail->availabityStatus}" name="available[0]" id="availDetail_id"/>
+                                                            <input type="hidden" value="{$availDetail->classiId}" name="available[1]" id="availDetail_id"/>
+                                                            <input type="hidden" value="{$availDetail->price}" name="available[2]" id="availDetail_id"/>
+                                                            <input type="hidden" value="{$availDetail->flightClass}" name="available[3]" id="availDetail_id"/>
+                                                            <input type="hidden" value="{$availDetail->subClass}" name="available[4]" id="availDetail_id"/>
+                                                            <input type="hidden" value="{$availDetail->cabin}" name="available[5]" id="availDetail_id"/>
+                                                            <input type="hidden" value="{$availDetail->airlineSegmentCode}" name="available[6]" id="availDetail_id"/>
+                                                        {/foreach} 
+                                                            <input type="hidden" value="{$sgm->garudaNumber}" name="garudaNumber" id="availDetail_id"/>
+                                                            <input type="hidden" value="{$sgm->garudaAvailability}" name="garudaAvailability" id="availDetail_id"/>
+
+                                                      {/foreach}
+                                                      <input type="hidden" value="{$p->sumPrice}" name="sumPrice" id="page_sumPrice"/>
+                                                      <input type="hidden" value="{$p->journeyReference}" name="journeyReference" id="page_journeyReference"/>
+                                                      <input type="hidden" value="{$airlineAccessCode}" name="airlineAccessCode" id="page_airlineAccessCode"/>
+                                                     
+                                                    {if $airlineCode eq "AL"}
                                                     <dt style="margin-left: 12px;text-align: center;font-size: 22pt;">Harga</dt>
                                                     <br/>
-                                                    <dd style="margin-left: 15px;text-align: center;font-size: 15pt;">Rp.&nbsp;{$p->sumPrice}</dd>
+                                                    <dd style="margin-left: 15px;text-align: center;font-size: 15pt;" id="price_all_airlines">Rp.&nbsp;{$p->sumPrice}</dd>
+                                                    {else}
+                                                    <dt style="margin-left: 12px;text-align: center;font-size: 22pt;display:none"id="header_price_airline-{$p->airlineID}-{$p->segment[{$xx}]->flightDetail[{$xi}]->flightNumber}">Harga</dt>
+                                                    <dd style="margin-left: 15px;text-align: center;font-size: 10pt;" id="{$p->airlineID}_{$p->segment[{$xx}]->flightDetail[{$xi}]->flightNumber}">Pilih kursi untuk menampilkan Harga</dd>
+                                                    {/if}
                                                     <!-- <dt> -->
                                                     <br>
                                                     <!-- <br> -->
@@ -524,7 +608,7 @@ display: none;
                                                 </dl>
                                             </div>
                                             <div class="booking-info clearfix" style="display:none" id="{$p->airlineID}_{$j++}">
-                                                 
+                                                    {$zi=0}
                                                     {foreach from=$p->segment key=k item=segment}
                                                     <div class="row">
                                                             {foreach from=$segment->flightDetail key=k item=flight}
@@ -550,7 +634,7 @@ display: none;
                                                                 </div>    
                                                             </div>
                                                             <!-- &nbsp;&nbsp;&nbsp; -->
-                                                            <div class="col-xs-3">
+                                                            <div class="col-xs-2">
                                                                 <br>
                                                                 <div style="position: relative;font-size: 11px;">{assign var="datetime" value="T"|explode:$flight->fdDepartTime}{$datetime[1]}<br>{assign var="date" value="-"|explode:$datetime[0]}{$date[2]}-{$date[1]}-{$date[0]}
                                                                 </div>
@@ -559,21 +643,43 @@ display: none;
                                                                 <div style="    position: relative;font-size: 11px;">{assign var="datetime1" value="T"|explode:$flight->fdArrivalTime}{$datetime1[1]}<br>{assign var="date1" value="-"|explode:$datetime1[0]}{$date1[2]}-{$date1[1]}-{$date1[0]}</div>
                                                                 <!--<i class="soap-icon-plane-right takeoff-effect"></i> -->
                                                             </div>
-                                                            <div class="col-xs-3">
+                                                            <div class="col-xs-2">
+                                                              <br>
                                                               <div class="row">
                                                                   <div style="font-size: 12pt;margin-left: 7px;">{$flight->depart_city}</div>
-                                                                  <div style="font-size: 21pt;float: inherit;">{$flight->depart_airports}</div>
+                                                                  <div style="font-size: 18pt;float: inherit;">{$flight->depart_airports}</div>
                                                               </div>
                                                               <div class="row"></div>
                                                               <div class="row">
                                                                   <div style="font-size: 12pt;margin-left: 7px;">{$flight->destination_city}</div>
-                                                                  <div style="font-size: 21pt;float: inherit;">{$flight->destination_airports}</div>
+                                                                  <div style="font-size: 18pt;float: inherit;">{$flight->destination_airports}</div>
                                                               </div>
-                                                            </div>    
-                                                                {/foreach}
+                                                            </div>
+                                                            {/foreach}
+                                                            <div class="col-xs-2">
+                                                                <div class="table-responsive-sm">
+                                                                    <table class="table">
+                                                                        <tr>
+                                                                        {foreach  from=$segment->availableDetail key=k item=available}
+                                                                          <td>
+                                                                            <span>{$available->flightClass}</span><br>
+                                                                                <div class="form-check">
+                                                                                    <label class="form-check-label" for="inlineRadio1">
+                                                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="{$available->flightClass}_{$p->airlineID}_{$segment->flightDetail[0]->flightNumber}" value="{$available->flightClass}" data-availabityStatus="{$available->availabityStatus}" data-classiId="{$available->classiId}" data-subClass="{$available->subClass}" data-flight-number="{$segment->flightDetail[0]->flightNumber}" data-flight-fdDepartTime="{$segment->flightDetail[0]->fdDepartTime}" data-flight-fdArrivalTime="{$segment->flightDetail[0]->fdArrivalTime}" data-garudaNumber="{$segment->garudaNumber}" data-garudaAvailability="{$segment->garudaAvailability}" onclick="choose_airline_class('{$available->flightClass}_{$p->airlineID}_{$segment->flightDetail[0]->flightNumber}')"/>
+                                                                                    </label>
+                                                                                </div>
+                                                                            <br>
+                                                                            <span>{$available->availabityStatus}</span>
+                                                                          </td>  
+                                                                        {/foreach}
+                                                                        </tr>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                                
                                                       </div> 
 
-                                                        {/foreach}
+                                                        <!-- {/foreach} -->
                                                         <!-- <div id="garis-tepi"></div> -->
                                                        <!--  <div class="col-xs-3 garis-tepi">
                                                             {foreach  from=$p->priceDepart key=k item=priceDepart}
@@ -605,110 +711,3 @@ display: none;
             <a href="#" rel="modal:close">Close</a>
         </div>
 </section>
-<script type="text/javascript">
-function myFunction(id) {
-    console.log(id);
-    var target = document.getElementById(id)
-    if (target.style.display === "none") {
-        target.style.display = "block";
-    } else {
-        target.style.display = "none";
-    }
-}
-
-// function choose_airline(element_id){
-//     console.log(element_id);
-//     if(element_id=='all_choose'){
-//         // alert('ada')
-//         document.getElementById('checked').checked=true;
-//     }
-// }
-
-var json_arr = {$data|json_encode};
-// var arr = JSON.parse(json_arr.sumPrice)
-var arr = [];
-// console.log(arr);
-jQuery(document).ready(function($) {
-
-    $("#all_choose").click(function(){
-        $("._checkbox").attr("checked",true);
-    })
-
-    console.log(json_arr[0].sumPrice);
-
-    var i=0;
-    var j=0;
-    $.each(json_arr,function(key,obj){
-        console.log(obj.sumPrice);
-        arr.push(0);
-        arr.push(obj.sumPrice.replace(',','')*1);
-        j++;
-    })
-
-    console.log(j)
-
-    var x = document.getElementById("snackbar");    
-    x.className = "show";
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-
-    // $(".chooce").click(function(){
-    //      window.location = '{$site_url}/airlines/page_pnr?';
-    // });
-   
-   $("#sort-by-name active").click(function(){
-
-   });
-
-   $("#maskapai").click(function(){
-        $(".by-name").toggle(200);
-        
-        if($(".by-name").show()){
-            $(".by-depart").hide(200)
-        }else if($(".by-rating").show()){
-            $(".by-rating").hide(200);
-        }
-   });
-
-   $("#keberangkatan").click(function(){
-        $(".by-depart").toggle(200);
-
-        if($(".by-depart").show()){
-            $(".by-name").hide(200)
-        }else if($(".by-rating").show()){
-            $(".by-rating").hide(200);
-        }
-   });
-
-   $("#harga").click(function(){
-        $(".by-rating").toggle(200);
-
-        if($(".by-rating").show()){
-            $(".by-depart").hide(200)
-        }else if($(".by-name").show()){
-            $(".by-name").hide(200);
-        }
-   });
-
-   // $("#find-ticket").click(function(){
-   //      window.location = '{$site_url}/airlines/page?';
-   // });
-   // var test =[0,500]
-
-   $(".slider").slider({
-      range: true,
-      min: 0,
-      max: arr[j-1],
-      values:arr,
-      slide: function( event, ui ) {
-        console.log(ui.value)
-
-        $( "#amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ]);
-      }
-    });
-
-   //  $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-   //    " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-   //  });
-
-});
-</script>

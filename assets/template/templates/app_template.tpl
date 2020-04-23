@@ -249,6 +249,7 @@
             <script type="text/javascript" src="{$assets_url}components/jquery.bxslider/jquery.bxslider.min.js"></script>
             <!-- parallax -->
             <script type="text/javascript" src="{$assets_url}js/jquery.stellar.min.js"></script>
+            <script type="text/javascript" src="{$base_url}assets/js/page.js"></script>
             <!-- waypoint -->
             <script type="text/javascript" src="{$assets_url}js/waypoints.min.js"></script>
             <!-- load page Javascript -->
@@ -326,7 +327,12 @@ var oldXHR = window.XMLHttpRequest;
                });
 
                 window.XMLHttpRequest = newXHR;
-
+                var ifConnected = window.navigator.onLine;
+                if (ifConnected) {
+                  // alert('Connection available');
+                } else {
+                  alert('Connection not available');
+                }
             </script>
 
 <!--Start of Tawk.to Script-->

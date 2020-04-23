@@ -9,7 +9,6 @@ class Register extends MY_Controller {
 		$this->smarty->assign('content_tpl', 'register.tpl');	
 		$this->smarty->display('app_template.tpl');	
 
-
 	}
 
 	public function user_id($pkey,$table){
@@ -63,20 +62,18 @@ class Register extends MY_Controller {
 			  'lastname' =>$this->input->post('lastname'),
 			  'address' =>$this->input->post('address'),
 			  'phone_number' =>$this->input->post('phone_number') != ''?$this->input->post('phone_number'):0,
-			  'phone_number1' =>$this->input->post('phone_number1') != ''?$this->input->post('phone_number1'):0,
 			  'identity_no' =>$this->input->post('identity_no'),
-			  'heirs_identity_no' =>$this->input->post('heirs_identity_no'),
 			  'dateregistered' =>date('Y-m-d H:m:s'),
 			  'deleted'=>0,
-			  'heirs_name' =>$this->input->post('heirs_name'),
-			  'heirs_phone' =>$this->input->post('heirs_phone') !=''?$this->input->post('heirs_phone'):0,
-			  'heirs_phone1' =>$this->input->post('heirs_phone1') !=''?$this->input->post('heirs_phone1'):0,
-			  'heirs_datebirth' =>backdate2($this->input->post('heirs_birthdate')),
-			  'policy_holder' =>$this->input->post('policy_holder'),
+			  // 'heirs_name' =>$this->input->post('heirs_name'),
+			  // 'heirs_phone' =>$this->input->post('heirs_phone') !=''?$this->input->post('heirs_phone'):0,
+			  // 'heirs_phone1' =>$this->input->post('heirs_phone1') !=''?$this->input->post('heirs_phone1'):0,
+			  // 'heirs_datebirth' =>backdate2($this->input->post('heirs_birthdate')),
+			  // 'policy_holder' =>$this->input->post('policy_holder'),
 			);			
 
 			//menyimpan ke tabel sys_user
-			$this->db->insert('insured',$data_insured);
+			$this->db->insert('member',$data_insured);
 
 			if($this->db->trans_status()===false){
 				$this->db->trans_rollback();
@@ -106,30 +103,23 @@ class Register extends MY_Controller {
 		}
 		// echo $this->input->get('email');
 		// die;
-		$q = $this->db->query("select email from users where email='".$this->input->get('email')."' and user_type_id= 3");;
+		$q = $this->db->query("select email from users where email='".$this->input->get('email')."' and user_type_id= 1");;
 		if($q->num_rows()>0){
 			$arr = json_encode(array('success'=>false,'message'=>'Email sudah terdaftar'));
 			echo $arr; die;
 		} else {
 
-			$q1 = $this->db->query("select intermediary_email from intermediary where intermediary_email='".$this->input->get('email')."'");
+			$q1 = $this->db->query("select email from member where email='".$this->input->get('email')."'");
 			
 			if($q1->num_rows()>0){
 				$arr = json_encode(array('success'=>false,'message'=>'Email sudah terpakai silahkan masukkan email yang berbeda'));
 				echo $arr; die;
 			}
-
-			$q2 = $this->db->query("select intermediary_agent_email from intermediary where intermediary_agent_email='".$this->input->get('email')."'");
 			
-			if($q2->num_rows()>0){
-				$arr = json_encode(array('success'=>false,'message'=>'Email sudah terpakai silahkan masukkan email yang berbeda'));
-				echo $arr; die;
-			}
-
-			$q3 = $this->db->query("select email from users where email='".$this->input->get('email')."' and user_type_id= 4");
+			$q3 = $this->db->query("select email from users where email='".$this->input->get('email')."' and user_type_id= 2");
 			
 			if($q3->num_rows()>0){
-				$arr = json_encode(array('success'=>false,'message'=>'Email sudah terdaftar sebagai intermediary silahkan masukkan email yang berbeda'));
+				$arr = json_encode(array('success'=>false,'message'=>'Email sudah terdaftar sebagai agent silahkan masukkan email yang berbeda'));
 				echo $arr; die;
 			}
 			
