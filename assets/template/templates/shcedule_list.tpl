@@ -595,6 +595,17 @@ ul.collection .collection-item p{
                                                     <br/>
                                                     <dd style="margin-left: 15px;text-align: center;font-size: 15pt;" id="price_all_airlines">Rp.&nbsp;{$p->sumPrice}</dd>
                                                     {else}
+                                                    <input type="hidden" value="" name="airlineCode" id="airlineID">
+                                                    <input type="hidden" value="" name="flightNumber" id="flightNumber">
+                                                    <input type="hidden" value="" name="departure_id" id="departure_id">
+                                                    <input type="hidden" value="" name="destination_id" id="destination_id">
+                                                    <input type="hidden" value="" name="detailSchedule" id="subclass">
+                                                    <input type="hidden" value="" name="fddeparttime" id="fddeparttime">
+                                                    <input type="hidden" value="" name="fdarrivaltime" id="fdarrivaltime">
+                                                    <input type="hidden" value="" name="flightClass" id="classiid">
+                                                    <input type="hidden" value="" name="garudaNumber" id="garudaNumber">
+                                                    <input type="hidden" value="" name="garudaAvailability" id="garudaAvailability">
+
                                                     <dt style="margin-left: 12px;text-align: center;font-size: 22pt;display:none"id="header_price_airline-{$p->airlineID}-{$p->segment[{$xx}]->flightDetail[{$xi}]->flightNumber}">Harga</dt>
                                                     <dd style="margin-left: 15px;text-align: center;font-size: 10pt;" id="{$p->airlineID}_{$p->segment[{$xx}]->flightDetail[{$xi}]->flightNumber}">Pilih kursi untuk menampilkan Harga</dd>
                                                     {/if}

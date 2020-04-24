@@ -86,6 +86,17 @@ function choose_airline_class(element){
     schDeparts.push({"garudaNumber":document.getElementById(element).getAttribute("data-garudaNumber")});
     schDeparts.push({"garudaAvailability":document.getElementById(element).getAttribute("data-garudaAvailability")});
     
+    document.getElementById("airlineID").value=airlineID;
+    document.getElementById("flightNumber").value=document.getElementById(element).getAttribute("data-flight-number");
+    document.getElementById("departure_id").value=departure_id;
+    document.getElementById("destination_id").value=destination_id;
+    document.getElementById("subclass").value=document.getElementById(element).getAttribute("data-subclass");
+    document.getElementById("fddeparttime").value=document.getElementById(element).getAttribute("data-flight-fddeparttime");
+    document.getElementById("fdarrivaltime").value=document.getElementById(element).getAttribute("data-flight-fdarrivaltime");
+    document.getElementById("classiid").value=document.getElementById(element).getAttribute("data-classiid");
+    document.getElementById("garudaNumber").value=document.getElementById(element).getAttribute("data-garudaNumber");
+    document.getElementById("garudaAvailability").value=document.getElementById(element).getAttribute("data-garudaAvailability");
+    
     var data = JSON.stringify({
       "airlineID":airlineID,
       "tripType":type,
