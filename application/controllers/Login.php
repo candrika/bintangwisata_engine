@@ -141,7 +141,7 @@ class Login extends MY_Controller {
 
 				// $this->session->set_userdata(array('logged'=>true));
 
-				$cek_member = $this->db->get_where('member',array(
+				$cek_member = $this->db->get_where('users',array(
 					'email'=>$this->input->post('email'),
 					'password'=>$this->input->post('password')
 				));
@@ -167,22 +167,31 @@ class Login extends MY_Controller {
 					]);
 
 					$respone = json_decode($request->getBody());
-
+					// echo $request->getBody();
+					// print_r($respone);die;
 					if($respone->data->status=='SUCCESS'){
 						// $this->session->sess_destroy();
+						// print_r($r_member);
+						// die;
 						$this->session->set_userdata(array(
 								'apikey'=>$respone->data->accessToken,
 								'userID'=>$respone->data->userID,
-								'member_id'=>$r_member->id_member,
-								'id_member_type'=>$r_member->id_member_type,
-								'real_name'=>$r_member->real_name,
+								'member_id'=>$r_member->user_id,
+								'id_member_type'=>$r_member->user_type_id,
+								'real_name'=>$r_member->firstname." ".$r_member->lastname,
 								'logged'=>true
 							)
 						);	
-						
-						$prod = $this->db->get_where('product',array('prod_id'=>$prod_id))->row();
+						// echo $prod_id;die;
+						if($prod_id!=''){
+							$prod = $this->db->get_where('product',array('prod_id'=>$prod_id))->row();
+							redirect("$prod->prod_name");
 
-						redirect("$prod->prod_name");
+						}else{
+							//$this->session->sess_destroy();
+							redirect('home');
+						}
+
 
 					}else{
 

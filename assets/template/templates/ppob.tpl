@@ -195,6 +195,69 @@ td:last-child {
 .radio-inline{
   left: -99px;
 }
+#modal-kotak{
+  margin:5% 30% 30% 30%;
+  width: 500px; 
+  height: auto;
+  position: absolute;
+  /*position:fixed;*/
+  z-index:1002;
+  display: none;
+  background: white;  
+}
+#atas{
+  font-size: 15pt;
+  padding: 20px;  
+  height: 80%;
+}
+#bawah{
+  background: #fff;
+}
+
+#tombol-bayar{  
+  background: #3ce7e7;
+}
+#tombol-bayar,#tombol{
+  height: 30px;
+  width: 100px;
+  color: #fff;
+  border: 0px;
+  margin-bottom: 21px;
+  float: right;
+  margin-right: 31px;
+}
+ 
+#tombol-tutup{  
+  background: #e74c3c;
+}
+#tombol-tutup,#tombol{
+  height: 30px;
+  width: 100px;
+  color: #fff;
+  border: 0px;
+  margin-bottom: 21px;
+  float: right;
+  margin-right: 31px;
+}
+#bg{
+  opacity:.80;
+  position: absolute;
+  display: none;
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  z-index:1001;
+  opacity: 0.8;
+}
+#tombol{
+  background: #e74c3c;        
+}
+.table{
+  font-size: 13px;
+}
 </style>
 
 <section id="content" class="gray-area" style="background: rgba(255, 255, 255, 0); margin-top: 40px; margin-bottom: 40px; border-radius: 20px;">
@@ -217,7 +280,7 @@ td:last-child {
               <div></div>  
               <div class="col-md-4 product_list">
                 <!-- <br> -->
-                <div class="pull-left _SnbR">
+                <div class="pull-left _SnbR" id="asuransi" data-product="ASURASI">
                   <div>
                      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="15px" height="15px" viewBox="0 0 15 15" enable-background="new 0 0 15 15" xml:space="preserve">  <image id="image0" width="15" height="15" x="0" y="0"
                           xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAQAAACR313BAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
@@ -234,7 +297,7 @@ td:last-child {
                   </div>
                 </div>                
                 <br>
-                <div class="pull-left _SnbR">   
+                <div class="pull-left _SnbR" id="kartu_kredit"  data-product="KARTU KREDIT">   
                   <div>
                     <svg stroke-width="0" width="16" height="16" viewBox="0 0 16 16" fill="#073E68" stroke="#073E68" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g transform="translate(0.000000,11.000000) scale(0.100000,-0.100000)"
                     fill="#000000" stroke="none">
@@ -247,7 +310,7 @@ td:last-child {
                     <span class="wfhct">KARTU KREDIT</span>
                   </div>
                 </div>
-                <div class="pull-left _SnbR">   
+                <div class="pull-left _SnbR" id="bpjs" data-product="BPJS">   
                   <div>
                     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">  <image id="image0" width="16" height="16" x="0" y="0"
                         href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
@@ -264,7 +327,7 @@ td:last-child {
                      <span class="wfhct">BPJS</span>
                   </div>
                 </div>
-                <div class="pull-left _SnbR">   
+                <div class="pull-left _SnbR" id="multi_finance" data-product="MULTI FINANCE">   
                   <div>
                     <svg stroke-width="0" width="16" height="16" viewBox="0 0 16 16" fill="#073E68" stroke="#073E68" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g transform="translate(0.000000,15.000000) scale(0.100000,-0.100000)"
                     fill="#none" fill-rule="evenodd" stroke="#073E68">
@@ -280,12 +343,12 @@ td:last-child {
                     </g></svg><span class="wfhct">MULTI FINANCE</span>
                   </div>
                 </div>
-                <div class="pull-left _SnbR">   
+                <div class="pull-left _SnbR" id="pajak_daerah" data-product="PAJAK DAERAH">   
                   <div>
                     <svg stroke-width="0" width="16" height="16" viewBox="0 0 16 16" fill="#073E68" stroke="#073E68" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g fill="none" fill-rule="evenodd"><path d="M0 0h16v16H0z"></path><path fill="#073E68" fill-rule="nonzero" d="M6 6V5a1 1 0 1 0-2 0v1H3a1 1 0 1 0 0 2h1v1a1 1 0 1 0 2 0V8h1a1 1 0 1 0 0-2H6zM5 2h1a2 2 0 1 0 4 0h1a5 5 0 0 1 5 5v6.5a1.5 1.5 0 0 1-1.5 1.5 2.803 2.803 0 0 1-2.332-1.248L12 13.5A3.369 3.369 0 0 0 9.197 12H6.803A3.369 3.369 0 0 0 4 13.5l-.168.252A2.803 2.803 0 0 1 1.5 15 1.5 1.5 0 0 1 0 13.5V7a5 5 0 0 1 5-5zm7 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path><path stroke="#073E68" stroke-linecap="round" stroke-width="2" d="M8 1v1"></path></g></svg><span class="wfhct">PAJAK DAERAH</span>
                   </div>
                 </div>
-                <div class="pull-left _SnbR">   
+                <div class="pull-left _SnbR" id="pdam" data-product="PDAM">   
                   <div>
                     <svg stroke-width="0" width="16" height="16" viewBox="0 0 16 16" fill="#073E68" stroke="#073E68" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g transform="translate(0.000000,15.000000) scale(0.100000,-0.100000)"
                     fill="#none" fill-rule="evenodd" stroke="#073E68">
@@ -297,7 +360,7 @@ td:last-child {
                 </div>
                 <br>
                 
-                <div class="pull-left _SnbR">   
+                <div class="pull-left _SnbR" id="tagihan_tv" data-product="TAGIHAN TV">   
                   <div>
                     <svg stroke-width="0" width="16" height="16" viewBox="0 0 16 16" fill="#073E68" stroke="#073E68" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                       <g transform="translate(0.000000,14.000000) scale(0.100000,-0.100000)"
@@ -312,7 +375,7 @@ td:last-child {
                      <span class="wfhct">TAGIHAN TV</span>
                   </div>
                 </div>
-                <div class="pull-left _SnbR">   
+                <div class="pull-left _SnbR" id="pgn" data-product="PGN">   
                   <div>
                     <svg stroke-width="0" width="16" height="16" viewBox="0 0 16 16" fill="#073E68" stroke="#073E68" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                       <g transform="translate(0.000000,14.000000) scale(0.100000,-0.100000)"
@@ -327,7 +390,7 @@ td:last-child {
                      <span class="wfhct">PGN</span>
                   </div>
                 </div>
-                <div class="pull-left _SnbR">   
+                <div class="pull-left _SnbR" id="pulsa_pascabayar" data-product="PULSA PASCABAYAR">   
                   <div>
                     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="12px" height="16px" viewBox="0 0 12 16" enable-background="new 0 0 12 16" xml:space="preserve">  <image id="image0" width="12" height="16" x="0" y="0"
                         xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAQCAMAAAAVv241AAAABGdBTUEAALGPC/xhBQAAACBjSFJN
@@ -344,7 +407,7 @@ td:last-child {
                   </div>
                 </div>
                 
-                <div class="pull-left _SnbR">   
+                <div class="pull-left _SnbR" id="pln" data-product="PLN">   
                   <div>
                     <svg width="16" height="16" fill="#073E68" stroke="#073E68" stroke-linecap="round" stroke-width="0" version="1.1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
                      <metadata>
@@ -363,43 +426,52 @@ td:last-child {
                 </div>
               </div>
               <div class="col-md-8 input">
-                <form>
+                <div id="bg"></div>
+                <div id="modal-kotak">
+                  <div id="atas">
+                    <table class="table" id="inquery_result">
+                      <tbody>
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                  <br>
+                  <div id="bawah">
+                    <button id="tombol-bayar">Bayar</button>
+                    <button id="tombol-tutup">Batal</button>
+                  </div>
+                </div> 
+                <form id="submit_inquery_process">
                   <div class="form-group" id="pulsa" style="margin-bottom: -5px;">
                      <div class="row">
                       <div class="col-md-9" style="width: 100%;">
                         <p></p>
-                        <!-- <label style="text-align: left;">Kode Provider</label> -->
-                        <!-- <input type="text" class="input-text full-width" id="phone_number" name="phone_number" > -->
                       </div>
                     </div>   
                     <div class="row">
                       <div class="col-md-9" style="width: 100%;">
                         <label style="text-align: left;">Kode Provider</label>
-                        <input type="text" class="input-text full-width" id="phone_number" name="phone_number" >
+                        <select id="provider_code" name="provider_code" class="input-text full-width">
+                          <option value=""></option>
+                        </select>
                       </div>
-                    </div>                  
-                    <!-- <div class="col-md-7">
-                      <label style="text-align: left;">Product</label>
-                      <input type="text" class="input-text full-width" id="phone_number" name="phone_number">
-                    </div> -->
+                    </div> 
                     <div class="row">
                       <div class="col-md-5">
                         <label style="text-align: left;">No Hp/Kode Voucher</label>
-                        <input type="text" class="input-text full-width" id="phone_number" name="phone_number">
+                        <input type="text" class="input-text full-width" id="customerMSISDN" name="customerMSISDN">
                       </div>
                       <div class="col-md-7">
                         <label style="text-align: left;">Customer ID</label>
-                        <input type="text" class="input-text full-width" id="phone_number" name="phone_number">
+                        <input type="text" class="input-text full-width" id="customerID" name="customerID">
                       </div>
                   </div>
                   <div class="col-md-5">
-                     <!--  <label style="text-align: left;">No Hp/Kode Voucher</label>
-                      <input type="number" class="input-text full-width" id="phone_number" name="phone_number"> -->
                     </div>
                    <div class="col-md-7">
                       <label style="text-align: left;"></label>
                       <div class="details text-right">
-                          <button id="orderBtn4" class="button btn-small sky-blue1"value="4" style="margin-top: 25px;">Proses</button>
+                          <button type="submit" id="inqueryBtn" class="button btn-small sky-blue1"value="4" style="margin-top: 25px;">Inquery</button>
                       </div>
                     </div>
                 </form>
@@ -433,10 +505,539 @@ function search_algorithm(inputid, ulid) {
   }
 }
 
+
+
+
 jQuery(document).ready(function($) {
 
   var x = document.getElementById("snackbar");      
   x.className = "show";
   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+
+/////////////////////////////////////////////////////////////////////////////////
+  $("#asuransi").hover(function(){
+     $(this).css("background-color", "yellow");
+    // }
+  })
+
+  $("#asuransi").mouseleave(function(){
+    $(this).css("background-color", "transparent");
+  })
+
+  $("#asuransi").click(function(){
+      $(this).css("background-color", "yellow");
+
+      $.ajax({
+        method:'POST',
+        url:SITE_URL+'ppob/get_product_category',
+        data:{
+            prod_category:$(this).data('product')
+        },
+        success:function(data){ 
+          var d = JSON.parse(data);
+          
+          if(d.length>0){
+            $.each(d,function(i,obj){
+                $("#provider_code").html("");
+                $("#provider_code").append('<option value="'+obj.code+'">'+obj.name+'</option>');
+              
+            });  
+          }else{
+              $("#provider_code").html("");
+              
+              alert("Oops Product is not available");
+          }
+        },
+        failure:function(data){
+          var d = JSON.parse(data);
+
+          console.log(data);
+        }
+      });
+  })
+
+////////////////////////////////////////////////////////////////////////
+  $("#kartu_kredit").hover(function(){
+     $(this).css("background-color", "yellow");
+    // }
+  })
+
+  $("#kartu_kredit").mouseleave(function(){
+    $(this).css("background-color", "transparent");
+  })
+
+  $("#kartu_kredit").click(function(){
+      $(this).css("background-color", "yellow");
+
+      $.ajax({
+        method:'POST',
+        url:SITE_URL+'ppob/get_product_category',
+        data:{
+            prod_category:$(this).data('product')
+        },
+        success:function(data){ 
+          var d = JSON.parse(data);
+          // console.log(d[0].code)
+          
+          if(d.length>0){
+            $.each(d,function(i,obj){
+                $("#provider_code").html("");
+                $("#provider_code").append('<option value="'+obj.code+'">'+obj.name+'</option>');
+              
+            });  
+          }else{
+              $("#provider_code").html("");
+              
+              alert("Oops Product is not available");
+          }
+        },
+        failure:function(data){
+          var d = JSON.parse(data);
+
+          console.log(data);
+        }
+      });
+  })
+////////////////////////////////////////////////////////////////////
+  $("#bpjs").hover(function(){
+     $(this).css("background-color", "yellow");
+    // }
+  })
+
+  $("#bpjs").mouseleave(function(){
+    $(this).css("background-color", "transparent");
+  })
+
+  $("#bpjs").click(function(){
+      $(this).css("background-color", "yellow");
+
+      $.ajax({
+        method:'POST',
+        url:SITE_URL+'ppob/get_product_category',
+        data:{
+            prod_category:$(this).data('product')
+        },
+        success:function(data){ 
+         var d = JSON.parse(data);
+
+         if(d.length>0){
+            $.each(d,function(i,obj){
+                $("#provider_code").html("");
+                $("#provider_code").append('<option value="'+obj.code+'">'+obj.name+'</option>');
+              
+            });  
+          }else{
+              $("#provider_code").html("");
+              
+              alert("Oops Product is not available");
+          }
+        },
+        failure:function(data){
+          var d = JSON.parse(data);
+
+          console.log(data);
+        }
+      });
+  })
+/////////////////////////////////////////////////////////////////
+  $("#multi_finance").hover(function(){
+     $(this).css("background-color", "yellow");
+    // }
+  })
+
+  $("#multi_finance").mouseleave(function(){
+    $(this).css("background-color", "transparent");
+  })
+
+  $("#multi_finance").click(function(){
+      $(this).css("background-color", "yellow");
+
+      $.ajax({
+        method:'POST',
+        url:SITE_URL+'ppob/get_product_category',
+        data:{
+            prod_category:$(this).data('product')
+        },
+        success:function(data){ 
+          // console.log(data)
+          
+          var d = JSON.parse(data);
+          // console.log(d[0].code)
+          
+          if(d.length>0){
+            $.each(d,function(i,obj){
+                $("#provider_code").html("");
+                $("#provider_code").append('<option value="'+obj.code+'">'+obj.name+'</option>');
+              
+            });  
+          }else{
+              $("#provider_code").html("");
+              
+              alert("Oops Product is not available");
+          }
+
+        },
+        failure:function(data){
+          var d = JSON.parse(data);
+
+          console.log(data);
+        }
+      });
+  })
+//////////////////////////////////////////////////////////////
+  $("#pdam").hover(function(){
+     $(this).css("background-color", "yellow");
+    // }
+  })
+
+  $("#pdam").mouseleave(function(){
+    $(this).css("background-color", "transparent");
+  })
+
+  $("#pdam").click(function(){
+      $(this).css("background-color", "yellow");
+
+      $.ajax({
+        method:'POST',
+        url:SITE_URL+'ppob/get_product_category',
+        data:{
+            prod_category:$(this).data('product')
+        },
+        success:function(data){ 
+          var d = JSON.parse(data);
+          // console.log(d[0].code)
+          
+          if(d.length>0){
+            $.each(d,function(i,obj){
+                $("#provider_code").html("");
+                $("#provider_code").append('<option value="'+obj.code+'">'+obj.name+'</option>');
+              
+            });  
+          }else{
+              $("#provider_code").html("");
+              
+              alert("Oops Product is not available");
+          }
+        },
+        failure:function(data){
+          var d = JSON.parse(data);
+
+          console.log(data);
+        }
+      });
+  })
+
+////////////////////////////////////////////////
+  $("#pajak_daerah").hover(function(){
+     $(this).css("background-color", "yellow");
+    // }
+  })
+
+  $("#pajak_daerah").mouseleave(function(){
+    $(this).css("background-color", "transparent");
+  })
+
+  $("#pajak_daerah").click(function(){
+      $(this).css("background-color", "yellow");
+
+      $.ajax({
+        method:'POST',
+        url:SITE_URL+'ppob/get_product_category',
+        data:{
+            prod_category:$(this).data('product')
+        },
+        success:function(data){ 
+          var d = JSON.parse(data);
+          // console.log(d[0].code)
+          
+          if(d.length>0){
+            $.each(d,function(i,obj){
+                $("#provider_code").html("");
+                $("#provider_code").append('<option value="'+obj.code+'">'+obj.name+'</option>');
+              
+            });  
+          }else{
+              $("#provider_code").html("");
+              
+              alert("Oops Product is not available");
+          }
+        },
+        failure:function(data){
+          var d = JSON.parse(data);
+
+          console.log(data);
+        }
+      });
+  })  
+
+///////////////////////////////////////////////////
+  $("#pdam").hover(function(){
+     $(this).css("background-color", "yellow");
+    // }
+  })
+
+  $("#pdam").mouseleave(function(){
+    $(this).css("background-color", "transparent");
+  })
+
+  $("#pdam").click(function(){
+      $(this).css("background-color", "yellow");
+
+      $.ajax({
+        method:'POST',
+        url:SITE_URL+'ppob/get_product_category',
+        data:{
+            prod_category:$(this).data('product')
+        },
+        success:function(data){ 
+          var d = JSON.parse(data);
+          // console.log(d[0].code)
+          
+          if(d.length>0){
+            $.each(d,function(i,obj){
+                $("#provider_code").html("");
+                $("#provider_code").append('<option value="'+obj.code+'">'+obj.name+'</option>');
+              
+            });  
+          }else{
+              $("#provider_code").html("");
+              
+              alert("Oops Product is not available");
+          }
+        },
+        failure:function(data){
+          var d = JSON.parse(data);
+
+          console.log(data);
+        }
+      });
+  })
+
+//////////////////////////////////////////////////
+  $("#tagihan_tv").hover(function(){
+     $(this).css("background-color", "yellow");
+    // }
+  })
+
+  $("#tagihan_tv").mouseleave(function(){
+    $(this).css("background-color", "transparent");
+  })
+
+  $("#tagihan_tv").click(function(){
+      $(this).css("background-color", "yellow");
+
+      $.ajax({
+        method:'POST',
+        url:SITE_URL+'ppob/get_product_category',
+        data:{
+            prod_category:$(this).data('product')
+        },
+        success:function(data){ 
+          var d = JSON.parse(data);
+          // console.log(d[0].code)
+          
+          if(d.length>0){
+            $.each(d,function(i,obj){
+                $("#provider_code").html("");
+                $("#provider_code").append('<option value="'+obj.code+'">'+obj.name+'</option>');
+              
+            });  
+          }else{
+              $("#provider_code").html("");
+              
+              alert("Oops Product is not available");
+          }
+        },
+        failure:function(data){
+          var d = JSON.parse(data);
+
+          console.log(data);
+        }
+      });
+  })
+//////////////////////////////////////////////////////////
+// pgn
+  $("#pgn").hover(function(){
+     $(this).css("background-color", "yellow");
+    // }
+  })
+
+  $("#pgn").mouseleave(function(){
+    $(this).css("background-color", "transparent");
+  })
+
+  $("#pgn").click(function(){
+      $(this).css("background-color", "yellow");
+
+      $.ajax({
+        method:'POST',
+        url:SITE_URL+'ppob/get_product_category',
+        data:{
+            prod_category:$(this).data('product')
+        },
+        success:function(data){ 
+          var d = JSON.parse(data);
+          // console.log(d[0].code)
+          
+          if(d.length>0){
+            $.each(d,function(i,obj){
+                $("#provider_code").html("");
+                $("#provider_code").append('<option value="'+obj.code+'">'+obj.name+'</option>');
+              
+            });  
+          }else{
+              
+              $("#provider_code").html("");
+              
+              alert("Oops Product is not available");
+          }
+        },
+        failure:function(data){
+          var d = JSON.parse(data);
+
+          console.log(data);
+        }
+      });
+  })
+//////////////////////////////////////////////////////////////
+  // pgn
+  $("#pulsa_pascabayar").hover(function(){
+     $(this).css("background-color", "yellow");
+    // }
+  })
+
+  $("#pulsa_pascabayar").mouseleave(function(){
+    $(this).css("background-color", "transparent");
+  })
+
+  $("#pulsa_pascabayar").click(function(){
+      $(this).css("background-color", "yellow");
+
+      $.ajax({
+        method:'POST',
+        url:SITE_URL+'ppob/get_product_category',
+        data:{
+            prod_category:$(this).data('product')
+        },
+       success:function(data){ 
+          var d = JSON.parse(data);
+          if(d.length>0){
+            $.each(d,function(i,obj){
+                $("#provider_code").html("");
+                $("#provider_code").append('<option value="'+obj.code+'">'+obj.name+'</option>');
+              
+            });  
+          }else{
+              $("#provider_code").html("");
+              
+              alert("Oops Product is not available");
+          }
+        },
+        failure:function(data){
+          var d = JSON.parse(data);
+
+          console.log(data);
+        }
+      });
+  })
+
+  //////////////////////////////////////////////////////////////
+  // pgn
+  $("#pln").hover(function(){
+     $(this).css("background-color", "yellow");
+    // }
+  })
+
+  $("#pln").mouseleave(function(){
+    $(this).css("background-color", "transparent");
+  })
+
+  $("#pln").click(function(){
+      $(this).css("background-color", "yellow");
+
+      $.ajax({
+        method:'POST',
+        url:SITE_URL+'ppob/get_product_category',
+        data:{
+            prod_category:$(this).data('product')
+        },
+        success:function(data){ 
+          var d = JSON.parse(data);
+          // console.log(d[0].code)
+          
+          if(d.length>0){
+            $.each(d,function(i,obj){
+                $("#provider_code").html("");
+                $("#provider_code").append('<option value="'+obj.code+'">'+obj.name+'</option>');
+              
+            });  
+          }else{
+              $("#provider_code").html("");
+              
+              alert("Oops Product is not available");
+          }
+        },
+        failure:function(data){
+          var d = JSON.parse(data);
+
+          console.log(data);
+        }
+      });
+  })
+  $("#submit_inquery_process").submit(function (e){
+        
+      // alert('aaa')
+      e.preventDefault();
+
+      $.ajax({
+          method:'POST',
+          url:SITE_URL+'ppob/inquery_process',
+          data:{
+              productCode:$("#provider_code").val(),
+              customerMSISDN:$("#customerMSISDN").val(),
+              customerID:$("#customerID").val()
+          },
+          success:function(result){
+            var obj =JSON.parse(result);
+            // console.log(obj.data)
+            var html ="";
+            
+            if(obj.status==true){
+              html +='<tr>'+
+                        '<td>Billing Id:</td>'+
+                        '<td>'+obj.data.billingReferenceID+'</td>'+
+                        '</tr>'+
+                        '<tr>'+
+                        '<td>customer Id:</td>'+
+                        '<td>'+obj.data.customerID+'</td>'+
+                        '</tr>'+
+                        '<td>No Hp/Telp:</td>'+
+                        '<td>'+obj.data.customerMSISDN+'</td>'+
+                        '</tr>'+
+                        '<td>Nama Customer:</td>'+
+                        '<td>'+obj.data.customerName+'</td>'+
+                        '</tr>';
+
+              $('#inquery_result').html(html);
+              $('#modal-kotak , #bg').fadeIn("slow");
+
+            }else{
+              alert(obj.message);
+            }             
+          },
+          failure:function(result){
+
+            var data =JSON.parse(result);
+
+            console.log(data)
+
+          }
+      }); 
+  });
+  
+  $('#tombol-tutup').click(function(){
+        $('#modal-kotak , #bg').fadeOut("slow");
+  });
+
 });
 </script>

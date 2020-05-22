@@ -56,6 +56,9 @@
                                           <div class="search-content">
                                                 
                                                 <form class="login-form" action="{$site_url}/login/check" method="post">
+                                                        {if $prod_id neq null}
+                                                        <input type="hidden" name="prod_id" class="input-text input-large full-width" value="{$prod_id}">
+                                                        {/if}
                                                         <div class="form-group input-login">
                                                             <label>Email</label>
                                                             <input type="text" name="email" class="input-text input-large full-width" placeholder="enter your email">

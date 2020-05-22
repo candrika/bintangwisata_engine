@@ -14,6 +14,7 @@ class Topup extends MY_Controller {
 
 	public function ajax_productType(){
 
+		
 	}
 
 		
