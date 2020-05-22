@@ -20,14 +20,13 @@ class Logout extends MY_Controller {
 		]);
 
 		$respone = json_decode($request->getBody());
-		// print_r($respone);
-		// die;
+		$this->session->sess_destroy();
+		
 		if($respone->data->status=="SUCCESS"){
-			$this->session->sess_destroy();
 			redirect('home');
 			
 		}else{
-			redirect('logout');
+			redirect('home');
 		}
 		
 	}
