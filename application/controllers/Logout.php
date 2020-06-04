@@ -22,7 +22,7 @@ class Logout extends MY_Controller {
 		$respone = json_decode($request->getBody());
 		$this->session->sess_destroy();
 		
-		if($respone->data->status=="SUCCESS"){
+			if($respone->data->status=="SUCCESS"){
 			redirect('home');
 			
 		}else{

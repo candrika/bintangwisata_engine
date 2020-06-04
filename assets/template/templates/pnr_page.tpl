@@ -370,10 +370,10 @@ input.input-text-voucher {
                                              <span id="adult_name_ch">
                                           </div>
                                           <div class="form-group col-sm-6 col-md-4">
-                                              <select class="full-width" name="phone_id[]" value="">
-                                                   <!-- <option value="Nyonya">Nyonya</option>
-                                                   <option value="Tuan">Tuan</option>
-                                                   <option value="Nona">Nona</option> -->
+                                              <select class="full-width" name="phone_id" value="">
+                                              {foreach from =$country_code key=k item=code}
+                                                <option value="{$code.country_code}">+{$code.country_code}<img src="" alt witdh='10' height="20"></option>
+                                              {/foreach}
                                               </select>
                                             <span id="adult_title">
                                           </div>
@@ -398,10 +398,10 @@ input.input-text-voucher {
                                              <span id="adult_name_ch">
                                           </div>
                                           <div class="form-group col-sm-6 col-md-4">
-                                              <select class="full-width" name="phone_id[]" value="">
-                                                   <!-- <option value="Nyonya">Nyonya</option>
-                                                   <option value="Tuan">Tuan</option>
-                                                   <option value="Nona">Nona</option> -->
+                                              <select class="full-width" name="phone_id" value="">
+                                              {foreach from =$country_code key=k item=code}
+                                                <option value="{$code.country_code}">+{$code.country_code} - {$code.country_name}</option>
+                                              {/foreach}
                                               </select>
                                             <span id="adult_title">
                                           </div>

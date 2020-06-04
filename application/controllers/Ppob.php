@@ -71,5 +71,20 @@ class Ppob extends MY_Controller {
 			return false;	
 		}
 	}
+
+	public function payment(){
+
+		print_r($this->session->all_userdata());
+
+		$post_params = [
+			"userID"             => $this->session->userdata('userID'),
+		    "accessToken"        => $this->session->userdata('apikey'),
+		    "billingReferenceID" => $this->input->post('billingReferenceID')
+		];
+
+		//check member saldo deposit
+		
+		// $req = $this->rest_client->post('topup/');
+	}
 }
 ?>

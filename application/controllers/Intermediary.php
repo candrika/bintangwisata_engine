@@ -61,53 +61,53 @@ class Intermediary extends MY_Controller {
 		$this->smarty->assign('message',null);
 
 		//untuk from profile intermediary
-		$q = $this->db->query("SELECT 
-									  a.intermediary_id,a.intermediary_name,a.intermediary_code,a.intermediary_legal_name,a.intermediary_address,a.intermediary_phone,a.intermediary_fax,
-                   					  a.intermediary_id,a.intermediary_web,a.intermediary_email,a.intermediary_bankname,a.intermediary_accountname,a.intermediary_accountnumber,a.intermediary_mou_file,
-					               	  a.intermediary_activated_date,a.intermediary_activated_by,a.intermediary_agent_name,a.intermediary_agent_email,a.intermediary_agent_handphone,
-					               	  a.intermediary_agent_telephone,a.intermediary_agent_address,a.intermediary_agent_birthdate,a.intermediary_agent_noid,a.user_id,
-					               	  a.datein,a.userin,a.status,b.username,b.password,a.upload_from
-				               FROM 
-				               		  intermediary a 
-							   JOIN 
-							   		  users b On b.user_id=a.user_id
-							   where 
-							   		  a.user_id=".$this->session->userdata('user_id'));
-		$r = $q->result_array()[0];
+		// $q = $this->db->query("SELECT 
+		// 							  a.intermediary_id,a.intermediary_name,a.intermediary_code,a.intermediary_legal_name,a.intermediary_address,a.intermediary_phone,a.intermediary_fax,
+  //                  					  a.intermediary_id,a.intermediary_web,a.intermediary_email,a.intermediary_bankname,a.intermediary_accountname,a.intermediary_accountnumber,a.intermediary_mou_file,
+		// 			               	  a.intermediary_activated_date,a.intermediary_activated_by,a.intermediary_agent_name,a.intermediary_agent_email,a.intermediary_agent_handphone,
+		// 			               	  a.intermediary_agent_telephone,a.intermediary_agent_address,a.intermediary_agent_birthdate,a.intermediary_agent_noid,a.user_id,
+		// 			               	  a.datein,a.userin,a.status,b.username,b.password,a.upload_from
+		// 		               FROM 
+		// 		               		  intermediary a 
+		// 					   JOIN 
+		// 					   		  users b On b.user_id=a.user_id
+		// 					   where 
+		// 					   		  a.user_id=".$this->session->userdata('user_id'));
+		// $r = $q->result_array()[0];
 		
-		$file_name=$q->row()->intermediary_mou_file;
+		// $file_name=$q->row()->intermediary_mou_file;
 
-		if(file_exists("BASE_URL()upload/$file_name")){
-			$this->smarty->assign('download_link', BASE_URL());
+		// if(file_exists("BASE_URL()upload/$file_name")){
+		// 	$this->smarty->assign('download_link', BASE_URL());
 						
-		}else{
-			// echo $q->row()->upload_from;
-			if($q->row()->upload_from==1){
-				$this->smarty->assign('download_link', BASE_URL());
-			}else{
-				$this->smarty->assign('download_link',ADMIN_URL);
+		// }else{
+		// 	// echo $q->row()->upload_from;
+		// 	if($q->row()->upload_from==1){
+		// 		$this->smarty->assign('download_link', BASE_URL());
+		// 	}else{
+		// 		$this->smarty->assign('download_link',ADMIN_URL);
 
-			}
-		}
+		// 	}
+		// }
 		
-		//untuk menampilkan data sub agen
-		$q = $this->db->get_where('intermediary',array('intermediary_parent_id'=>$this->session->intermediary_id));
-		$data=[];	
-		if($q->num_rows()>0){
-			$data = $q->result_array();
-		}
+		// //untuk menampilkan data sub agen
+		// $q = $this->db->get_where('intermediary',array('intermediary_parent_id'=>$this->session->intermediary_id));
+		// $data=[];	
+		// if($q->num_rows()>0){
+		// 	$data = $q->result_array();
+		// }
 
-		//untuk menampilkan data peserta
-		$agen_participant = $this->agen_participant();
-		// print_r($agen_participant);
+		// //untuk menampilkan data peserta
+		// $agen_participant = $this->agen_participant();
+		// // print_r($agen_participant);
 		
-		//unutk menampilkan data pemesanan dari agen
-		$ingle_order_by_agent = $this->single_order_list();
+		// //unutk menampilkan data pemesanan dari agen
+		// $ingle_order_by_agent = $this->single_order_list();
 		
-		$this->smarty->assign('sub_agent', $data);	
-		$this->smarty->assign('agen_participant', $agen_participant);	
-		$this->smarty->assign('single_order_by_agent', $ingle_order_by_agent);	
-		$this->smarty->assign('data',$r);
+		// $this->smarty->assign('sub_agent', $data);	
+		// $this->smarty->assign('agen_participant', $agen_participant);	
+		// $this->smarty->assign('single_order_by_agent', $ingle_order_by_agent);	
+		// $this->smarty->assign('data',$r);
 		$this->smarty->assign('content_tpl','intermediary/home_panel.tpl');	
 		$this->smarty->display('app_template.tpl');	
 	}

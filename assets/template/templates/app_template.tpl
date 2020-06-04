@@ -35,6 +35,10 @@
             <link id="main-style" rel="stylesheet" href="{$assets_url}css/reset.css">
             <!-- Main Style -->
             <link id="main-style" rel="stylesheet" href="{$assets_url}css/style.css">
+            <!-- Select2 -->
+            <link rel="stylesheet" type="text/css" href="{$base_url}/assets/select2/css/select2.min.css"/>
+            <link rel="stylesheet" type="text/css" href="{$base_url}/assets/select2/select2-bootstrap.css"/>
+            <!-- Select2 -->
             <!-- Custom Styles -->
             <link rel="stylesheet" href="{$assets_url}css/custom.css">
             <!-- Updated Styles -->
@@ -196,7 +200,13 @@
   border-radius: 20px;
 }
     </style>
-    
+  <script type="text/javascript">
+  //$.fn.select2.defaults.set( "theme", "bootstrap" );
+  // $( ".select2" ).select2({
+  //     theme: "bootstrap",
+  //     width: "100%"
+  // });
+</script>
     <script type="text/javascript">
     var SITE_URL = '{$site_url}';
     </script>
@@ -236,7 +246,8 @@
             <script type="text/javascript" src="{$assets_url}js/jquery.placeholder.js"></script>
             <script type="text/javascript" src="{$assets_url}js/jquery-ui.1.10.4.min.js"></script>
             <script src="{$assets_url}jslibs/popdown/lib/jquery.popdown.js"></script>
-           
+            <script type="text/javascript" src="{$base_url}/assets/select2/js/select2.min.js"></script>
+
                
             <!-- Twitter Bootstrap -->
             <script type="text/javascript" src="{$assets_url}js/bootstrap.js"></script>

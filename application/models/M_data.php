@@ -3,18 +3,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_data extends CI_Model {
 
-	function get_insured_data($user_id){
-		$sql = "select g.insured_id,g.user_id,g.country_id,g.birthdate,g.firstname,g.lastname,g.address,g.phone_number,g.city,g.province,g.dateregistered,h.email,i.country_name,g.zipcode,
-				case 
-					when gender = 1 then 'Pria'
-					when gender = 2 then 'Wanita'
-				end as gender_name
-				from insured g
-				join users h ON g.user_id = h.user_id
-				left join country i ON g.country_id = i.country_id
-				where h.user_id = $user_id";
+	function get_member_profile($user_id){
+		$sql = "SELECT 
+					a.member_id,a.member_code,a.user_name,
+					a.fullname,a.nickname,a.email,a.address,
+					a.city,a.post_code,a.company,a.notes,
+					a.invoice_logo,a.photo_card_id,a.photo_profile,
+					a.user_id,a.user_type_id,a.phone_number
+				FROM 	
+					member a
+				INNER JOIN users b ON b.user_id=a.user_id
+				INNER JOIN user_type c ON c.user_type_id=a.user_type_id
+				where a.user_id = $user_id";
 		$q = $this->db->query($sql);
-		return $q->result_array()[0];
+		return $q->row_array();
 	}
 
 	function get_country(){
@@ -93,6 +95,25 @@ class M_data extends CI_Model {
 	function claim_data_detail_item($claim_id){
 		$q = $this->db->get_where('claim_item',array('claim_id'=>$claim_id));
 		return $q->result_array();
+	}
+
+	function menu_member($parent){
+
+		$sql = "SELECT a.* FROM menu a
+				WHERE parent='$parent' ORDER BY a.sort";
+		
+		$q   = $this->db->query($sql);		
+			
+		return $q; 		
+	}
+
+	function news(){
+
+		$sql = "SELECT * FROM news";
+		
+		$news = $this->db->query($sql);
+
+		return $news;
 	}
 
 }

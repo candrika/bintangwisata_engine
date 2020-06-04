@@ -23,61 +23,66 @@ table {
   /*border-radius: .25rem;*/
 }
 
-/*thead tr:first-child {
-  background: #4cb7f2;
+#modal-kotak{
+  margin:5% 30% 30% 30%;
+  width: 500px; 
+  height: auto;
+  position: absolute;
+  /*position:fixed;*/
+  z-index:1002;
+  display: none;
+  background: white;  
+}
+#atas{
+  font-size: 15pt;
+  padding: 20px;  
+  height: 80%;
+}
+#bawah{
+  background: #fff;
+}
+
+#tombol-bayar{  
+  background: #3ce7e7;
+}
+#tombol-bayar,#tombol{
+  height: 30px;
+  width: 100px;
   color: #fff;
-  border: none;
-}*/
-
-#header_title {
-  background: #4cb7f2;
+  border: 0px;
+  margin-bottom: 21px;
+  float: right;
+  margin-right: 31px;
+}
+ 
+#tombol-tutup{  
+  background: #e74c3c;
+}
+#tombol-tutup,#tombol{
+  height: 30px;
+  width: 100px;
   color: #fff;
-  border: none;
+  border: 0px;
+  margin-bottom: 21px;
+  float: right;
+  margin-right: 31px;
 }
-/*
-th:first-child,
-td:first-child {
-  padding: 0 15px 0 20px;
+#bg{
+  opacity:.80;
+  position: absolute;
+  display: none;
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  z-index:1001;
+  opacity: 0.8;
 }
-
-thead tr:last-child th {
-  border-bottom: 3px solid #ddd;
+#tombol{
+  background: #e74c3c;        
 }
-
-tbody tr:hover {
-  background-color: #f2f2f2;
-  cursor: default;
-}
-
-tbody tr:last-child td {
-  border: none;
-}
-
-tbody td {
-  padding-right: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-td:last-child {
-  text-align: right;
-  padding-right: 10px;
-}
-
-.button {
-  color: #aaa;
-  cursor: pointer;
-  vertical-align: middle;
-  margin-top: -4px;
-}
-
-.edit:hover {
-  color: #0a79df;
-}
-
-.delete:hover {
-  color: #dc2a2a;
-}
-*/
 .num_field {
  text-align: right;
 }
@@ -217,7 +222,7 @@ td:last-child {
               <div></div>  
               <div class="col-md-4 product_list">
                 <!-- <br> -->
-                <div class="pull-left _SnbR">
+                <div class="pull-left _SnbR" id="pulsa" data-product="PULSA">
                   <div>
                       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  stroke-width="0" width="16" height="16" viewBox="0 0 16 16" fill="#073E68" stroke="#073E68" stroke-linecap="round">
                        <path fill-rule="evenodd" d="M1,10.498576 C1,9.67093534 1.66579723,9 2.5,9 C3.32842712,9 4,9.66502976 4,10.498576 L4,13.501424 C4,14.3290647 3.33420277,15 2.5,15 C1.67157288,15 1,14.3349702 1,13.501424 L1,10.498576 Z M6,5.50643854 C6,4.67445551 6.66579723,4 7.5,4 C8.32842712,4 9,4.67154063 9,5.50643854 L9,13.4935615 C9,14.3255445 8.33420277,15 7.5,15 C6.67157288,15 6,14.3284594 6,13.4935615 L6,5.50643854 Z M11,1.49309635 C11,0.668482007 11.6657972,0 12.5,0 C13.3284271,0 14,0.663885847 14,1.49309635 L14,13.5069036 C14,14.331518 13.3342028,15 12.5,15 C11.6715729,15 11,14.3361142 11,13.5069036 L11,1.49309635 Z"></path> 
@@ -226,7 +231,7 @@ td:last-child {
                   </div>
                 </div>
                 <br>
-                <div class="pull-left _SnbR">  
+                <div class="pull-left _SnbR" id="token_pln" data-product="TOKENPLN">  
                   <div>
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  stroke-width="0" width="16" height="16" viewBox="0 0 16 16" fill="#073E68" stroke="#073E68" stroke-linecap="round">
                        <g fill="none" fill-rule="evenodd"><path d="M0 0h16v16H0z"></path><path stroke="#073E68" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 13h4l-2 2-1-2"></path><path fill="#073E68" fill-rule="nonzero" d="M8 12A6 6 0 1 1 8 0a6 6 0 0 1 0 12zm-.044-6.542l.751-.75a1 1 0 0 0-1.414-1.415l-2 2a1 1 0 0 0 .464 1.677l2.287.572-.751.75a1 1 0 0 0 1.414 1.415l2-2a1 1 0 0 0-.464-1.677l-2.287-.572z"></path></g>
@@ -234,7 +239,7 @@ td:last-child {
                   </div>
                 </div> 
                 <br>
-                <div class="pull-left _SnbR">   
+                <div class="pull-left _SnbR" id="game_voucher" data-product="GAME">   
                   <div>
                     <svg stroke-width="0" width="16" height="16" viewBox="0 0 16 16" fill="#073E68" stroke="#073E68" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g fill="none" fill-rule="evenodd"><g transform="translate(0.000000,9.000000) scale(0.100000,-0.100000)"
                     fill="#000000" stroke="none">
@@ -248,7 +253,7 @@ td:last-child {
                   </div>
                 </div>
                 <br>
-                <div class="pull-left _SnbR">
+                <div class="pull-left _SnbR" id="tv_kabel" data-product="TVBERBAYAR">
                   <div>
                       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  stroke-width="0" width="16" height="16" viewBox="0 0 16 16" fill="#073E68" stroke="#073E68" stroke-linecap="round">
                       <g xmlns="http://www.w3.org/2000/svg" transform="translate(0.000000,14.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
@@ -262,16 +267,54 @@ td:last-child {
                   </div>
                 </div>
               </div>
+              <!-- <div class="col-md-8 input">
+                <div id="bg"></div>
+                <div id="modal-kotak">
+                  <div id="atas">
+                    <table class="table" id="inquery_result">
+                      <tbody>
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                  <br>
+                  <div id="bawah">
+                    <button id="tombol-bayar">Bayar</button>
+                    <button id="tombol-tutup">Batal</button>
+                  </div>
+              </div>  -->
               <div class="col-md-8 input">
-                <form>
-                  <div class="form-group" id="pulsa" style="margin-bottom: -5px;">
+                <div id="bg"></div>
+                <div id="modal-kotak">
+                  <div id="atas">
+                    <table class="table" id="inquery_result">
+                      <tbody>
+                        
+                      </tbody>
+                    </table>
+                    <p id="notice"></p>
+                  </div>
+                  <br>
+                  <div id="bawah">
+                    <button id="tombol-bayar">Bayar</button>
+                    <button id="tombol-tutup">Batal</button>
+                  </div>
+                </div>
+                <form id="topup-process">
+                  <div class="form-group" style="margin-bottom: -5px;">
                     <div class="col-md-5">
                       <label style="text-align: left;">Kode Provider</label>
-                      <input type="text" class="input-text full-width" id="phone_number" name="phone_number">
+                      <select class="input-text full-width" id="provider" name="provider">
+                        <option></option>
+                      </select> 
+                      <!-- <input type="text" class="input-text full-width" id="" name="phone_number"> -->
                     </div>
                     <div class="col-md-7">
                       <label style="text-align: left;">Product</label>
-                      <input type="text" class="input-text full-width" id="phone_number" name="phone_number">
+                      <select class="input-text full-width" id="product" name="product">
+                        <option></option>
+                      </select>
+                      <!-- <input type="text" class="input-text full-width" id="phone_number" name="phone_number"> -->
                     </div>
                     <div class="col-md-5">
                       <label style="text-align: left;">No Hp/Kode Voucher</label>
@@ -279,12 +322,12 @@ td:last-child {
                     </div>
                    <div class="col-md-7">
                       <label style="text-align: left;">Customer ID</label>
-                      <input type="text" class="input-text full-width" id="phone_number" name="phone_number">
+                      <input type="text" class="input-text full-width" id="customer_id" name="customer_id">
                     </div>
                   </div>
                   <div class="col-md-5">
-                      <label style="text-align: left;">No Hp/Kode Voucher</label>
-                      <input type="number" class="input-text full-width" id="phone_number" name="phone_number">
+                      <label style="text-align: left;">Jumlah</label>
+                      <input type="number" class="input-text full-width" id="sequence" name="sequence">
                     </div>
                    <div class="col-md-7">
                       <label style="text-align: left;"></label>
@@ -306,9 +349,289 @@ td:last-child {
 </section>
 <script type="text/javascript">
 jQuery(document).ready(function($) {
-
+  $("#provider").select2({
+      placeholder:"---Pilih Provider---",
+      theme: "bootstrap",
+      width: "100%"
+  });
+  
+  $("#product").select2({
+     placeholder:"---Pilih Product---",
+     theme: "bootstrap",
+     width: "100%"
+  });
+  
   var x = document.getElementById("snackbar");      
   x.className = "show";
   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+  $("#pulsa").hover(function(){
+     $(this).css("background-color", "yellow");
+    // }
+  })
+
+  $("#pulsa").mouseleave(function(){
+    $(this).css("background-color", "transparent");
+  })
+
+  $("#pulsa").click(function(){
+      $(this).css("background-color", "yellow");
+      console.log($(this).data('product'));  
+      $.ajax({
+        method:'POST',
+        url:SITE_URL+'topup/ajax_productType',
+        data:{
+            prod_category:$(this).data('product')
+        },
+        success:function(data){ 
+          var d      = JSON.parse(data);
+          var select = "<option></option>"; 
+          if(d.data.length>0){
+
+            // console.log(d.data);
+
+            $.each(d.data,function(i,obj){
+                // alert('a')
+                $("#provider").html("");
+                $("#product").html("");
+                // $("#provider").append('<option value="1">1</option>');
+                select +="<option value='"+obj+"'>"+obj+"</option>";
+            });
+
+            $("#provider").html(select);
+
+          }else{
+              $("#provider").html("");
+              
+              alert("Oops Product is not available");
+          }
+        },
+        failure:function(data){
+          var d = JSON.parse(data);
+
+          console.log(data);
+        }
+      });
+  })
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+  $("#game_voucher").hover(function(){
+     $(this).css("background-color", "yellow");
+    // }
+  })
+
+  $("#game_voucher").mouseleave(function(){
+    $(this).css("background-color", "transparent");
+  })
+
+  $("#game_voucher").click(function(){
+      $(this).css("background-color", "yellow");
+      console.log($(this).data('product'));  
+      $.ajax({
+        method:'POST',
+        url:SITE_URL+'topup/ajax_productType',
+        data:{
+            prod_category:$(this).data('product')
+        },
+        success:function(data){ 
+          var d      = JSON.parse(data);
+          var select = "<option></option>"; 
+          if(d.data.length>0){
+
+            // console.log(d.data);
+
+            $.each(d.data,function(i,obj){
+                // alert('a')
+                $("#provider").html("");
+                $("#product").html("");
+
+                // $("#provider").append('<option value="1">1</option>');
+                select +="<option value='"+obj+"'>"+obj+"</option>";
+            });
+
+            $("#provider").html(select);
+
+          }else{
+              $("#provider").html("");
+              
+              alert("Oops Product is not available");
+          }
+        },
+        failure:function(data){
+          var d = JSON.parse(data);
+
+          console.log(data);
+        }
+      });
+  })
+//////////////////////////////////////////////////////////////////////////////////////////////////////// 
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+  $("#tv_kabel").hover(function(){
+     $(this).css("background-color", "yellow");
+    // }
+  })
+
+  $("#tv_kabel").mouseleave(function(){
+    $(this).css("background-color", "transparent");
+  })
+
+  $("#tv_kabel").click(function(){
+      $(this).css("background-color", "yellow");
+      console.log($(this).data('product'));  
+      $.ajax({
+        method:'POST',
+        url:SITE_URL+'topup/ajax_productType',
+        data:{
+            prod_category:$(this).data('product')
+        },
+        success:function(data){ 
+          var d      = JSON.parse(data);
+          var select = "<option></option>"; 
+          if(d.data.length>0){
+
+            // console.log(d.data);
+
+            $.each(d.data,function(i,obj){
+                // alert('a')
+                $("#provider").html("");
+                $("#product").html("");
+
+                // $("#provider").append('<option value="1">1</option>');
+                select +="<option value='"+obj+"'>"+obj+"</option>";
+            });
+
+            $("#provider").html(select);
+
+          }else{
+              $("#provider").html("");
+              
+              alert("Oops Product is not available");
+          }
+        },
+        failure:function(data){
+          var d = JSON.parse(data);
+
+          console.log(data);
+        }
+      });
+  })
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+  $("#token_pln").hover(function(){
+     $(this).css("background-color", "yellow");
+    // }
+  })
+
+  $("#token_pln").mouseleave(function(){
+    $(this).css("background-color", "transparent");
+  })
+
+  $("#token_pln").click(function(){
+      $(this).css("background-color", "yellow");
+      console.log($(this).data('product'));  
+      $.ajax({
+        method:'POST',
+        url:SITE_URL+'topup/ajax_productType',
+        data:{
+            prod_category:$(this).data('product')
+        },
+        success:function(data){ 
+          var d      = JSON.parse(data);
+          var select = "<option></option>"; 
+          if(d.data.length>0){
+
+            // console.log(d.data);
+
+            $.each(d.data,function(i,obj){
+                // alert('a')
+                $("#provider").html("");
+                $("#product").html("");
+
+                // $("#provider").append('<option value="1">1</option>');
+                select +="<option value='"+obj+"'>"+obj+"</option>";
+            });
+
+            $("#provider").html(select);
+
+          }else{
+              $("#provider").html("");
+              
+              alert("Oops Product is not available");
+          }
+        },
+        failure:function(data){
+          var d = JSON.parse(data);
+
+          console.log(data);
+        }
+      });
+  })
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  $("#provider").on('change',function(){
+
+      $.ajax({
+          method:'POST',
+          url:'topup/ajax_product',
+          data:{
+            provider:$('#provider').val()
+          },
+          success:function(result){
+            var d = JSON.parse(result);
+            select_1 = "<option></option>";
+            console.log(d);
+            $.each(d.data,function(i,obj){
+              select_1 +="<option value='"+obj.code+"'>"+obj.name+"</option>";
+            });
+
+            $("#product").html(select_1);            
+          
+          },
+          failure:function(result){
+
+          }
+      })       
+  });
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+  $("#topup-process").submit(function (e){
+      e.preventDefault();
+
+      $.ajax({
+          method:'POST',
+          url:SITE_URL + 'topup/process',
+          data:{
+            productCode:$("#product").val(),
+            MSISDN:$("#phone_number").val(),
+            customerID:$("#customer_id").val(),
+            sequence:$("#sequence").val()
+          },
+          success:function(result){
+            var array = JSON.parse(result);
+
+            console.log(array);
+            var html ="";
+
+            if(array.status==true){
+
+            }else{
+              console.log(array.data.transaction_status+" "+array.data.message)
+              html +="Transcation: "+array.data.transaction_status+" because "+array.data.message;
+  
+              $('#tombol-bayar').hide();
+              $('#inquery_result').hide();
+              $('#notice').html(html);
+            }
+
+            $('#modal-kotak , #bg').fadeIn("slow");
+          },
+          failure:function(result){
+
+          }
+      })
+  })
+  
+  $('#tombol-tutup').click(function(){
+      $('#modal-kotak , #bg').fadeOut("slow");
+  });
+
 });
 </script>

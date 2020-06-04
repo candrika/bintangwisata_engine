@@ -437,7 +437,7 @@ td:last-child {
                   </div>
                   <br>
                   <div id="bawah">
-                    <button id="tombol-bayar">Bayar</button>
+                    <button id="tombol-bayar" data-billingID="">Bayar</button>
                     <button id="tombol-tutup">Batal</button>
                   </div>
                 </div> 
@@ -999,7 +999,7 @@ jQuery(document).ready(function($) {
           },
           success:function(result){
             var obj =JSON.parse(result);
-            // console.log(obj.data)
+            console.log(obj.data)
             var html ="";
             
             if(obj.status==true){
@@ -1019,6 +1019,7 @@ jQuery(document).ready(function($) {
                         '</tr>';
 
               $('#inquery_result').html(html);
+              $('#tombol-bayar').attr('data-billingID',obj.data.billingReferenceID);
               $('#modal-kotak , #bg').fadeIn("slow");
 
             }else{
@@ -1037,6 +1038,24 @@ jQuery(document).ready(function($) {
   
   $('#tombol-tutup').click(function(){
         $('#modal-kotak , #bg').fadeOut("slow");
+  });
+
+  $('#tombol-bayar').click(function(){
+
+     $.ajax({
+        method:'POST',
+        url:SITE_URL + 'ppob/payment',
+        data:{
+          billingReferenceID:$(this).data('billingID')
+        },
+        success:function(data){
+
+        },
+        failure:function(data){
+
+        }
+     });
+
   });
 
 });
