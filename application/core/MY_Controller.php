@@ -105,8 +105,8 @@ class MY_Controller extends CI_Controller{
     // }
 
     function settings(){
-        $q = $this->db->get('settings');
-        return $q->result_array()[0];
+        // $q = $this->db->get('settings');
+        // return $q->result_array()[0];
     }
 
     function assets_url()
